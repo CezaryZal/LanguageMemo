@@ -1,24 +1,47 @@
 package com.cezaryzal.manager;
 
 public class Validator {
+    final char INCORRECT_LETTER = '_';
+    StringBuilder progressSentence = new StringBuilder();
+    String inputSentence;
+    String correctSentence;
 
-    public String parseSentence (String inputSentence, String correctSentence) {
+    public Validator(String inputSentence, String correctSentence) {
+        this.inputSentence = inputSentence;
+        this.correctSentence = correctSentence;
+    }
 
-        StringBuilder progress = new StringBuilder();
+    public String shareSentenceIntoWords (){
+        return "";
+    }
 
+    public void filterSentences() {
         for (int i = 0; i < correctSentence.length(); i++) {
-            char incorrect = '_';
-
-            try {
-                if (inputSentence.toLowerCase().charAt(i)==correctSentence.toLowerCase().charAt(i)){
-                    progress.append(correctSentence.charAt(i));
-                }else
-                    progress.append(incorrect);
-            } catch (StringIndexOutOfBoundsException e){
-                progress.append(incorrect);
-            }
+            insertLetterToProgressSentence(i);
         }
-        return String.valueOf(progress);
+    }
+
+    public void insertLetterToProgressSentence(int numberLetterOfSentenceWhichCompare){
+        try {
+            char letterToInsert = compareInputLettersWithExpected(
+                    inputSentence.toLowerCase().charAt(numberLetterOfSentenceWhichCompare),
+                    correctSentence.toLowerCase().charAt(numberLetterOfSentenceWhichCompare));
+            progressSentence.append(letterToInsert);
+        } catch (StringIndexOutOfBoundsException e) {
+            progressSentence.append(INCORRECT_LETTER);
+        }
+    }
+
+    //przenieść do oddzielnej klasy z 2 polami char?
+    public char compareInputLettersWithExpected(char actualLetter, char expectedLetter){
+        if (actualLetter == expectedLetter) {
+            return expectedLetter;
+        } else
+            return INCORRECT_LETTER;
+    }
+
+    public String getProgressSentence (){
+        return String.valueOf(progressSentence);
     }
 
 }

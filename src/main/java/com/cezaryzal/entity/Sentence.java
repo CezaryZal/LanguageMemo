@@ -15,11 +15,11 @@ import java.time.LocalDate;
 @Builder
 public class Sentence {
 
-    private String english;
-    private String polish;
+    private String languageEng;
+    private String languagePol;
     private String hint;
-    private int position;
-    private LocalDate dateUpdate;
+    private int replayLevel;
+    private LocalDate dateNextUpdate;
 
 
     //    @Override
