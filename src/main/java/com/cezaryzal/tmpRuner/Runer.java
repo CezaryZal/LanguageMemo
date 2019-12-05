@@ -11,16 +11,20 @@ public class Runer {
     public static void main(String[] args) {
 
         SentenceChecker checker = new SentenceChecker();
-        SentencesRepository  sentencesRepo = new SentencesRepository();
-        Random random = new Random();
+        SentencesFromDB sentencesFromDB = new SentencesFromDB();
 
-        int correctAnswers = 0;
-        int incorrectAnswers = 0;
+        int NumberOfCorrectAnswers = 0;
+        int NumberOfIncorrectAnswers = 0;
         boolean isEnd = true;
-        String answer;
+        boolean isCorrectAnswers = false;
 
         while (isEnd) {
-            Sentence currentSentence = sentencesRepo.createRepo().get(random.nextInt(3));
+            Sentence currentSentence = sentencesFromDB.getRandomSentenceFromDB();
+            if (isCorrectAnswers){
+                currentSentence = sentencesFromDB.getRandomSentenceFromDB();
+                isCorrectAnswers = false;
+            }
+
 
             System.out.println("Przetłumacz słowo/zdanie:\n" + currentSentence.getLanguagePol());
             Scanner scanner = new Scanner(System.in);
@@ -31,10 +35,12 @@ public class Runer {
             }
 
             boolean score = checker.comparingSentences(inputWord, currentSentence.getLanguageEng());
-            if (score)
-                correctAnswers++;
+            if (score) {
+                NumberOfCorrectAnswers++;
+                isCorrectAnswers = true;
+            }
             else {
-                incorrectAnswers++;
+                NumberOfIncorrectAnswers++;
                 Validator validator = new Validator(inputWord, currentSentence.getLanguageEng());
                 validator.filterSentences();
                 System.out.println(validator.getProgressSentence());
@@ -43,8 +49,17 @@ public class Runer {
 
         };
 
-        System.out.println("liczba poprawnie wpisanych wyrazów: " + correctAnswers);
-        System.out.println("ilosc błednie wpisanych wyrazów: " + incorrectAnswers);
+        System.out.println("liczba poprawnie wpisanych wyrazów: " + NumberOfCorrectAnswers);
+        System.out.println("ilosc błednie wpisanych wyrazów: " + NumberOfIncorrectAnswers);
 
     }
+
+    static class SentencesFromDB{
+        public Sentence getRandomSentenceFromDB (){
+            SentencesRepository  sentencesRepo = new SentencesRepository();
+            Random random = new Random();
+            return sentencesRepo.createRepo().get(random.nextInt(3));
+        }
+    }
+
 }
