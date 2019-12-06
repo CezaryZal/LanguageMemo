@@ -13,27 +13,16 @@ import java.time.LocalDate;
 @NoArgsConstructor//to Spring data
 @AllArgsConstructor
 @Builder
-@Entity(name = "sentence")
+@Entity
 public class Sentence {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-
-    @Column(name = "language_eng")
     private String languageEng;
-
-    @Column(name = "language_pol")
     private String languagePol;
-
-    @Column(name = "hint")
     private String hint;
-
-    @Column(name = "replay_level")
     private int replayLevel;
-
-
     private LocalDate dateNextUpdate;
 
 
