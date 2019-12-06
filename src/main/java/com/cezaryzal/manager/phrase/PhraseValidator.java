@@ -1,12 +1,12 @@
-package com.cezaryzal.manager;
+package com.cezaryzal.manager.phrase;
 
-public class Validator {
+public class PhraseValidator {
     final char INCORRECT_LETTER = '_';
     StringBuilder progressSentence = new StringBuilder();
     String inputSentence;
     String correctSentence;
 
-    public Validator(String inputSentence, String correctSentence) {
+    public PhraseValidator(String inputSentence, String correctSentence) {
         this.inputSentence = inputSentence;
         this.correctSentence = correctSentence;
     }

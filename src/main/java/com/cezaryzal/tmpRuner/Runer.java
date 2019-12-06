@@ -2,15 +2,15 @@ package com.cezaryzal.tmpRuner;
 
 import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.repository.SentencesRepository;
-import com.cezaryzal.manager.Validator;
-import com.cezaryzal.manager.SentenceChecker;
+import com.cezaryzal.manager.phrase.PhraseValidator;
+import com.cezaryzal.manager.phrase.PhraseComparator;
 
 import java.util.*;
 
 public class Runer {
     public static void main(String[] args) {
 
-        SentenceChecker checker = new SentenceChecker();
+        PhraseComparator checker = new PhraseComparator();
         SentencesFromDB sentencesFromDB = new SentencesFromDB();
 
         int NumberOfCorrectAnswers = 0;
@@ -34,16 +34,16 @@ public class Runer {
                 break;
             }
 
-            boolean score = checker.comparingSentences(inputWord, currentSentence.getLanguageEng());
+            boolean score = checker.comparingPhrases(inputWord, currentSentence.getLanguageEng());
             if (score) {
                 NumberOfCorrectAnswers++;
                 isCorrectAnswers = true;
             }
             else {
                 NumberOfIncorrectAnswers++;
-                Validator validator = new Validator(inputWord, currentSentence.getLanguageEng());
-                validator.filterSentences();
-                System.out.println(validator.getProgressSentence());
+                PhraseValidator phraseValidator = new PhraseValidator(inputWord, currentSentence.getLanguageEng());
+                phraseValidator.filterSentences();
+                System.out.println(phraseValidator.getProgressSentence());
             }
             System.out.println(score);
 

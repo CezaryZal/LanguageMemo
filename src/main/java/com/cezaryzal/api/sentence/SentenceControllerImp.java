@@ -1,13 +1,13 @@
-package com.cezaryzal.api;
+package com.cezaryzal.api.sentence;
 
 import com.cezaryzal.entity.Sentence;
-import com.cezaryzal.manager.service.SentenceService;
+import com.cezaryzal.manager.serviceRepo.SentenceService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/sentence")
 public class SentenceControllerImp implements SentenceController {
 
     private SentenceService sentenceService;

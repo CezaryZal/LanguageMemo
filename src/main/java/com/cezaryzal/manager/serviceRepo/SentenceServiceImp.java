@@ -1,4 +1,4 @@
-package com.cezaryzal.manager.service;
+package com.cezaryzal.manager.serviceRepo;
 
 import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.repository.SentenceRepo;

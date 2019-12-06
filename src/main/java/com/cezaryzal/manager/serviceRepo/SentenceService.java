@@ -1,10 +1,10 @@
-package com.cezaryzal.api;
+package com.cezaryzal.manager.serviceRepo;
 
 import com.cezaryzal.entity.Sentence;
 
 import java.util.Optional;
 
-public interface SentenceController {
+public interface SentenceService {
 
     public Optional<Sentence> findById(Long index);
 
@@ -14,5 +14,5 @@ public interface SentenceController {
 
     public Sentence updateSentence (Sentence sentence);
 
-    public void deleteSentenceById (Long index);
+    public void deleteSentenceById(Long index);
 }
