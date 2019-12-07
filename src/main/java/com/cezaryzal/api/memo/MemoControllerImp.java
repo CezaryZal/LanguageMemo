@@ -2,9 +2,10 @@ package com.cezaryzal.api.memo;
 
 import com.cezaryzal.entity.SentenceDTO;
 import com.cezaryzal.manager.response.ResponseService;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api")
 public class MemoControllerImp implements MemoController {
 
     private ResponseService responseService;
@@ -13,13 +14,15 @@ public class MemoControllerImp implements MemoController {
         this.responseService = responseService;
     }
 
+    @GetMapping("/first")
     @Override
     public SentenceDTO getFirstSentence() {
         return null;
     }
 
+    @PostMapping ("/result")
     @Override
-    public SentenceDTO resultByInputSentenceDTO(SentenceDTO sentenceDTO) {
-        return null;
+    public SentenceDTO resultByInputSentenceDTO(@RequestBody SentenceDTO sentenceDTO) {
+        return responseService.resultByInputSentenceDTO(sentenceDTO);
     }
 }

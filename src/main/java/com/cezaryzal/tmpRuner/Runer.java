@@ -34,7 +34,8 @@ public class Runer {
                 break;
             }
 
-            boolean score = checker.comparingPhrases(inputWord, currentSentence.getLanguageEng());
+//            boolean score = checker.comparingPhrases(inputWord, currentSentence.getLanguageEng());
+            boolean score = true;
             if (score) {
                 NumberOfCorrectAnswers++;
                 isCorrectAnswers = true;
