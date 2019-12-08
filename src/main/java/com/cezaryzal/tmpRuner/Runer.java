@@ -3,14 +3,14 @@ package com.cezaryzal.tmpRuner;
 import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.repository.SentencesRepository;
 import com.cezaryzal.manager.phrase.PhraseValidator;
-import com.cezaryzal.manager.phrase.PhraseComparator;
+import com.cezaryzal.manager.response.ResultComparator;
 
 import java.util.*;
 
 public class Runer {
     public static void main(String[] args) {
 
-        PhraseComparator checker = new PhraseComparator();
+        ResultComparator checker = new ResultComparator();
         SentencesFromDB sentencesFromDB = new SentencesFromDB();
 
         int NumberOfCorrectAnswers = 0;

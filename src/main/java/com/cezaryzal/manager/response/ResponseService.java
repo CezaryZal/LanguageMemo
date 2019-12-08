@@ -3,7 +3,6 @@ package com.cezaryzal.manager.response;
 import com.cezaryzal.entity.Answer;
 import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.entity.SentenceDTO;
-import com.cezaryzal.manager.phrase.PhraseComparator;
 import com.cezaryzal.manager.serviceRepo.SentenceService;
 import org.springframework.stereotype.Service;
 
@@ -12,25 +11,26 @@ import java.util.Optional;
 @Service
 public class ResponseService {
 
-//    private Answer inputAnswer;
     private Sentence currentlyUseSentence;
     private SentenceDTO sentenceDTO;
 
+    private ResponseValidator responseValidator;
+    private ResultComparator resultComparator;
     private SentenceService sentenceService;
-    private PhraseComparator phraseComparator;
 
-    public ResponseService(SentenceService sentenceService, PhraseComparator phraseComparator) {
+    public ResponseService(ResponseValidator responseValidator, ResultComparator resultComparator, SentenceService sentenceService) {
+        this.responseValidator = responseValidator;
+        this.resultComparator = resultComparator;
         this.sentenceService = sentenceService;
-        this.phraseComparator = phraseComparator;
     }
 
     public SentenceDTO resultByInputAnswer (Answer inputAnswer){
-//        setInputAnswer(inputAnswer);
-        setFindSentenceToField(getCurrentlyUseSentenceFromDBById(inputAnswer.getSentenceId()));
-        boolean tmpB = checkingCorrectnessOfPhraseTranslation(inputAnswer.getInputPhrase());
+        currentlyUseSentence = getCurrentlyUseSentenceFromDBById(inputAnswer.getSentenceId());
+//        setFindSentenceToField(getCurrentlyUseSentenceFromDBById(inputAnswer.getSentenceId()));
+        boolean answerIsCorrect = checkingCorrectnessOfPhraseTranslation(inputAnswer);
 
         String tmpHeader;
-        if(tmpB)
+        if(answerIsCorrect)
             tmpHeader = "Słowa jednakowe. DZIAŁA!!!!";
         else
             tmpHeader = "Słowa się różnią, ale też DZIAŁĄ!!!";
@@ -40,30 +40,20 @@ public class ResponseService {
         return tmpDto;
     }
 
-    private void setInputSentenceDTO(SentenceDTO sentenceDTO){
-        this.sentenceDTO = sentenceDTO;
+    private boolean checkingCorrectnessOfPhraseTranslation(Answer inputAnswer){
+        resultComparator.setInputAnswer(inputAnswer);
+        resultComparator.setPatternSentence(currentlyUseSentence);
+        return resultComparator.comparingPhrases();
     }
 
-    private void setFindSentenceToField(Sentence sentence){
-        this.currentlyUseSentence = sentence;
-    }
-
-//    private void setInputAnswer(Answer inputAnswer){
-//        this.inputAnswer = inputAnswer;
-//    }
 
     //Zrobić oddzielną klasę na sprawdzenie poprawności przesłanego SentenceDTO; tutaj nie będzie mozliwości umieszczenia nulla
-    public Sentence getCurrentlyUseSentenceFromDBById (Long id){
+    private Sentence getCurrentlyUseSentenceFromDBById (Long id){
         Optional<Sentence> searchSentence = sentenceService.findById(id);
         return searchSentence
                 .orElseThrow(() -> new RuntimeException("Szukany record na podstawie id nie istnieje"));
     }
 
-    public boolean checkingCorrectnessOfPhraseTranslation(String inputPhrase){
-        phraseComparator.setInputPhrase(inputPhrase);
-        phraseComparator.setCorrectPhrase(currentlyUseSentence.getLanguageEng());
-        return phraseComparator.comparingPhrases();
-    }
 
 
 //    public String getPhraseInEnglishFromSentenceById (Long id){
