@@ -1,5 +1,6 @@
 package com.cezaryzal.api.memo;
 
+import com.cezaryzal.entity.Answer;
 import com.cezaryzal.entity.SentenceDTO;
 import com.cezaryzal.manager.response.ResponseService;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class MemoControllerImp implements MemoController {
 
     @PostMapping ("/result")
     @Override
-    public SentenceDTO resultByInputSentenceDTO(@RequestBody SentenceDTO sentenceDTO) {
-        return responseService.resultByInputSentenceDTO(sentenceDTO);
+    public SentenceDTO resultByInputAnswer(@RequestBody Answer answer) {
+        return responseService.resultByInputAnswer(answer);
     }
 }

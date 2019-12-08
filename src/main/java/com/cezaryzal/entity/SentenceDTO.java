@@ -12,7 +12,6 @@ public class SentenceDTO {
     private Long sentenceId;
     private String displayHeaderToTranslate;
     private String displayResultFromLastTries;
-    private String inputPhrase;
     private int numberOfTries;
     private String hint;
 
