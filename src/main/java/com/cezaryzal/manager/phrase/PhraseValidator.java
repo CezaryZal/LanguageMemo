@@ -1,31 +1,43 @@
 package com.cezaryzal.manager.phrase;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class PhraseValidator {
     final char INCORRECT_LETTER = '_';
-    StringBuilder progressSentence = new StringBuilder();
-    String inputSentence;
-    String correctSentence;
+    StringBuilder progressSentence;
+    String inputPhrase;
+    String patternPhrase;
 
-    public PhraseValidator(String inputSentence, String correctSentence) {
-        this.inputSentence = inputSentence;
-        this.correctSentence = correctSentence;
+    public void setInputPhrase(String inputPhrase) {
+        this.inputPhrase = inputPhrase;
     }
 
-    public String shareSentenceIntoWords (){
-        return "";
+    public void setPatternPhrase(String patternPhrase) {
+        this.patternPhrase = patternPhrase;
     }
 
-    public void filterSentences() {
-        for (int i = 0; i < correctSentence.length(); i++) {
+    public String createProgressThroughLastTries(){
+        progressSentence = new StringBuilder();
+        filterSentences();
+        return getProgressSentence();
+    }
+
+//    private String shareSentenceIntoWords (){
+//        return "";
+//    }
+
+    private void filterSentences() {
+        for (int i = 0; i < patternPhrase.length(); i++) {
             insertLetterToProgressSentence(i);
         }
     }
 
-    public void insertLetterToProgressSentence(int numberLetterOfSentenceWhichCompare){
+    private void insertLetterToProgressSentence(int numberLetterOfSentenceWhichCompare){
         try {
             char letterToInsert = compareInputLettersWithExpected(
-                    inputSentence.toLowerCase().charAt(numberLetterOfSentenceWhichCompare),
-                    correctSentence.toLowerCase().charAt(numberLetterOfSentenceWhichCompare));
+                    inputPhrase.toLowerCase().charAt(numberLetterOfSentenceWhichCompare),
+                    patternPhrase.toLowerCase().charAt(numberLetterOfSentenceWhichCompare));
             progressSentence.append(letterToInsert);
         } catch (StringIndexOutOfBoundsException e) {
             progressSentence.append(INCORRECT_LETTER);
@@ -33,14 +45,14 @@ public class PhraseValidator {
     }
 
     //przenieść do oddzielnej klasy z 2 polami char?
-    public char compareInputLettersWithExpected(char actualLetter, char expectedLetter){
+    private char compareInputLettersWithExpected(char actualLetter, char expectedLetter){
         if (actualLetter == expectedLetter) {
             return expectedLetter;
         } else
             return INCORRECT_LETTER;
     }
 
-    public String getProgressSentence (){
+    private String getProgressSentence (){
         return String.valueOf(progressSentence);
     }
 

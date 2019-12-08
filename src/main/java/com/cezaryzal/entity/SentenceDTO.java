@@ -10,8 +10,9 @@ import lombok.Data;
 public class SentenceDTO {
 
     private Long sentenceId;
-    private String displayHeaderToTranslate;
-    private String displayResultFromLastTries;
+    private String headerToTranslate;
+    private String progressThroughLastTries;
+    private boolean isCorrectAnswer;
     private int numberOfTries;
     private String hint;
 

@@ -18,7 +18,7 @@ public class ResultComparator {
         this.patternSentence = patternSentence;
     }
 
-    public boolean comparingPhrases(){
+    public boolean comparingInputPhrasesWithPattern(){
         return inputAnswer.getInputPhrase().equalsIgnoreCase(patternSentence.getLanguageEng());
     }
 }
