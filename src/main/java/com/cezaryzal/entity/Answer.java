@@ -6,6 +6,6 @@ import lombok.Data;
 public class Answer {
 
     private Long sentenceId;
-    private String inputPhrase;
+    private String phrase;
     private int numberOfTries;
 }
