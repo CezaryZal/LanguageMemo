@@ -10,7 +10,7 @@ public class EverySecondLetter {
         StringBuilder phraseWithEverySecondLetter = new StringBuilder();
 
         for (int i = 0; i < phrase.length(); i++){
-            if (phrase.length()%2 != 0){
+            if (i%2 != 0){
                 phraseWithEverySecondLetter.append(phrase.charAt(i));
             } else {
                 phraseWithEverySecondLetter.append(INCORRECT_LETTER);

@@ -37,33 +37,33 @@ public class ResponseValidator {
         String patternPhrase = currentlyUseSentence.getLanguageEng();
         InputLettersComparator inputLettersComparator = new InputLettersComparator(inputAnswer.getPhrase(), patternPhrase);
         String progressPhraseByInput = inputLettersComparator.createProgressThroughLastTries();
-        switch (inputAnswer.getNumberOfTries()) {
-            case 1:
-                progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, sharePhraseIntoWords());
-                return createSentenceDTOByValidator(progressPhraseByInput);
-            case 2:
-                String phraseWithFirstLetter = firstLetter.getPhraseWithFirstLetter(patternPhrase);
-                progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, sharePhraseIntoWords());
-                progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, phraseWithFirstLetter);
-                return createSentenceDTOByValidator(progressPhraseByInput);
-            case 3:
-                firstLetters.setPatternPhrase(patternPhrase);
-                String phraseWithFirstLetters = firstLetters.getPhraseWithFirstLetters(sharePhraseIntoWords());
-                progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, sharePhraseIntoWords());
-                progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, phraseWithFirstLetters);
-                return createSentenceDTOByValidator(progressPhraseByInput);
-            case 4:
-                firstLetters.setPatternPhrase(patternPhrase);
-                String phraseWithFirstLetters4 = firstLetters.getPhraseWithFirstLetters(sharePhraseIntoWords());
-                String phraseWithEverySecondLetter = everySecondLetter.getPhraseWithEverySecondLetter(patternPhrase);
-                progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, sharePhraseIntoWords());
-                progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, phraseWithFirstLetters4);
-                progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, phraseWithEverySecondLetter);
-                return createSentenceDTOByValidator(progressPhraseByInput);
-            case 5:
-//                wyświetlenie całości
+        int numberOfTries = inputAnswer.getNumberOfTries();
 
+        if (numberOfTries == 0){
+            return createSentenceDTOByValidator(progressPhraseByInput);
         }
+        progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, sharePhraseIntoWords());
+        if (numberOfTries == 1) {
+            return createSentenceDTOByValidator(progressPhraseByInput);
+        }
+        String phraseWithFirstLetter = firstLetter.getPhraseWithFirstLetter(patternPhrase);
+        progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, phraseWithFirstLetter);
+        if (numberOfTries == 2){
+            return createSentenceDTOByValidator(progressPhraseByInput);
+        }
+        firstLetters.setPatternPhrase(patternPhrase);
+        String phraseWithFirstLetters = firstLetters.getPhraseWithFirstLetters(sharePhraseIntoWords());
+        progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, phraseWithFirstLetters);
+        if (numberOfTries == 3){
+            return createSentenceDTOByValidator(progressPhraseByInput);
+        }
+        String phraseWithEverySecondLetter = everySecondLetter.getPhraseWithEverySecondLetter(patternPhrase);
+        progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, phraseWithEverySecondLetter);
+        if (numberOfTries == 4){
+            return createSentenceDTOByValidator(progressPhraseByInput);
+        }
+        progressPhraseByInput = currentlyUseSentence.getLanguageEng();
+
         return createSentenceDTOByValidator(progressPhraseByInput);
     }
 
