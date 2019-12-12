@@ -52,8 +52,8 @@ public class ResponseService {
 
     private SentenceDTO createSentenceDTOByInputAnswer(Answer inputAnswer){
         responseValidator.setCurrentlyUseSentence(currentlyUseSentence);
-
-        return responseValidator.createSentenceDTOByInputAnswer(inputAnswer);
+        responseValidator.setInputAnswer(inputAnswer);
+        return responseValidator.inputValidationBaseOnNumberOfTries();
     }
 
 
