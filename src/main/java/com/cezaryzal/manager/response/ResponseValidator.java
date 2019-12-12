@@ -15,11 +15,14 @@ public class ResponseValidator {
     private PhraseDivider phraseDivider;
     private FirstLetter firstLetter;
     private FirstLetters firstLetters;
+    private EverySecondLetter everySecondLetter;
 
-    public ResponseValidator(PhraseDivider phraseDivider, FirstLetter firstLetter, FirstLetters firstLetters) {
+    public ResponseValidator(PhraseDivider phraseDivider, FirstLetter firstLetter,
+                             FirstLetters firstLetters, EverySecondLetter everySecondLetter) {
         this.phraseDivider = phraseDivider;
         this.firstLetter = firstLetter;
         this.firstLetters = firstLetters;
+        this.everySecondLetter = everySecondLetter;
     }
 
     public void setCurrentlyUseSentence(Sentence sentence) {
@@ -31,24 +34,34 @@ public class ResponseValidator {
     }
 
     public SentenceDTO inputValidationBaseOnNumberOfTries() {
-        InputLettersComparator inputLettersComparator = new InputLettersComparator(inputAnswer.getPhrase(), currentlyUseSentence.getLanguageEng());
+        String patternPhrase = currentlyUseSentence.getLanguageEng();
+        InputLettersComparator inputLettersComparator = new InputLettersComparator(inputAnswer.getPhrase(), patternPhrase);
         String progressPhraseByInput = inputLettersComparator.createProgressThroughLastTries();
         switch (inputAnswer.getNumberOfTries()) {
             case 1:
                 progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, sharePhraseIntoWords());
                 return createSentenceDTOByValidator(progressPhraseByInput);
             case 2:
-                String phraseWithFirstLetter = firstLetter.getPhraseWithFirstLetter(currentlyUseSentence.getLanguageEng());
+                String phraseWithFirstLetter = firstLetter.getPhraseWithFirstLetter(patternPhrase);
                 progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, sharePhraseIntoWords());
                 progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, phraseWithFirstLetter);
                 return createSentenceDTOByValidator(progressPhraseByInput);
             case 3:
+                firstLetters.setPatternPhrase(patternPhrase);
                 String phraseWithFirstLetters = firstLetters.getPhraseWithFirstLetters(sharePhraseIntoWords());
                 progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, sharePhraseIntoWords());
                 progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, phraseWithFirstLetters);
                 return createSentenceDTOByValidator(progressPhraseByInput);
             case 4:
-                
+                firstLetters.setPatternPhrase(patternPhrase);
+                String phraseWithFirstLetters4 = firstLetters.getPhraseWithFirstLetters(sharePhraseIntoWords());
+                String phraseWithEverySecondLetter = everySecondLetter.getPhraseWithEverySecondLetter(patternPhrase);
+                progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, sharePhraseIntoWords());
+                progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, phraseWithFirstLetters4);
+                progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, phraseWithEverySecondLetter);
+                return createSentenceDTOByValidator(progressPhraseByInput);
+            case 5:
+//                wyświetlenie całości
 
         }
         return createSentenceDTOByValidator(progressPhraseByInput);
