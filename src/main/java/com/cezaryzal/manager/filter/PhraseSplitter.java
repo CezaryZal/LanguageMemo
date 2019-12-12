@@ -10,11 +10,13 @@ public class PhraseSplitter {
         return phrase.replaceAll("[a-zA-Z]", "_");
     }
 
-    public String parsePhraseToShowLength(String phrase) {
-        StringBuilder modifyPhrase = new StringBuilder();
-        for (int i = 0; i<phrase.length(); i++){
-            modifyPhrase.append("_");
-        }
-        return String.valueOf(modifyPhrase);
-    }
+
+
+//    public String parsePhraseToShowLength(String phrase) {
+//        StringBuilder modifyPhrase = new StringBuilder();
+//        for (int i = 0; i<phrase.length(); i++){
+//            modifyPhrase.append("_");
+//        }
+//        return String.valueOf(modifyPhrase);
+//    }
 }

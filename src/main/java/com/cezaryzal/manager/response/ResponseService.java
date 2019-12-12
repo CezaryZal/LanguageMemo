@@ -15,12 +15,10 @@ public class ResponseService {
     private SentenceDTO sentenceDTO;
 
     private ResponseValidator responseValidator;
-    private ResultComparator resultComparator;
     private SentenceService sentenceService;
 
-    public ResponseService(ResponseValidator responseValidator, ResultComparator resultComparator, SentenceService sentenceService) {
+    public ResponseService(ResponseValidator responseValidator, SentenceService sentenceService) {
         this.responseValidator = responseValidator;
-        this.resultComparator = resultComparator;
         this.sentenceService = sentenceService;
     }
 
@@ -35,8 +33,7 @@ public class ResponseService {
     }
 
     private boolean checkingCorrectnessOfPhraseTranslation(Answer inputAnswer) {
-        resultComparator.setInputAnswer(inputAnswer);
-        resultComparator.setPatternSentence(currentlyUseSentence);
+        ResultComparator resultComparator = new ResultComparator(inputAnswer, currentlyUseSentence);
         return resultComparator.comparingInputPhrasesWithPattern();
     }
 
@@ -55,6 +52,7 @@ public class ResponseService {
 
     private SentenceDTO createSentenceDTOByInputAnswer(Answer inputAnswer){
         responseValidator.setCurrentlyUseSentence(currentlyUseSentence);
+
         return responseValidator.createSentenceDTOByInputAnswer(inputAnswer);
     }
 

@@ -11,4 +11,4 @@ Backend:
 
 ## To do
 - add whitespace in Validator.parseSentence
-- 
+- add Database Authentication and authorization type Basic
