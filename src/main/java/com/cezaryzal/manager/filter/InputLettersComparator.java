@@ -1,12 +1,12 @@
 package com.cezaryzal.manager.filter;
 
-public class LetterComparator {
+public class InputLettersComparator {
     final char INCORRECT_LETTER = '_';
     StringBuilder progressSentence;
     String inputPhrase;
     String patternPhrase;
 
-    public LetterComparator(String inputPhrase, String patternPhrase) {
+    public InputLettersComparator(String inputPhrase, String patternPhrase) {
         this.inputPhrase = inputPhrase;
         this.patternPhrase = patternPhrase;
     }
