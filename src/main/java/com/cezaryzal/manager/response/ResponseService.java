@@ -12,24 +12,22 @@ import java.util.Optional;
 public class ResponseService {
 
     private Sentence currentlyUseSentence;
-    private SentenceDTO sentenceDTO;
 
     private ResponseValidator responseValidator;
     private SentenceService sentenceService;
+    private ResponseCorrect responseCorrect;
 
-    public ResponseService(ResponseValidator responseValidator, SentenceService sentenceService) {
+    public ResponseService(ResponseValidator responseValidator, SentenceService sentenceService, ResponseCorrect responseCorrect) {
         this.responseValidator = responseValidator;
         this.sentenceService = sentenceService;
+        this.responseCorrect = responseCorrect;
     }
 
     public SentenceDTO resultByInputAnswer(Answer inputAnswer) {
         currentlyUseSentence = getCurrentlyUseSentenceFromDBById(inputAnswer.getSentenceId());
         boolean answerIsCorrect = checkingCorrectnessOfPhraseTranslation(inputAnswer);
 
-
-        SentenceDTO tmpDto = answerIsCorrect?createTmpSentence(): createSentenceDTOByInputAnswer(inputAnswer);
-
-        return tmpDto;
+        return answerIsCorrect ? handleCorrectAnswer(inputAnswer) : handleIncorrectAnswer(inputAnswer);
     }
 
     private boolean checkingCorrectnessOfPhraseTranslation(Answer inputAnswer) {
@@ -45,17 +43,27 @@ public class ResponseService {
                 .orElseThrow(() -> new RuntimeException("Szukany record na podstawie id nie istnieje"));
     }
 
-    private SentenceDTO createTmpSentence(){
-        return new SentenceDTO(
-                1L, "Słowa jednakowe. DZIAŁA!!!!", "NULL", true, 1, "null");
+    private SentenceDTO handleCorrectAnswer(Answer inputAnswer) {
+        responseCorrect.setCurrentlyUseSentence(currentlyUseSentence);
+        sentenceService.updateSentence(responseCorrect.createUpdatedSentence(inputAnswer));
+        return getNextSentenceToShow();
     }
 
-    private SentenceDTO createSentenceDTOByInputAnswer(Answer inputAnswer){
+    private SentenceDTO handleIncorrectAnswer(Answer inputAnswer) {
         responseValidator.setCurrentlyUseSentence(currentlyUseSentence);
         responseValidator.setInputAnswer(inputAnswer);
         return responseValidator.inputValidationBaseOnNumberOfTries();
     }
 
+    private SentenceDTO getNextSentenceToShow(){
+        return new SentenceDTO(
+                2L,
+                "Nastepny",
+                "Jest progress",
+                true,
+                0,
+                "podpowiedz");
+    }
 
 
 //    public String getPhraseInEnglishFromSentenceById (Long id){

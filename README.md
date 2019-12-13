@@ -10,5 +10,5 @@ Backend:
 - server application Tomcat
 
 ## To do
-- add whitespace in Validator.parseSentence
 - add Database Authentication and authorization type Basic
+- add valid input answer
