@@ -34,12 +34,8 @@ public class InputLettersComparator {
         }
     }
 
-    //przenieść do oddzielnej klasy z 2 polami char?
     private char compareInputLettersWithExpected(char actualLetter, char expectedLetter) {
-        if (actualLetter == expectedLetter) {
-            return expectedLetter;
-        }
-        return INCORRECT_LETTER;
+        return actualLetter == expectedLetter ? expectedLetter : INCORRECT_LETTER;
     }
 
     private String getProgressSentence() {

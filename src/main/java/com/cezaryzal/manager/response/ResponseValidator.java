@@ -34,6 +34,7 @@ public class ResponseValidator {
     }
 
     public SentenceDTO inputValidationBaseOnNumberOfTries() {
+
         String patternPhrase = currentlyUseSentence.getLanguageEng();
         InputLettersComparator inputLettersComparator = new InputLettersComparator(inputAnswer.getPhrase(), patternPhrase);
         String progressPhraseByInput = inputLettersComparator.createProgressThroughLastTries();
@@ -67,7 +68,19 @@ public class ResponseValidator {
         return createSentenceDTOByValidator(progressPhraseByInput);
     }
 
+    private String sharePhraseIntoWords() {
+        return phraseDivider.sharePhraseIntoWords(currentlyUseSentence.getLanguageEng());
+    }
+
+    private String validProgressPhraseByPatternAndFilter(String progressPhraseByInput, String modifiedPhrase) {
+
+        PhrasesValidator phrasesValidator = new PhrasesValidator(progressPhraseByInput, currentlyUseSentence.getLanguageEng());
+        phrasesValidator.setModifiedPhrase(modifiedPhrase);
+        return phrasesValidator.validProgressPhraseByPatternAndFilter();
+    }
+
     private SentenceDTO createSentenceDTOByValidator(String progressPhrase) {
+
         int numberOfTries = inputAnswer.getNumberOfTries() + 1;
         return new SentenceDTO(
                 inputAnswer.getSentenceId(),
@@ -76,16 +89,6 @@ public class ResponseValidator {
                 false,
                 numberOfTries,
                 currentlyUseSentence.getHint());
-    }
-
-    private String sharePhraseIntoWords() {
-        return phraseDivider.sharePhraseIntoWords(currentlyUseSentence.getLanguageEng());
-    }
-
-    private String validProgressPhraseByPatternAndFilter(String progressPhraseByInput, String modifiedPhrase) {
-        PhrasesValidator phrasesValidator = new PhrasesValidator(progressPhraseByInput, currentlyUseSentence.getLanguageEng());
-        phrasesValidator.setModifiedPhrase(modifiedPhrase);
-        return phrasesValidator.validProgressPhraseByPatternAndFilter();
     }
 
 }
