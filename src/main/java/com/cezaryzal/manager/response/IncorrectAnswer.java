@@ -7,9 +7,9 @@ import com.cezaryzal.manager.filter.*;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ResponseValidator {
+public class IncorrectAnswer {
 
-    private Sentence currentlyUseSentence;
+    private Sentence currentlyUsedSentence;
     private Answer inputAnswer;
 
     private PhraseDivider phraseDivider;
@@ -17,25 +17,25 @@ public class ResponseValidator {
     private FirstLetters firstLetters;
     private EverySecondLetter everySecondLetter;
 
-    public ResponseValidator(PhraseDivider phraseDivider, FirstLetter firstLetter,
-                             FirstLetters firstLetters, EverySecondLetter everySecondLetter) {
+    public IncorrectAnswer(PhraseDivider phraseDivider, FirstLetter firstLetter,
+                           FirstLetters firstLetters, EverySecondLetter everySecondLetter) {
         this.phraseDivider = phraseDivider;
         this.firstLetter = firstLetter;
         this.firstLetters = firstLetters;
         this.everySecondLetter = everySecondLetter;
     }
 
-    public void setCurrentlyUseSentence(Sentence sentence) {
-        this.currentlyUseSentence = sentence;
+    public void setCurrentlyUsedSentence(Sentence sentence) {
+        this.currentlyUsedSentence = sentence;
     }
 
     public void setInputAnswer(Answer inputAnswer) {
         this.inputAnswer = inputAnswer;
     }
 
-    public SentenceDTO inputValidationBaseOnNumberOfTries() {
+    public SentenceDTO inputValidationBasedOnNumberOfTries() {
 
-        String patternPhrase = currentlyUseSentence.getLanguageEng();
+        String patternPhrase = currentlyUsedSentence.getLanguageEng();
         InputLettersComparator inputLettersComparator = new InputLettersComparator(inputAnswer.getPhrase(), patternPhrase);
         String progressPhraseByInput = inputLettersComparator.createProgressThroughLastTries();
         int numberOfTries = inputAnswer.getNumberOfTries();
@@ -63,18 +63,18 @@ public class ResponseValidator {
         if (numberOfTries == 4){
             return createSentenceDTOByValidator(progressPhraseByInput);
         }
-        progressPhraseByInput = currentlyUseSentence.getLanguageEng();
+        progressPhraseByInput = currentlyUsedSentence.getLanguageEng();
 
         return createSentenceDTOByValidator(progressPhraseByInput);
     }
 
     private String sharePhraseIntoWords() {
-        return phraseDivider.sharePhraseIntoWords(currentlyUseSentence.getLanguageEng());
+        return phraseDivider.sharePhraseIntoWords(currentlyUsedSentence.getLanguageEng());
     }
 
     private String validProgressPhraseByPatternAndFilter(String progressPhraseByInput, String modifiedPhrase) {
 
-        PhrasesValidator phrasesValidator = new PhrasesValidator(progressPhraseByInput, currentlyUseSentence.getLanguageEng());
+        PhrasesValidator phrasesValidator = new PhrasesValidator(progressPhraseByInput, currentlyUsedSentence.getLanguageEng());
         phrasesValidator.setModifiedPhrase(modifiedPhrase);
         return phrasesValidator.validProgressPhraseByPatternAndFilter();
     }
@@ -84,11 +84,11 @@ public class ResponseValidator {
         int numberOfTries = inputAnswer.getNumberOfTries() + 1;
         return new SentenceDTO(
                 inputAnswer.getSentenceId(),
-                currentlyUseSentence.getLanguagePol(),
+                currentlyUsedSentence.getLanguagePol(),
                 progressPhrase,
                 false,
                 numberOfTries,
-                currentlyUseSentence.getHint());
+                currentlyUsedSentence.getHint());
     }
 
 }

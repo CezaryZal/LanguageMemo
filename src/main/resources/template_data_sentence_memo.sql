@@ -10,7 +10,7 @@ CREATE TABLE `sentence`(
                 `language_pol` VARCHAR (45) NOT NULL,
                 `hint` VARCHAR (128) DEFAULT NULL,
                 `replay_level` INTEGER DEFAULT 0,
-                `date_next_update` DATE NOT NULL,
+                `replay_date` DATE NOT NULL,
                 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 

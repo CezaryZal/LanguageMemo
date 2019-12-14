@@ -23,7 +23,7 @@ public class Sentence {
     private String languagePol;
     private String hint;
     private int replayLevel;
-    private LocalDate dateNextUpdate;
+    private LocalDate replayDate;
 
 
     //    @Override

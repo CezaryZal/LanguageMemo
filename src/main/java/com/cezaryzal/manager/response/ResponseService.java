@@ -11,48 +11,54 @@ import java.util.Optional;
 @Service
 public class ResponseService {
 
-    private Sentence currentlyUseSentence;
+    private Sentence currentlyUsedSentence;
 
-    private ResponseValidator responseValidator;
+    private IncorrectAnswer incorrectAnswer;
     private SentenceService sentenceService;
-    private ResponseCorrect responseCorrect;
+    private CorrectAnswer correctAnswer;
 
-    public ResponseService(ResponseValidator responseValidator, SentenceService sentenceService, ResponseCorrect responseCorrect) {
-        this.responseValidator = responseValidator;
+    public ResponseService(IncorrectAnswer incorrectAnswer, SentenceService sentenceService, CorrectAnswer correctAnswer) {
+        this.incorrectAnswer = incorrectAnswer;
         this.sentenceService = sentenceService;
-        this.responseCorrect = responseCorrect;
+        this.correctAnswer = correctAnswer;
     }
 
     public SentenceDTO resultByInputAnswer(Answer inputAnswer) {
-        currentlyUseSentence = getCurrentlyUseSentenceFromDBById(inputAnswer.getSentenceId());
+        currentlyUsedSentence = getCurrentlyUsedSentenceFromDBById(inputAnswer.getSentenceId());
         boolean answerIsCorrect = checkingCorrectnessOfPhraseTranslation(inputAnswer);
 
         return answerIsCorrect ? handleCorrectAnswer(inputAnswer) : handleIncorrectAnswer(inputAnswer);
     }
 
     private boolean checkingCorrectnessOfPhraseTranslation(Answer inputAnswer) {
-        ResultComparator resultComparator = new ResultComparator(inputAnswer, currentlyUseSentence);
+        ResultComparator resultComparator = new ResultComparator(inputAnswer, currentlyUsedSentence);
         return resultComparator.comparingInputPhrasesWithPattern();
     }
 
 
-    //Zrobić oddzielną klasę na sprawdzenie poprawności przesłanego SentenceDTO; tutaj nie będzie mozliwości umieszczenia nulla
-    private Sentence getCurrentlyUseSentenceFromDBById(Long id) {
+    //Zrobić oddzielną klasę na sprawdzenie poprawności przesłanego Answer; tutaj nie będzie mozliwości umieszczenia nulla
+    private Sentence getCurrentlyUsedSentenceFromDBById(Long id) {
         Optional<Sentence> searchSentence = sentenceService.findById(id);
         return searchSentence
                 .orElseThrow(() -> new RuntimeException("Szukany record na podstawie id nie istnieje"));
     }
 
     private SentenceDTO handleCorrectAnswer(Answer inputAnswer) {
-        responseCorrect.setCurrentlyUseSentence(currentlyUseSentence);
-        sentenceService.updateSentence(responseCorrect.createUpdatedSentence(inputAnswer));
+        correctAnswer.setCurrentlyUsedSentence(currentlyUsedSentence);
+        updateCurrentlyUsedSentence(correctAnswer.getUpdatedSentence(inputAnswer));
+
         return getNextSentenceToShow();
     }
 
     private SentenceDTO handleIncorrectAnswer(Answer inputAnswer) {
-        responseValidator.setCurrentlyUseSentence(currentlyUseSentence);
-        responseValidator.setInputAnswer(inputAnswer);
-        return responseValidator.inputValidationBaseOnNumberOfTries();
+        incorrectAnswer.setCurrentlyUsedSentence(currentlyUsedSentence);
+        incorrectAnswer.setInputAnswer(inputAnswer);
+//        jesli bedzie blednie po 5 razie powinno zwrocić kolejne "Poprawna odpowiedz: ......"
+        return incorrectAnswer.inputValidationBasedOnNumberOfTries();
+    }
+
+    private void updateCurrentlyUsedSentence(Sentence updateSentence){
+        sentenceService.updateSentence(updateSentence);
     }
 
     private SentenceDTO getNextSentenceToShow(){
