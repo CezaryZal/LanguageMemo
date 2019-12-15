@@ -2,8 +2,11 @@ package com.cezaryzal.manager.response;
 
 import com.cezaryzal.entity.Answer;
 import com.cezaryzal.entity.Sentence;
+import com.cezaryzal.manager.modifier.ReplayDateModifier;
 import com.cezaryzal.manager.modifier.ReplayLevelModifier;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 @Component
 public class CorrectAnswer {
@@ -11,9 +14,11 @@ public class CorrectAnswer {
     private Sentence currentlyUsedSentence;
 
     private ReplayLevelModifier replayLevelModifier;
+    private ReplayDateModifier replayDateModifier;
 
-    public CorrectAnswer(ReplayLevelModifier replayLevelModifier) {
+    public CorrectAnswer(ReplayLevelModifier replayLevelModifier, ReplayDateModifier replayDateModifier) {
         this.replayLevelModifier = replayLevelModifier;
+        this.replayDateModifier = replayDateModifier;
     }
 
     public void setCurrentlyUsedSentence(Sentence currentlyUsedSentence) {
@@ -21,24 +26,21 @@ public class CorrectAnswer {
     }
 
     public Sentence getUpdatedSentence(Answer inputAnswer){
-        replayLevelModifier.setCurrentlyUsedSentence(currentlyUsedSentence);
-        int updateReplayLevel = replayLevelModifier.changeReplayLevelByNumberOfTries(inputAnswer);
-        currentlyUsedSentence.setReplayLevel(updateReplayLevel);
+        int modifiedReplayLevel = modifyReplayLevel(inputAnswer.getNumberOfTries());
+        currentlyUsedSentence.setReplayLevel(modifiedReplayLevel);
+        currentlyUsedSentence.setReplayDate(modifyReplayDate(modifiedReplayLevel));
 
-        return createUpdatedSentence(inputAnswer);
+        return currentlyUsedSentence;
     }
-
-
-
-
-    private Sentence createUpdatedSentence(Answer inputAnswer) {
-        return new Sentence(
-                inputAnswer.getSentenceId(),
-                currentlyUsedSentence.getLanguageEng(),
-                currentlyUsedSentence.getLanguagePol(),
-                currentlyUsedSentence.getHint(),
-                currentlyUsedSentence.getReplayLevel(),
-                currentlyUsedSentence.getReplayDate()
-        );
+    
+    private int modifyReplayLevel(int numberOfTries){
+        replayLevelModifier.setReplayLevel(currentlyUsedSentence.getReplayLevel());
+        return replayLevelModifier.changeReplayLevelByNumberOfTries(numberOfTries);
+    }
+    
+    private LocalDate modifyReplayDate(int replayLevel){
+        replayDateModifier.setReplayDate(currentlyUsedSentence.getReplayDate());
+        return replayDateModifier.changeReplayDateByReplayLevel(replayLevel);
+        
     }
 }
