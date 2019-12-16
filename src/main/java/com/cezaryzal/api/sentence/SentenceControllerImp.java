@@ -22,6 +22,18 @@ public class SentenceControllerImp implements SentenceController {
         return sentenceService.findById(id);
     }
 
+    @GetMapping("/dates/{date}")
+    @Override
+    public Iterable<Sentence> findAllByReplayDateLessThanEqual(@PathVariable String date) {
+        return sentenceService.findAllByReplayDateLessThanEqual(date);
+    }
+
+    @GetMapping("/random/{date}")
+    @Override
+    public Optional<Sentence> findRandomFirstByReplayDateLessThanEqual(@PathVariable String date){
+        return sentenceService.findRandomFirstByReplayDateLessThanEqual(date);
+    }
+
     @GetMapping
     @Override
     public Iterable<Sentence> findAll() {

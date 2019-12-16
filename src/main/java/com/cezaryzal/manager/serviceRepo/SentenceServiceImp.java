@@ -4,6 +4,7 @@ import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.repository.SentenceRepo;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -18,6 +19,16 @@ public class SentenceServiceImp implements SentenceService{
     @Override
     public Optional<Sentence> findById(Long index) {
         return sentenceRepo.findById(index);
+    }
+
+    @Override
+    public Iterable<Sentence> findAllByReplayDateLessThanEqual(String localDate) {
+        return sentenceRepo.findByReplayDateLessThanEqual(LocalDate.parse(localDate));
+    }
+
+    @Override
+    public Optional<Sentence> findRandomFirstByReplayDateLessThanEqual(String localDate){
+        return sentenceRepo.findRandomFirstByReplayDateLessThanEqual(LocalDate.parse(localDate));
     }
 
     @Override
@@ -38,6 +49,7 @@ public class SentenceServiceImp implements SentenceService{
     @Override
     public void deleteSentenceById(Long index) {
         sentenceRepo.deleteById(index);
-
     }
+
+
 }
