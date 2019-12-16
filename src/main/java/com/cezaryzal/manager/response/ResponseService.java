@@ -10,17 +10,17 @@ import java.util.Optional;
 
 @Service
 public class ResponseService {
-
+    final int MAX_REPLAY_LEVEL_VALUE = 5;
     private Sentence currentlyUsedSentence;
 
     private IncorrectAnswer incorrectAnswer;
     private SentenceService sentenceService;
-    private CorrectAnswer correctAnswer;
+    private UpdateSentenceByAnswer updateSentenceByAnswer;
 
-    public ResponseService(IncorrectAnswer incorrectAnswer, SentenceService sentenceService, CorrectAnswer correctAnswer) {
+    public ResponseService(IncorrectAnswer incorrectAnswer, SentenceService sentenceService, UpdateSentenceByAnswer updateSentenceByAnswer) {
         this.incorrectAnswer = incorrectAnswer;
         this.sentenceService = sentenceService;
-        this.correctAnswer = correctAnswer;
+        this.updateSentenceByAnswer = updateSentenceByAnswer;
     }
 
     public SentenceDTO resultByInputAnswer(Answer inputAnswer) {
@@ -44,24 +44,30 @@ public class ResponseService {
     }
 
     private SentenceDTO handleCorrectAnswer(Answer inputAnswer) {
-        correctAnswer.setCurrentlyUsedSentence(currentlyUsedSentence);
-        updateCurrentlyUsedSentence(correctAnswer.getUpdatedSentence(inputAnswer));
+        updateSentenceByAnswer.setCurrentlyUsedSentence(currentlyUsedSentence);
+        updateCurrentlyUsedSentence(updateSentenceByAnswer.getUpdatedSentence(inputAnswer));
 
         return getNextSentenceToShow();
     }
 
     private SentenceDTO handleIncorrectAnswer(Answer inputAnswer) {
-        incorrectAnswer.setCurrentlyUsedSentence(currentlyUsedSentence);
-        incorrectAnswer.setInputAnswer(inputAnswer);
-//        jesli bedzie blednie po 5 razie powinno zwrocić kolejne "Poprawna odpowiedz: ......"
-        return incorrectAnswer.inputValidationBasedOnNumberOfTries();
+
+        if (inputAnswer.getNumberOfTries() <= MAX_REPLAY_LEVEL_VALUE){
+            incorrectAnswer.setCurrentlyUsedSentence(currentlyUsedSentence);
+            incorrectAnswer.setInputAnswer(inputAnswer);
+            return incorrectAnswer.inputValidationBasedOnNumberOfTries();
+        }
+        updateSentenceByAnswer.setCurrentlyUsedSentence(currentlyUsedSentence);
+        updateCurrentlyUsedSentence(updateSentenceByAnswer.getUpdatedSentence(inputAnswer));
+
+        return getNextSentenceToShow();
     }
 
-    private void updateCurrentlyUsedSentence(Sentence updateSentence){
+    private void updateCurrentlyUsedSentence(Sentence updateSentence) {
         sentenceService.updateSentence(updateSentence);
     }
 
-    private SentenceDTO getNextSentenceToShow(){
+    private SentenceDTO getNextSentenceToShow() {
         return new SentenceDTO(
                 2L,
                 "Nastepny",

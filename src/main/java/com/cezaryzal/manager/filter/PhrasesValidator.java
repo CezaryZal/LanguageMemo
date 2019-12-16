@@ -25,7 +25,7 @@ public class PhrasesValidator {
         return String.valueOf(resultPhrase);
     }
 
-    public void compareAndInsertLetterToProgressSentence(int numberOfLetterCompared){
+    private void compareAndInsertLetterToProgressSentence(int numberOfLetterCompared){
         if (modifiedPhrase.charAt(numberOfLetterCompared) == patternPhrase.charAt(numberOfLetterCompared)) {
             resultPhrase.append(modifiedPhrase.charAt(numberOfLetterCompared));
         } else if (progressPhraseByInput.charAt(numberOfLetterCompared) == patternPhrase.charAt(numberOfLetterCompared)){

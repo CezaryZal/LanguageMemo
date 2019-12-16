@@ -17,9 +17,9 @@ public class ReplayLevelModifier {
     public int changeReplayLevelByNumberOfTries(int numberOfTries){
         int updateReplayLevel = replayLevel - numberOfTries + NUMBER_THAT_SCALES_REPLAY_LEVEL;
 
-        if (updateReplayLevel < MIN_REPLAY_LEVEL_VALUE){
+        if (updateReplayLevel <= MIN_REPLAY_LEVEL_VALUE){
             return MIN_REPLAY_LEVEL_VALUE;
-        } else if (updateReplayLevel > MAX_REPLAY_LEVEL_VALUE){
+        } else if (updateReplayLevel >= MAX_REPLAY_LEVEL_VALUE){
             return MAX_REPLAY_LEVEL_VALUE;
         }
         return updateReplayLevel;

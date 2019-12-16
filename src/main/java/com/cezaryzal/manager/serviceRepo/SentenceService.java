@@ -6,13 +6,13 @@ import java.util.Optional;
 
 public interface SentenceService {
 
-    public Optional<Sentence> findById(Long index);
+    Optional<Sentence> findById(Long index);
 
-    public Iterable<Sentence> findAll();
+    Iterable<Sentence> findAll();
 
-    public Sentence addNewSentence (Sentence sentence);
+    Sentence addNewSentence (Sentence sentence);
 
-    public Sentence updateSentence (Sentence sentence);
+    Sentence updateSentence (Sentence sentence);
 
-    public void deleteSentenceById(Long index);
+    void deleteSentenceById(Long index);
 }

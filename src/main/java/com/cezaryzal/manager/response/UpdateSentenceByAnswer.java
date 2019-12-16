@@ -9,14 +9,14 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 
 @Component
-public class CorrectAnswer {
+public class UpdateSentenceByAnswer {
 
     private Sentence currentlyUsedSentence;
 
     private ReplayLevelModifier replayLevelModifier;
     private ReplayDateModifier replayDateModifier;
 
-    public CorrectAnswer(ReplayLevelModifier replayLevelModifier, ReplayDateModifier replayDateModifier) {
+    public UpdateSentenceByAnswer(ReplayLevelModifier replayLevelModifier, ReplayDateModifier replayDateModifier) {
         this.replayLevelModifier = replayLevelModifier;
         this.replayDateModifier = replayDateModifier;
     }
