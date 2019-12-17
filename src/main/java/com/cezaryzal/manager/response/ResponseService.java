@@ -16,11 +16,14 @@ public class ResponseService {
     private IncorrectAnswer incorrectAnswer;
     private SentenceService sentenceService;
     private UpdateSentenceByAnswer updateSentenceByAnswer;
+    private NextSentenceDto nextSentenceDto;
 
-    public ResponseService(IncorrectAnswer incorrectAnswer, SentenceService sentenceService, UpdateSentenceByAnswer updateSentenceByAnswer) {
+    public ResponseService(IncorrectAnswer incorrectAnswer, SentenceService sentenceService,
+                           UpdateSentenceByAnswer updateSentenceByAnswer, NextSentenceDto nextSentenceDto) {
         this.incorrectAnswer = incorrectAnswer;
         this.sentenceService = sentenceService;
         this.updateSentenceByAnswer = updateSentenceByAnswer;
+        this.nextSentenceDto = nextSentenceDto;
     }
 
     public SentenceDTO resultByInputAnswer(Answer inputAnswer) {
@@ -47,7 +50,7 @@ public class ResponseService {
         updateSentenceByAnswer.setCurrentlyUsedSentence(currentlyUsedSentence);
         updateCurrentlyUsedSentence(updateSentenceByAnswer.getUpdatedSentence(inputAnswer));
 
-        return getNextSentenceToShow();
+        return getNextSentenceDtoToShow(true);
     }
 
     private SentenceDTO handleIncorrectAnswer(Answer inputAnswer) {
@@ -60,21 +63,15 @@ public class ResponseService {
         updateSentenceByAnswer.setCurrentlyUsedSentence(currentlyUsedSentence);
         updateCurrentlyUsedSentence(updateSentenceByAnswer.getUpdatedSentence(inputAnswer));
 
-        return getNextSentenceToShow();
+        return getNextSentenceDtoToShow(false);
     }
 
     private void updateCurrentlyUsedSentence(Sentence updateSentence) {
         sentenceService.updateSentence(updateSentence);
     }
 
-    private SentenceDTO getNextSentenceToShow() {
-        return new SentenceDTO(
-                2L,
-                "Nastepny",
-                "Jest progress",
-                true,
-                0,
-                "podpowiedz");
+    private SentenceDTO getNextSentenceDtoToShow(boolean isCorrectAnswer) {
+        return nextSentenceDto.getNextSentenceDto(isCorrectAnswer);
     }
 
 
