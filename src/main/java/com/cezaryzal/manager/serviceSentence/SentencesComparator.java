@@ -1,14 +1,14 @@
-package com.cezaryzal.manager.response;
+package com.cezaryzal.manager.serviceSentence;
 
 import com.cezaryzal.entity.Answer;
 import com.cezaryzal.entity.Sentence;
 
-public class ResultComparator {
+public class SentencesComparator {
 
     private Answer inputAnswer;
     private Sentence patternSentence;
 
-    public ResultComparator(Answer inputAnswer, Sentence patternSentence) {
+    public SentencesComparator(Answer inputAnswer, Sentence patternSentence) {
         this.inputAnswer = inputAnswer;
         this.patternSentence = patternSentence;
     }

@@ -4,6 +4,8 @@ import com.cezaryzal.entity.Answer;
 import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.entity.SentenceDTO;
 import com.cezaryzal.manager.serviceRepo.SentenceService;
+import com.cezaryzal.manager.serviceSentence.NextSentenceDto;
+import com.cezaryzal.manager.serviceSentence.SentencesComparator;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -34,8 +36,8 @@ public class ResponseService {
     }
 
     private boolean checkingCorrectnessOfPhraseTranslation(Answer inputAnswer) {
-        ResultComparator resultComparator = new ResultComparator(inputAnswer, currentlyUsedSentence);
-        return resultComparator.comparingInputPhrasesWithPattern();
+        SentencesComparator sentencesComparator = new SentencesComparator(inputAnswer, currentlyUsedSentence);
+        return sentencesComparator.comparingInputPhrasesWithPattern();
     }
 
 

@@ -3,6 +3,7 @@ package com.cezaryzal.api.memo;
 import com.cezaryzal.entity.Answer;
 import com.cezaryzal.entity.SentenceDTO;
 import com.cezaryzal.manager.response.ResponseService;
+import com.cezaryzal.manager.start.Starter;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -10,15 +11,17 @@ import org.springframework.web.bind.annotation.*;
 public class MemoControllerImp implements MemoController {
 
     private ResponseService responseService;
+    private Starter starter;
 
-    public MemoControllerImp(ResponseService responseService) {
+    public MemoControllerImp(ResponseService responseService, Starter starter) {
         this.responseService = responseService;
+        this.starter = starter;
     }
 
     @GetMapping("/first")
     @Override
     public SentenceDTO getFirstSentence() {
-        return null;
+        return starter.getFirstSentenceDto();
     }
 
     @PostMapping ("/result")
