@@ -7,11 +7,7 @@ import java.time.LocalDate;
 @Component
 public class ReplayDateModifier {
 
-    private LocalDate replayDate;
-
-    public void setReplayDate(LocalDate replayDate) {
-        this.replayDate = replayDate;
-    }
+    private LocalDate today = LocalDate.now();
 
     public LocalDate changeReplayDateByReplayLevel(int replayLevel) {
 
@@ -19,15 +15,15 @@ public class ReplayDateModifier {
         switch (replayLevel) {
             case 0:
             case 1:
-                return modifierDate = replayDate.plusDays(1L);
+                return modifierDate = today.plusDays(1L);
             case 2:
-                return modifierDate = replayDate.plusDays(2L);
+                return modifierDate = today.plusDays(2L);
             case 3:
-                return modifierDate = replayDate.plusDays(3L);
+                return modifierDate = today.plusDays(3L);
             case 4:
-                return modifierDate = replayDate.plusDays(4L);
+                return modifierDate = today.plusDays(4L);
             default:
-                return modifierDate = replayDate.plusDays(7L);
+                return modifierDate = today.plusDays(7L);
         }
     }
 }

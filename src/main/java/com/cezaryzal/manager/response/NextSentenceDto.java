@@ -2,9 +2,10 @@ package com.cezaryzal.manager.response;
 
 import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.entity.SentenceDTO;
-import com.cezaryzal.manager.serviceRepo.SentenceService;
+import com.cezaryzal.repository.SentenceRepo;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Component
@@ -12,23 +13,21 @@ public class NextSentenceDto {
 
     private Sentence nextRandomSentenceByTodayDate;
 
-    private SentenceService sentenceService;
+    private SentenceRepo sentenceRepo;
 
-    public NextSentenceDto(SentenceService sentenceService) {
-        this.sentenceService = sentenceService;
+    public NextSentenceDto(SentenceRepo sentenceRepo) {
+        this.sentenceRepo = sentenceRepo;
     }
 
     public SentenceDTO getNextSentenceDto(boolean isCorrectAnswer) {
-
         nextRandomSentenceByTodayDate = getNextRandomSentenceByTodayDate();
 
-        SentenceDTO nextSentenceDTO = changeSentenceToDto(isCorrectAnswer);
-        return nextSentenceDTO;
+        return changeSentenceToDto(isCorrectAnswer);
     }
 
     private Sentence getNextRandomSentenceByTodayDate() {
-        Optional<Sentence> nextRandomSentenceByTodayDate = sentenceService
-                .findRandomFirstByReplayDateLessThanEqual("2019-12-15");
+        Optional<Sentence> nextRandomSentenceByTodayDate = sentenceRepo
+                .findRandomFirstByReplayDateLessThanEqual(LocalDate.now());
 
         return nextRandomSentenceByTodayDate.orElseThrow(
                 () -> new RuntimeException("Brak kolajnych sformułowań do powtórzenia")

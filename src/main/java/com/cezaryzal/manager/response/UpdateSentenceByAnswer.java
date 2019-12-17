@@ -39,7 +39,6 @@ public class UpdateSentenceByAnswer {
     }
     
     private LocalDate modifyReplayDate(int replayLevel){
-        replayDateModifier.setReplayDate(currentlyUsedSentence.getReplayDate());
         return replayDateModifier.changeReplayDateByReplayLevel(replayLevel);
         
     }
