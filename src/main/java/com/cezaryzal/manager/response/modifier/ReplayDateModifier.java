@@ -1,4 +1,4 @@
-package com.cezaryzal.manager.modifier;
+package com.cezaryzal.manager.response.modifier;
 
 import org.springframework.stereotype.Component;
 

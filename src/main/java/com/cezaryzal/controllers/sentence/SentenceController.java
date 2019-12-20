@@ -1,8 +1,7 @@
-package com.cezaryzal.api.sentence;
+package com.cezaryzal.controllers.sentence;
 
 import com.cezaryzal.entity.Sentence;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
 public interface SentenceController {

@@ -1,4 +1,4 @@
-package com.cezaryzal.manager.filter;
+package com.cezaryzal.manager.response.filter;
 
 public class PhrasesValidator {
     final char INCORRECT_LETTER = '_';

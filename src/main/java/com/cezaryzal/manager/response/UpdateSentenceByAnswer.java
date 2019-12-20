@@ -2,8 +2,8 @@ package com.cezaryzal.manager.response;
 
 import com.cezaryzal.entity.Answer;
 import com.cezaryzal.entity.Sentence;
-import com.cezaryzal.manager.modifier.ReplayDateModifier;
-import com.cezaryzal.manager.modifier.ReplayLevelModifier;
+import com.cezaryzal.manager.response.modifier.ReplayDateModifier;
+import com.cezaryzal.manager.response.modifier.ReplayLevelModifier;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;

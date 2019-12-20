@@ -3,7 +3,7 @@ package com.cezaryzal.manager.response;
 import com.cezaryzal.entity.Answer;
 import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.entity.SentenceDTO;
-import com.cezaryzal.manager.filter.*;
+import com.cezaryzal.manager.response.filter.*;
 import org.springframework.stereotype.Component;
 
 @Component

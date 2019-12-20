@@ -11,6 +11,5 @@ Backend:
 
 ## To do
 - add Spring Security
-- add Database Authentication and authorization type Basic
+- add Spring security (Authentication and authorization type Basic) based on DB
 - add valid input answer
-- create new class to get random `Sentece` from DB

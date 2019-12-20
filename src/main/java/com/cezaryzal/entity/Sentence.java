@@ -25,14 +25,4 @@ public class Sentence {
     private int replayLevel;
     private LocalDate replayDate;
 
-
-    //    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Sentence sentence = (Sentence) o;
-//        return Objects.equals(english, sentence.english) &&
-//                Objects.equals(polish, sentence.polish);
-//    }
-
 }
