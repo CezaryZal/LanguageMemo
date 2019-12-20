@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface SentenceController {
 
-    Optional<Sentence> findById(Long index);
+    Optional<Sentence> findById(Long id);
 
     Iterable<Sentence> findAllByReplayDateLessThanEqual(String localDate);
 
@@ -18,5 +18,5 @@ public interface SentenceController {
 
     Sentence updateSentence (Sentence sentence);
 
-    void deleteSentenceById (Long index);
+    void deleteSentenceById (Long id);
 }

@@ -2,7 +2,6 @@ package com.cezaryzal.controllers.memo;
 
 import com.cezaryzal.entity.Answer;
 import com.cezaryzal.entity.InputSentence;
-import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.entity.SentenceDTO;
 
 public interface MemoController {
@@ -11,6 +10,6 @@ public interface MemoController {
 
     SentenceDTO resultByInputAnswer (Answer answer);
 
-    Sentence addNewSentence (InputSentence inputSentence);
+    String addNewSentence (InputSentence inputSentence);
 
 }

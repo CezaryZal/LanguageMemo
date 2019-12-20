@@ -17,8 +17,8 @@ public class SentenceServiceImp implements SentenceService{
     }
 
     @Override
-    public Optional<Sentence> findById(Long index) {
-        return sentenceRepo.findById(index);
+    public Optional<Sentence> findById(Long id) {
+        return sentenceRepo.findById(id);
     }
 
     @Override
@@ -47,8 +47,8 @@ public class SentenceServiceImp implements SentenceService{
     }
 
     @Override
-    public void deleteSentenceById(Long index) {
-        sentenceRepo.deleteById(index);
+    public void deleteSentenceById(Long id) {
+        sentenceRepo.deleteById(id);
     }
 
 

@@ -2,12 +2,11 @@ package com.cezaryzal.manager.serviceRepo;
 
 import com.cezaryzal.entity.Sentence;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
 public interface SentenceService {
 
-    Optional<Sentence> findById(Long index);
+    Optional<Sentence> findById(Long id);
 
     Iterable<Sentence> findAllByReplayDateLessThanEqual(String localDate);
 
@@ -19,5 +18,5 @@ public interface SentenceService {
 
     Sentence updateSentence (Sentence sentence);
 
-    void deleteSentenceById(Long index);
+    void deleteSentenceById(Long id);
 }

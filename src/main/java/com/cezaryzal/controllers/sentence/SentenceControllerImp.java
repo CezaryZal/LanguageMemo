@@ -53,9 +53,9 @@ public class SentenceControllerImp implements SentenceController {
         return sentenceService.updateSentence(sentence);
     }
 
-    @DeleteMapping("/{index}")
+    @DeleteMapping("/{id}")
     @Override
-    public void deleteSentenceById(@PathVariable Long index) {
-        sentenceService.deleteSentenceById(index);
+    public void deleteSentenceById(@PathVariable Long id) {
+        sentenceService.deleteSentenceById(id);
     }
 }
