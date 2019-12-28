@@ -4,8 +4,8 @@ import com.cezaryzal.entity.Answer;
 import com.cezaryzal.entity.InputSentence;
 import com.cezaryzal.entity.SentenceDTO;
 import com.cezaryzal.manager.response.ResponseService;
-import com.cezaryzal.manager.serviceRepo.SentenceService;
-import com.cezaryzal.manager.serviceSentence.beforeAddNew.SupplementData;
+import com.cezaryzal.manager.service.repository.SentenceService;
+import com.cezaryzal.manager.service.sentence.beforeAddNew.SupplementData;
 import com.cezaryzal.manager.start.Starter;
 import org.springframework.stereotype.Service;
 

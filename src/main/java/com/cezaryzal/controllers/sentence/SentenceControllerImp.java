@@ -1,7 +1,7 @@
 package com.cezaryzal.controllers.sentence;
 
 import com.cezaryzal.entity.Sentence;
-import com.cezaryzal.manager.serviceRepo.SentenceService;
+import com.cezaryzal.manager.service.repository.SentenceService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;

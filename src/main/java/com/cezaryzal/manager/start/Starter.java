@@ -2,7 +2,7 @@ package com.cezaryzal.manager.start;
 
 import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.entity.SentenceDTO;
-import com.cezaryzal.manager.serviceSentence.RandomSentence;
+import com.cezaryzal.manager.service.sentence.RandomSentence;
 import org.springframework.stereotype.Service;
 
 @Service

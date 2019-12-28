@@ -1,4 +1,4 @@
-package com.cezaryzal.manager.serviceSentence.beforeAddNew;
+package com.cezaryzal.manager.service.sentence.beforeAddNew;
 
 import com.cezaryzal.entity.InputSentence;
 import com.cezaryzal.entity.Sentence;

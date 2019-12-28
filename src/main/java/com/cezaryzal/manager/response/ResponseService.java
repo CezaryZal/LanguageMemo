@@ -3,9 +3,9 @@ package com.cezaryzal.manager.response;
 import com.cezaryzal.entity.Answer;
 import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.entity.SentenceDTO;
-import com.cezaryzal.manager.serviceRepo.SentenceService;
-import com.cezaryzal.manager.serviceSentence.NextSentenceDto;
-import com.cezaryzal.manager.serviceSentence.SentencesComparator;
+import com.cezaryzal.manager.service.repository.SentenceService;
+import com.cezaryzal.manager.service.sentence.NextSentenceDto;
+import com.cezaryzal.manager.service.sentence.SentencesComparator;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
