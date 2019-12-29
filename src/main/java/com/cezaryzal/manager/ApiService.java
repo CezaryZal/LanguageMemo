@@ -7,6 +7,7 @@ import com.cezaryzal.manager.response.ResponseService;
 import com.cezaryzal.manager.service.repository.SentenceService;
 import com.cezaryzal.manager.service.sentence.adds.SupplementData;
 import com.cezaryzal.manager.start.Starter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +18,7 @@ public class ApiService {
     private ResponseService responseService;
     private Starter starter;
 
+    @Autowired
     public ApiService(SentenceService sentenceService, SupplementData supplementData,
                       ResponseService responseService, Starter starter) {
         this.sentenceService = sentenceService;

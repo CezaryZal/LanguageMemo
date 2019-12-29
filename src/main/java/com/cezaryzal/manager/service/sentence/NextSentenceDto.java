@@ -2,6 +2,7 @@ package com.cezaryzal.manager.service.sentence;
 
 import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.entity.SentenceDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -9,6 +10,7 @@ public class NextSentenceDto {
 
     private RandomSentenceFromDb randomSentenceFromDb;
 
+    @Autowired
     public NextSentenceDto(RandomSentenceFromDb randomSentenceFromDb) {
         this.randomSentenceFromDb = randomSentenceFromDb;
     }

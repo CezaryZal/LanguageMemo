@@ -7,6 +7,7 @@ import com.cezaryzal.entity.SentenceDTO;
 import com.cezaryzal.manager.service.repository.SentenceService;
 import com.cezaryzal.manager.service.sentence.NextSentenceDto;
 import com.cezaryzal.manager.service.sentence.SentencesComparator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -21,6 +22,7 @@ public class ResponseService {
     private UpdateSentenceByAnswer updateSentenceByAnswer;
     private NextSentenceDto nextSentenceDto;
 
+    @Autowired
     public ResponseService(SentencesComparator sentencesComparator, IncorrectAnswer incorrectAnswer,
                            SentenceService sentenceService, UpdateSentenceByAnswer updateSentenceByAnswer, NextSentenceDto nextSentenceDto) {
         this.sentencesComparator = sentencesComparator;

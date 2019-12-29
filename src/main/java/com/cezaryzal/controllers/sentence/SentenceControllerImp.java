@@ -2,6 +2,7 @@ package com.cezaryzal.controllers.sentence;
 
 import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.manager.service.repository.SentenceService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -13,6 +14,7 @@ public class SentenceControllerImp implements SentenceController {
 
     private SentenceService sentenceService;
 
+    @Autowired
     public SentenceControllerImp(SentenceService sentenceService) {
         this.sentenceService = sentenceService;
     }

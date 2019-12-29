@@ -4,6 +4,7 @@ import com.cezaryzal.entity.Answer;
 import com.cezaryzal.entity.InputSentence;
 import com.cezaryzal.entity.SentenceDTO;
 import com.cezaryzal.manager.ApiService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -13,6 +14,7 @@ public class MemoControllerImp implements MemoController {
 
     private ApiService apiService;
 
+    @Autowired
     public MemoControllerImp(ApiService apiService) {
         this.apiService = apiService;
     }

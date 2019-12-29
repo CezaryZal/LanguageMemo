@@ -4,6 +4,7 @@ import com.cezaryzal.entity.Answer;
 import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.manager.response.modifier.ReplayDateModifier;
 import com.cezaryzal.manager.response.modifier.ReplayLevelModifier;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ public class UpdateSentenceByAnswer {
     private ReplayLevelModifier replayLevelModifier;
     private ReplayDateModifier replayDateModifier;
 
+    @Autowired
     public UpdateSentenceByAnswer(ReplayLevelModifier replayLevelModifier, ReplayDateModifier replayDateModifier) {
         this.replayLevelModifier = replayLevelModifier;
         this.replayDateModifier = replayDateModifier;

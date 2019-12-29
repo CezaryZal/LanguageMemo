@@ -2,6 +2,7 @@ package com.cezaryzal.manager.service.repository;
 
 import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.repository.SentenceRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ public class SentenceServiceImp implements SentenceService{
 
     private SentenceRepo sentenceRepo;
 
+    @Autowired
     public SentenceServiceImp(SentenceRepo sentenceRepo) {
         this.sentenceRepo = sentenceRepo;
     }

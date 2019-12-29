@@ -4,6 +4,7 @@ import com.cezaryzal.entity.Answer;
 import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.entity.SentenceDTO;
 import com.cezaryzal.manager.response.filter.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,6 +15,7 @@ public class IncorrectAnswer {
     private FirstLetters firstLetters;
     private EverySecondLetter everySecondLetter;
 
+    @Autowired
     public IncorrectAnswer(PhraseDivider phraseDivider, FirstLetter firstLetter,
                            FirstLetters firstLetters, EverySecondLetter everySecondLetter) {
         this.phraseDivider = phraseDivider;
