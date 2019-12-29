@@ -1,4 +1,4 @@
-package com.cezaryzal.manager.response.modifier;
+package com.cezaryzal.manager.result.modifier;
 
 import org.springframework.stereotype.Service;
 

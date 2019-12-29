@@ -1,4 +1,4 @@
-package com.cezaryzal.manager.response.filter;
+package com.cezaryzal.manager.result.filter;
 
 import org.springframework.stereotype.Service;
 

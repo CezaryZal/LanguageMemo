@@ -1,4 +1,4 @@
-package com.cezaryzal.manager.response.modifier;
+package com.cezaryzal.manager.result.modifier;
 
 import com.cezaryzal.config.ApiConstants;
 import org.springframework.stereotype.Service;

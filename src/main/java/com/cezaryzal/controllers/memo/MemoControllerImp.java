@@ -1,7 +1,7 @@
 package com.cezaryzal.controllers.memo;
 
 import com.cezaryzal.entity.Answer;
-import com.cezaryzal.entity.InputSentence;
+import com.cezaryzal.entity.AddSentence;
 import com.cezaryzal.entity.SentenceDTO;
 import com.cezaryzal.manager.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class MemoControllerImp implements MemoController {
 
     @PostMapping ("/add")
     @Override
-    public String addNewSentence(@RequestBody InputSentence inputSentence) {
-        return apiService.addNewSentenceThroughInputSentence(inputSentence);
+    public String addNewSentence(@RequestBody AddSentence addSentence) {
+        return apiService.addNewSentenceThroughInputSentence(addSentence);
     }
 }

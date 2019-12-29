@@ -1,4 +1,4 @@
-package com.cezaryzal.manager.response;
+package com.cezaryzal.manager.result;
 
 import com.cezaryzal.config.ApiConstants;
 import com.cezaryzal.entity.Answer;

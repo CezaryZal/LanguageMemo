@@ -1,4 +1,4 @@
-package com.cezaryzal.manager.response.filter;
+package com.cezaryzal.manager.result.filter;
 
 import com.cezaryzal.config.ApiConstants;
 

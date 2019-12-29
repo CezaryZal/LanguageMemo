@@ -1,9 +1,9 @@
-package com.cezaryzal.manager.response;
+package com.cezaryzal.manager.result;
 
 import com.cezaryzal.entity.Answer;
 import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.entity.SentenceDTO;
-import com.cezaryzal.manager.response.filter.*;
+import com.cezaryzal.manager.result.filter.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

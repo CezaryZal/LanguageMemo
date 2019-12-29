@@ -1,9 +1,9 @@
-package com.cezaryzal.manager.response;
+package com.cezaryzal.manager.result;
 
 import com.cezaryzal.entity.Answer;
 import com.cezaryzal.entity.Sentence;
-import com.cezaryzal.manager.response.modifier.ReplayDateModifier;
-import com.cezaryzal.manager.response.modifier.ReplayLevelModifier;
+import com.cezaryzal.manager.result.modifier.ReplayDateModifier;
+import com.cezaryzal.manager.result.modifier.ReplayLevelModifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
