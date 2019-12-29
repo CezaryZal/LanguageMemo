@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -30,6 +31,12 @@ public class SentenceControllerImp implements SentenceController {
     @Override
     public List<Sentence> findAllByReplayDateLessThanEqual(@PathVariable String date) {
         return sentenceService.findAllByReplayDateLessThanEqual(date);
+    }
+
+    @GetMapping("/limit/{number}")
+    @Override
+    public List<Sentence> getListSentenceByLowestReplayLevel(@PathVariable int number) {
+        return sentenceService.getListSentenceByLowestReplayLevel(number);
     }
 
     @GetMapping("/random/{date}")

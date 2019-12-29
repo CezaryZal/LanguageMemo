@@ -7,6 +7,8 @@ import com.cezaryzal.manager.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api")
@@ -35,5 +37,11 @@ public class MemoControllerImp implements MemoController {
     @Override
     public String addNewSentence(@RequestBody AddSentence addSentence) {
         return apiService.addNewSentenceThroughInputSentence(addSentence);
+    }
+
+    @GetMapping("/difficult")
+    @Override
+    public Map<String, String> getMapWithMostDifficultSentence() {
+        return apiService.getMapWithMostDifficultSentence();
     }
 }

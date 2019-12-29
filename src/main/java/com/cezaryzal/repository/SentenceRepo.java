@@ -14,8 +14,11 @@ public interface SentenceRepo extends JpaRepository<Sentence, Long> {
 
     List<Sentence> findByReplayDateLessThanEqual(LocalDate localDate);
 
-@Query(value = "select * from sentence where replay_date <= :localDate order by rand() limit 1",
-        nativeQuery = true)
+    @Query(value = "select * from sentence where replay_level <= :limitReplayLevel", nativeQuery = true)
+    List<Sentence> listSentenceByLowestReplayLevel(@Param("limitReplayLevel") int limitReplayLevel);
+
+    @Query(value = "select * from sentence where replay_date <= :localDate order by rand() limit 1",
+            nativeQuery = true)
     Optional<Sentence> findRandomFirstByReplayDateLessThanEqual(@Param("localDate") LocalDate localDate);
 
 

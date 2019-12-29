@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -27,6 +28,11 @@ public class SentenceServiceImp implements SentenceService{
     @Override
     public List<Sentence> findAllByReplayDateLessThanEqual(String localDate) {
         return sentenceRepo.findByReplayDateLessThanEqual(LocalDate.parse(localDate));
+    }
+
+    @Override
+    public List<Sentence> getListSentenceByLowestReplayLevel(int limitReplayLevel) {
+        return sentenceRepo.listSentenceByLowestReplayLevel(limitReplayLevel);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.cezaryzal.manager.start;
+package com.cezaryzal.manager.first;
 
 import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.entity.SentenceDTO;
