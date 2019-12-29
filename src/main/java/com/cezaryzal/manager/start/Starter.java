@@ -2,20 +2,20 @@ package com.cezaryzal.manager.start;
 
 import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.entity.SentenceDTO;
-import com.cezaryzal.manager.service.sentence.RandomSentence;
+import com.cezaryzal.manager.service.sentence.RandomSentenceFromDb;
 import org.springframework.stereotype.Service;
 
 @Service
 public class Starter {
 
-    private RandomSentence randomSentence;
+    private RandomSentenceFromDb randomSentenceFromDb;
 
-    public Starter(RandomSentence randomSentence) {
-        this.randomSentence = randomSentence;
+    public Starter(RandomSentenceFromDb randomSentenceFromDb) {
+        this.randomSentenceFromDb = randomSentenceFromDb;
     }
 
     public SentenceDTO getFirstSentenceDto() {
-        Sentence randomSentenceByTodayDate = randomSentence.getRandomSentenceByTodayDate();
+        Sentence randomSentenceByTodayDate = randomSentenceFromDb.getRandomSentenceByTodayDate();
 
         return createSentenceDtoFromSentence(randomSentenceByTodayDate);
     }

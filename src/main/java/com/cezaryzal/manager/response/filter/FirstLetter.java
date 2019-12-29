@@ -1,16 +1,16 @@
 package com.cezaryzal.manager.response.filter;
 
-import org.springframework.stereotype.Component;
+import com.cezaryzal.config.ApiConstants;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class FirstLetter {
-    final char INCORRECT_LETTER = '_';
 
     public String getPhraseWithFirstLetter(String phrase) {
         StringBuilder phraseWithFirstLetter = new StringBuilder();
         phraseWithFirstLetter.append(phrase.charAt(0));
         for (int i = 1; i < phrase.length(); i++){
-            phraseWithFirstLetter.append(INCORRECT_LETTER);
+            phraseWithFirstLetter.append(ApiConstants.INCORRECT_LETTER);
         }
         return String.valueOf(phraseWithFirstLetter);
     }

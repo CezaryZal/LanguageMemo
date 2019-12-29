@@ -4,13 +4,10 @@ import com.cezaryzal.entity.Answer;
 import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.entity.SentenceDTO;
 import com.cezaryzal.manager.response.filter.*;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class IncorrectAnswer {
-
-    private Sentence currentlyUsedSentence;
-    private Answer inputAnswer;
 
     private PhraseDivider phraseDivider;
     private FirstLetter firstLetter;
@@ -25,15 +22,7 @@ public class IncorrectAnswer {
         this.everySecondLetter = everySecondLetter;
     }
 
-    public void setCurrentlyUsedSentence(Sentence sentence) {
-        this.currentlyUsedSentence = sentence;
-    }
-
-    public void setInputAnswer(Answer inputAnswer) {
-        this.inputAnswer = inputAnswer;
-    }
-
-    public SentenceDTO inputValidationBasedOnNumberOfTries() {
+    public SentenceDTO inputValidationBasedOnNumberOfTries(Answer inputAnswer, Sentence currentlyUsedSentence) {
 
         String patternPhrase = currentlyUsedSentence.getLanguageEng();
         InputLettersComparator inputLettersComparator = new InputLettersComparator(inputAnswer.getPhrase(), patternPhrase);
@@ -41,45 +30,55 @@ public class IncorrectAnswer {
         int numberOfTries = inputAnswer.getNumberOfTries();
 
         if (numberOfTries == 0){
-            return createSentenceDTOByValidator(progressPhraseByInput);
+            return createSentenceDTOByValidator(progressPhraseByInput, inputAnswer, currentlyUsedSentence);
         }
-        progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, sharePhraseIntoWords());
+        String sharePhraseIntoWords = sharePhraseIntoWords(currentlyUsedSentence);
+        progressPhraseByInput =
+                validProgressPhraseByPatternAndFilter(progressPhraseByInput, sharePhraseIntoWords, currentlyUsedSentence);
+
         if (numberOfTries == 1) {
-            return createSentenceDTOByValidator(progressPhraseByInput);
+            return createSentenceDTOByValidator(progressPhraseByInput, inputAnswer, currentlyUsedSentence);
         }
         String phraseWithFirstLetter = firstLetter.getPhraseWithFirstLetter(patternPhrase);
-        progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, phraseWithFirstLetter);
+        progressPhraseByInput =
+                validProgressPhraseByPatternAndFilter(progressPhraseByInput, phraseWithFirstLetter, currentlyUsedSentence);
+
         if (numberOfTries == 2){
-            return createSentenceDTOByValidator(progressPhraseByInput);
+            return createSentenceDTOByValidator(progressPhraseByInput, inputAnswer, currentlyUsedSentence);
         }
-        firstLetters.setPatternPhrase(patternPhrase);
-        String phraseWithFirstLetters = firstLetters.getPhraseWithFirstLetters(sharePhraseIntoWords());
-        progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, phraseWithFirstLetters);
+        String phraseWithFirstLetters =
+                firstLetters.getPhraseWithFirstLetters(sharePhraseIntoWords(currentlyUsedSentence), patternPhrase);
+        progressPhraseByInput =
+                validProgressPhraseByPatternAndFilter(progressPhraseByInput, phraseWithFirstLetters, currentlyUsedSentence);
+
         if (numberOfTries == 3){
-            return createSentenceDTOByValidator(progressPhraseByInput);
+            return createSentenceDTOByValidator(progressPhraseByInput, inputAnswer, currentlyUsedSentence);
         }
         String phraseWithEverySecondLetter = everySecondLetter.getPhraseWithEverySecondLetter(patternPhrase);
-        progressPhraseByInput = validProgressPhraseByPatternAndFilter(progressPhraseByInput, phraseWithEverySecondLetter);
+        progressPhraseByInput =
+                validProgressPhraseByPatternAndFilter(progressPhraseByInput, phraseWithEverySecondLetter, currentlyUsedSentence);
+
         if (numberOfTries == 4){
-            return createSentenceDTOByValidator(progressPhraseByInput);
+            return createSentenceDTOByValidator(progressPhraseByInput, inputAnswer, currentlyUsedSentence);
         }
         progressPhraseByInput = currentlyUsedSentence.getLanguageEng();
 
-        return createSentenceDTOByValidator(progressPhraseByInput);
+        return createSentenceDTOByValidator(progressPhraseByInput, inputAnswer, currentlyUsedSentence);
     }
 
-    private String sharePhraseIntoWords() {
+    private String sharePhraseIntoWords(Sentence currentlyUsedSentence) {
         return phraseDivider.sharePhraseIntoWords(currentlyUsedSentence.getLanguageEng());
     }
 
-    private String validProgressPhraseByPatternAndFilter(String progressPhraseByInput, String modifiedPhrase) {
-
+    private String validProgressPhraseByPatternAndFilter(String progressPhraseByInput,
+                                                         String modifiedPhrase,
+                                                         Sentence currentlyUsedSentence) {
         PhrasesValidator phrasesValidator = new PhrasesValidator(progressPhraseByInput, currentlyUsedSentence.getLanguageEng());
-        phrasesValidator.setModifiedPhrase(modifiedPhrase);
-        return phrasesValidator.validProgressPhraseByPatternAndFilter();
+
+        return phrasesValidator.validProgressPhraseByPatternAndFilter(modifiedPhrase);
     }
 
-    private SentenceDTO createSentenceDTOByValidator(String progressPhrase) {
+    private SentenceDTO createSentenceDTOByValidator(String progressPhrase, Answer inputAnswer, Sentence currentlyUsedSentence) {
 
         int numberOfTries = inputAnswer.getNumberOfTries() + 1;
         return new SentenceDTO(

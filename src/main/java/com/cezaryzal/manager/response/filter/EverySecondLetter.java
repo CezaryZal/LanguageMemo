@@ -1,20 +1,19 @@
 package com.cezaryzal.manager.response.filter;
 
-import org.springframework.stereotype.Component;
+import com.cezaryzal.config.ApiConstants;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class EverySecondLetter {
-    final char INCORRECT_LETTER = '_';
 
     public String getPhraseWithEverySecondLetter(String phrase) {
         StringBuilder phraseWithEverySecondLetter = new StringBuilder();
 
         for (int i = 0; i < phrase.length(); i++) {
 
-            char characterToAppend = i % 2 != 0 ? phrase.charAt(i) : INCORRECT_LETTER;
+            char characterToAppend = i % 2 != 0 ? phrase.charAt(i) : ApiConstants.INCORRECT_LETTER;
             phraseWithEverySecondLetter.append(characterToAppend);
         }
         return String.valueOf(phraseWithEverySecondLetter);
     }
-
 }

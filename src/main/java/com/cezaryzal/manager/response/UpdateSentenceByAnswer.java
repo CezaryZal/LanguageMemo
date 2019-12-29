@@ -4,14 +4,12 @@ import com.cezaryzal.entity.Answer;
 import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.manager.response.modifier.ReplayDateModifier;
 import com.cezaryzal.manager.response.modifier.ReplayLevelModifier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
-@Component
+@Service
 public class UpdateSentenceByAnswer {
-
-    private Sentence currentlyUsedSentence;
 
     private ReplayLevelModifier replayLevelModifier;
     private ReplayDateModifier replayDateModifier;
@@ -21,21 +19,16 @@ public class UpdateSentenceByAnswer {
         this.replayDateModifier = replayDateModifier;
     }
 
-    public void setCurrentlyUsedSentence(Sentence currentlyUsedSentence) {
-        this.currentlyUsedSentence = currentlyUsedSentence;
-    }
-
-    public Sentence getUpdatedSentence(Answer inputAnswer){
-        int modifiedReplayLevel = modifyReplayLevel(inputAnswer.getNumberOfTries());
+    public Sentence getUpdatedSentence(Answer inputAnswer, Sentence currentlyUsedSentence){
+        int modifiedReplayLevel = modifyReplayLevel(inputAnswer.getNumberOfTries(), currentlyUsedSentence);
         currentlyUsedSentence.setReplayLevel(modifiedReplayLevel);
         currentlyUsedSentence.setReplayDate(modifyReplayDate(modifiedReplayLevel));
 
         return currentlyUsedSentence;
     }
     
-    private int modifyReplayLevel(int numberOfTries){
-        replayLevelModifier.setReplayLevel(currentlyUsedSentence.getReplayLevel());
-        return replayLevelModifier.changeReplayLevelByNumberOfTries(numberOfTries);
+    private int modifyReplayLevel(int numberOfTries, Sentence currentlyUsedSentence){
+        return replayLevelModifier.changeReplayLevelByNumberOfTries(numberOfTries, currentlyUsedSentence.getReplayLevel());
     }
     
     private LocalDate modifyReplayDate(int replayLevel){

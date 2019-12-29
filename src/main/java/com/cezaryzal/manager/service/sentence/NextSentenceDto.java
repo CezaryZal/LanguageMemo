@@ -2,26 +2,22 @@ package com.cezaryzal.manager.service.sentence;
 
 import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.entity.SentenceDTO;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class NextSentenceDto {
 
-    private Sentence nextRandomSentenceByTodayDate;
+    private RandomSentenceFromDb randomSentenceFromDb;
 
-    private RandomSentence randomSentence;
-
-    public NextSentenceDto(RandomSentence randomSentence) {
-        this.randomSentence = randomSentence;
+    public NextSentenceDto(RandomSentenceFromDb randomSentenceFromDb) {
+        this.randomSentenceFromDb = randomSentenceFromDb;
     }
 
     public SentenceDTO getNextSentenceDto(boolean isCorrectAnswer) {
-        nextRandomSentenceByTodayDate = randomSentence.getRandomSentenceByTodayDate();
-
-        return createSentenceDtoFromSentence(isCorrectAnswer);
+        return createSentenceDtoFromSentence(isCorrectAnswer, randomSentenceFromDb.getRandomSentenceByTodayDate());
     }
 
-    private SentenceDTO createSentenceDtoFromSentence(boolean isCorrectAnswer) {
+    private SentenceDTO createSentenceDtoFromSentence(boolean isCorrectAnswer, Sentence nextRandomSentenceByTodayDate) {
         return new SentenceDTO(
                 nextRandomSentenceByTodayDate.getId(),
                 nextRandomSentenceByTodayDate.getLanguagePol(),

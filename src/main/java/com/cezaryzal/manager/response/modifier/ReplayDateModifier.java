@@ -1,10 +1,10 @@
 package com.cezaryzal.manager.response.modifier;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
-@Component
+@Service
 public class ReplayDateModifier {
 
     private LocalDate today = LocalDate.now();

@@ -1,9 +1,9 @@
 package com.cezaryzal.manager.response.filter;
 
+import com.cezaryzal.config.ApiConstants;
+
 public class PhrasesValidator {
-    final char INCORRECT_LETTER = '_';
     StringBuilder resultPhrase;
-    String modifiedPhrase;
 
     String progressPhraseByInput;
     String patternPhrase;
@@ -13,25 +13,21 @@ public class PhrasesValidator {
         this.patternPhrase = patternPhrase;
     }
 
-    public void setModifiedPhrase(String modifiedPhrase) {
-        this.modifiedPhrase = modifiedPhrase;
-    }
-
-    public String validProgressPhraseByPatternAndFilter() {
+    public String validProgressPhraseByPatternAndFilter(String modifiedPhrase) {
         resultPhrase = new StringBuilder();
         for (int i = 0; i < patternPhrase.length(); i++) {
-            compareAndInsertLetterToProgressSentence(i);
+            compareAndInsertLetterToProgressSentence(i, modifiedPhrase);
         }
         return String.valueOf(resultPhrase);
     }
 
-    private void compareAndInsertLetterToProgressSentence(int numberOfLetterCompared){
+    private void compareAndInsertLetterToProgressSentence(int numberOfLetterCompared, String modifiedPhrase){
         if (modifiedPhrase.charAt(numberOfLetterCompared) == patternPhrase.charAt(numberOfLetterCompared)) {
             resultPhrase.append(modifiedPhrase.charAt(numberOfLetterCompared));
         } else if (progressPhraseByInput.charAt(numberOfLetterCompared) == patternPhrase.charAt(numberOfLetterCompared)){
             resultPhrase.append(progressPhraseByInput.charAt(numberOfLetterCompared));
         } else {
-            resultPhrase.append(INCORRECT_LETTER);
+            resultPhrase.append(ApiConstants.INCORRECT_LETTER);
         }
     }
 }

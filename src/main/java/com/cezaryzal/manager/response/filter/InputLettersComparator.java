@@ -1,7 +1,8 @@
 package com.cezaryzal.manager.response.filter;
 
+import com.cezaryzal.config.ApiConstants;
+
 public class InputLettersComparator {
-    final char INCORRECT_LETTER = '_';
     StringBuilder progressSentence;
     String inputPhrase;
     String patternPhrase;
@@ -30,16 +31,15 @@ public class InputLettersComparator {
                     patternPhrase.toLowerCase().charAt(numberOfLetterCompared));
             progressSentence.append(letterToInsert);
         } catch (StringIndexOutOfBoundsException e) {
-            progressSentence.append(INCORRECT_LETTER);
+            progressSentence.append(ApiConstants.INCORRECT_LETTER);
         }
     }
 
     private char compareInputLettersWithExpected(char actualLetter, char expectedLetter) {
-        return actualLetter == expectedLetter ? expectedLetter : INCORRECT_LETTER;
+        return actualLetter == expectedLetter ? expectedLetter : ApiConstants.INCORRECT_LETTER;
     }
 
     private String getProgressSentence() {
         return String.valueOf(progressSentence);
     }
-
 }

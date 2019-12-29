@@ -1,12 +1,12 @@
-package com.cezaryzal.manager.service.sentence.beforeAddNew;
+package com.cezaryzal.manager.service.sentence.adds;
 
 import com.cezaryzal.entity.InputSentence;
 import com.cezaryzal.entity.Sentence;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
-@Component
+@Service
 public class SupplementData {
 
     public Sentence fillInMissingData (InputSentence inputSentence){

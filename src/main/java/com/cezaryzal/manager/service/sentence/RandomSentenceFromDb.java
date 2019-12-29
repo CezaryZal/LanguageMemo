@@ -8,11 +8,11 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
-public class RandomSentence {
+public class RandomSentenceFromDb {
 
     private SentenceRepo sentenceRepo;
 
-    public RandomSentence(SentenceRepo sentenceRepo) {
+    public RandomSentenceFromDb(SentenceRepo sentenceRepo) {
         this.sentenceRepo = sentenceRepo;
     }
 
@@ -20,8 +20,8 @@ public class RandomSentence {
         Optional<Sentence> nextRandomSentenceByTodayDate = sentenceRepo
                 .findRandomFirstByReplayDateLessThanEqual(LocalDate.now());
 
-        return nextRandomSentenceByTodayDate.orElseThrow(
-                () -> new RuntimeException("Brak kolajnych sformułowań do powtórzenia")
+        return nextRandomSentenceByTodayDate
+                .orElseThrow(() -> new RuntimeException("Brak kolajnych sformułowań do powtórzenia")
         );
     }
 
