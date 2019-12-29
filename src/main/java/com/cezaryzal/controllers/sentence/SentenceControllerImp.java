@@ -5,6 +5,7 @@ import com.cezaryzal.manager.service.repository.SentenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -27,7 +28,7 @@ public class SentenceControllerImp implements SentenceController {
 
     @GetMapping("/dates/{date}")
     @Override
-    public Iterable<Sentence> findAllByReplayDateLessThanEqual(@PathVariable String date) {
+    public List<Sentence> findAllByReplayDateLessThanEqual(@PathVariable String date) {
         return sentenceService.findAllByReplayDateLessThanEqual(date);
     }
 
@@ -39,7 +40,7 @@ public class SentenceControllerImp implements SentenceController {
 
     @GetMapping
     @Override
-    public Iterable<Sentence> findAll() {
+    public List<Sentence> findAll() {
         return sentenceService.findAll();
     }
 

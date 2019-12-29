@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,7 +25,7 @@ public class SentenceServiceImp implements SentenceService{
     }
 
     @Override
-    public Iterable<Sentence> findAllByReplayDateLessThanEqual(String localDate) {
+    public List<Sentence> findAllByReplayDateLessThanEqual(String localDate) {
         return sentenceRepo.findByReplayDateLessThanEqual(LocalDate.parse(localDate));
     }
 
@@ -34,7 +35,7 @@ public class SentenceServiceImp implements SentenceService{
     }
 
     @Override
-    public Iterable<Sentence> findAll() {
+    public List<Sentence> findAll() {
         return sentenceRepo.findAll();
     }
 
