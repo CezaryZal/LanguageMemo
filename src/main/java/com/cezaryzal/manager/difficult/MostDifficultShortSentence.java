@@ -26,9 +26,8 @@ public class MostDifficultShortSentence {
 
     private Map<String, String> modifyListToGetMapDifficultSentences (List<Sentence> mostDifficultSentence){
         Map<String, String> mapDifficultSentences = new HashMap<>();
-        for (Sentence currentSentence : mostDifficultSentence){
-            mapDifficultSentences.put(currentSentence.getLanguagePol(), currentSentence.getLanguageEng());
-        }
+        mostDifficultSentence.forEach(sentence -> mapDifficultSentences.put(sentence.getLanguagePol(), sentence.getLanguageEng()));
+
         return mapDifficultSentences;
     }
 }
