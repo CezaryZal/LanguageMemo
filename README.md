@@ -12,4 +12,4 @@ Backend:
 ## To do
 - add Spring Security
 - add Spring security (Authentication and authorization type Basic) based on DB
-- add valid input answer
+- add valid input inputAnswer

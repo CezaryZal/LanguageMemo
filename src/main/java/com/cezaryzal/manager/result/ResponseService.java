@@ -1,7 +1,7 @@
 package com.cezaryzal.manager.result;
 
 import com.cezaryzal.config.ApiConstants;
-import com.cezaryzal.entity.Answer;
+import com.cezaryzal.entity.InputAnswer;
 import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.entity.SentenceDTO;
 import com.cezaryzal.manager.service.repository.SentenceService;
@@ -32,7 +32,7 @@ public class ResponseService {
         this.nextSentenceDto = nextSentenceDto;
     }
 
-    public SentenceDTO resultByInputAnswer(Answer inputAnswer) {
+    public SentenceDTO resultByInputAnswer(InputAnswer inputAnswer) {
         Sentence currentlyUsedSentence = getCurrentlyUsedSentenceFromDBById(inputAnswer.getSentenceId());
         boolean answerIsCorrect = checkingCorrectnessOfPhraseTranslation(inputAnswer, currentlyUsedSentence);
 
@@ -47,17 +47,17 @@ public class ResponseService {
                 .orElseThrow(() -> new EntityNotFoundException("Szukany record na podstawie id nie istnieje"));
     }
 
-    private boolean checkingCorrectnessOfPhraseTranslation(Answer inputAnswer, Sentence currentlyUsedSentence) {
+    private boolean checkingCorrectnessOfPhraseTranslation(InputAnswer inputAnswer, Sentence currentlyUsedSentence) {
         return sentencesComparator.comparingInputPhrasesWithPattern(inputAnswer, currentlyUsedSentence);
     }
 
-    private SentenceDTO handleCorrectAnswer(Answer inputAnswer, Sentence currentlyUsedSentence) {
+    private SentenceDTO handleCorrectAnswer(InputAnswer inputAnswer, Sentence currentlyUsedSentence) {
         updateCurrentlyUsedSentence(updateSentenceByAnswer.getUpdatedSentence(inputAnswer, currentlyUsedSentence));
 
         return getNextSentenceDtoToShow(true);
     }
 
-    private SentenceDTO handleIncorrectAnswer(Answer inputAnswer, Sentence currentlyUsedSentence) {
+    private SentenceDTO handleIncorrectAnswer(InputAnswer inputAnswer, Sentence currentlyUsedSentence) {
 
         if (inputAnswer.getNumberOfTries() <= ApiConstants.MAX_REPLAY_LEVEL_VALUE){
             return incorrectAnswer.inputValidationBasedOnNumberOfTries(inputAnswer, currentlyUsedSentence);

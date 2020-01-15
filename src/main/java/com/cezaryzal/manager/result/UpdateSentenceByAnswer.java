@@ -1,6 +1,6 @@
 package com.cezaryzal.manager.result;
 
-import com.cezaryzal.entity.Answer;
+import com.cezaryzal.entity.InputAnswer;
 import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.manager.result.modifier.ReplayDateModifier;
 import com.cezaryzal.manager.result.modifier.ReplayLevelModifier;
@@ -21,7 +21,7 @@ public class UpdateSentenceByAnswer {
         this.replayDateModifier = replayDateModifier;
     }
 
-    public Sentence getUpdatedSentence(Answer inputAnswer, Sentence currentlyUsedSentence){
+    public Sentence getUpdatedSentence(InputAnswer inputAnswer, Sentence currentlyUsedSentence){
         int modifiedReplayLevel = modifyReplayLevel(inputAnswer.getNumberOfTries(), currentlyUsedSentence);
         currentlyUsedSentence.setReplayLevel(modifiedReplayLevel);
         currentlyUsedSentence.setReplayDate(modifyReplayDate(modifiedReplayLevel));

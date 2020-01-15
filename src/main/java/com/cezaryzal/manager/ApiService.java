@@ -1,7 +1,7 @@
 package com.cezaryzal.manager;
 
-import com.cezaryzal.entity.Answer;
-import com.cezaryzal.entity.AddSentence;
+import com.cezaryzal.entity.InputAnswer;
+import com.cezaryzal.entity.SentenceToAdd;
 import com.cezaryzal.entity.SentenceDTO;
 import com.cezaryzal.manager.difficult.MostDifficultShortSentence;
 import com.cezaryzal.manager.result.ResponseService;
@@ -36,14 +36,14 @@ public class ApiService {
         return starter.getFirstSentenceDto();
     }
 
-    public String addNewSentenceThroughInputSentence (AddSentence addSentence){
-        sentenceService.addNewSentence(supplementData.fillInMissingData(addSentence));
+    public String addNewSentenceThroughInputSentence (SentenceToAdd sentenceToAdd){
+        sentenceService.addNewSentence(supplementData.fillInMissingData(sentenceToAdd));
 
         return "Nowy record został umieszczony w bazie danych";
     }
 
-    public SentenceDTO getResultByInputAnswer(Answer answer){
-        return responseService.resultByInputAnswer(answer);
+    public SentenceDTO getResultByInputAnswer(InputAnswer inputAnswer){
+        return responseService.resultByInputAnswer(inputAnswer);
     }
 
     public Map<String, String> getMapWithMostDifficultSentence(){

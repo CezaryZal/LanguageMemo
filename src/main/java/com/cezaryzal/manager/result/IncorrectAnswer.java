@@ -1,6 +1,6 @@
 package com.cezaryzal.manager.result;
 
-import com.cezaryzal.entity.Answer;
+import com.cezaryzal.entity.InputAnswer;
 import com.cezaryzal.entity.Sentence;
 import com.cezaryzal.entity.SentenceDTO;
 import com.cezaryzal.manager.result.filter.*;
@@ -24,7 +24,7 @@ public class IncorrectAnswer {
         this.everySecondLetter = everySecondLetter;
     }
 
-    public SentenceDTO inputValidationBasedOnNumberOfTries(Answer inputAnswer, Sentence currentlyUsedSentence) {
+    public SentenceDTO inputValidationBasedOnNumberOfTries(InputAnswer inputAnswer, Sentence currentlyUsedSentence) {
 
         String patternPhrase = currentlyUsedSentence.getLanguageEng();
         InputLettersComparator inputLettersComparator = new InputLettersComparator(inputAnswer.getPhrase(), patternPhrase);
@@ -80,7 +80,7 @@ public class IncorrectAnswer {
         return phrasesValidator.validProgressPhraseByPatternAndFilter(modifiedPhrase);
     }
 
-    private SentenceDTO createSentenceDTOByValidator(String progressPhrase, Answer inputAnswer, Sentence currentlyUsedSentence) {
+    private SentenceDTO createSentenceDTOByValidator(String progressPhrase, InputAnswer inputAnswer, Sentence currentlyUsedSentence) {
 
         int numberOfTries = inputAnswer.getNumberOfTries() + 1;
         return new SentenceDTO(

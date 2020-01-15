@@ -1,7 +1,7 @@
 package com.cezaryzal.controllers.memo;
 
-import com.cezaryzal.entity.Answer;
-import com.cezaryzal.entity.AddSentence;
+import com.cezaryzal.entity.InputAnswer;
+import com.cezaryzal.entity.SentenceToAdd;
 import com.cezaryzal.entity.SentenceDTO;
 
 import java.util.Map;
@@ -10,9 +10,9 @@ public interface MemoController {
 
     SentenceDTO getFirstSentence ();
 
-    SentenceDTO resultByInputAnswer (Answer answer);
+    SentenceDTO resultByInputAnswer (InputAnswer inputAnswer);
 
-    String addNewSentence (AddSentence addSentence);
+    String addNewSentence (SentenceToAdd sentenceToAdd);
 
     Map<String, String> getMapWithMostDifficultSentence();
 
