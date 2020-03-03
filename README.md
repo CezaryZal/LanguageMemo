@@ -1,6 +1,7 @@
 # LANGUAGE MEMO
 
-###Description
+### Description
+
 The application enables the dynamic learning of sentences in a foreign language.
 The algorithm determines the daily number of sentences to repeat. 
 New and more difficult Sentences should be repeated every day, 
@@ -21,7 +22,8 @@ The expected result is that the well-known sentences will be repeated once a wee
 but new sentences will be repeated every day. That is why  I decided to create this application, 
 which enables effective learning.
 
-####Usage
+#### Usage
+
 To repeat on daily basis the sentences in a foreign language you must run the program 
 and enable the frontend application (*index.html* file). Then, 
 the home page displays the sentence in the original language and hint.  
