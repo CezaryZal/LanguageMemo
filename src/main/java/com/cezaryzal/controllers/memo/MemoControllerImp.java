@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -43,5 +44,11 @@ public class MemoControllerImp implements MemoController {
     @Override
     public Map<String, String> getMapWithMostDifficultSentence() {
         return apiService.getMapWithMostDifficultSentence();
+    }
+
+    @GetMapping("/counter-daily-sentences")
+    @Override
+    public Optional<Integer> getCounter() {
+        return apiService.getCounterReplayDateLessThanEqual();
     }
 }

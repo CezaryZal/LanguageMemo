@@ -41,6 +41,11 @@ public class SentenceServiceImp implements SentenceService{
     }
 
     @Override
+    public Optional<Integer> getCounter(LocalDate localDate) {
+        return sentenceRepo.getCounterReplayDateLessThanEqual(localDate);
+    }
+
+    @Override
     public List<Sentence> findAll() {
         return sentenceRepo.findAll();
     }

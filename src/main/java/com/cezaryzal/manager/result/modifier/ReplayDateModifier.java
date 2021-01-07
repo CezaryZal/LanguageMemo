@@ -21,9 +21,9 @@ public class ReplayDateModifier {
             case 3:
                 return modifierDate = today.plusDays(3L);
             case 4:
-                return modifierDate = today.plusDays(4L);
+                return modifierDate = today.plusDays(5L);
             default:
-                return modifierDate = today.plusDays(7L);
+                return modifierDate = today.plusDays(10L);
         }
     }
 }

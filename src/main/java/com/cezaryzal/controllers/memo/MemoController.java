@@ -5,6 +5,7 @@ import com.cezaryzal.entity.SentenceToAdd;
 import com.cezaryzal.entity.SentenceDTO;
 
 import java.util.Map;
+import java.util.Optional;
 
 public interface MemoController {
 
@@ -15,5 +16,7 @@ public interface MemoController {
     String addNewSentence (SentenceToAdd sentenceToAdd);
 
     Map<String, String> getMapWithMostDifficultSentence();
+
+    Optional<Integer> getCounter();
 
 }

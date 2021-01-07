@@ -11,7 +11,9 @@ import com.cezaryzal.manager.first.Starter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class ApiService {
@@ -48,6 +50,10 @@ public class ApiService {
 
     public Map<String, String> getMapWithMostDifficultSentence(){
         return difficultSentence.getMapWithDifficultSentence();
+    }
+
+    public Optional<Integer> getCounterReplayDateLessThanEqual() {
+        return sentenceService.getCounter(LocalDate.now());
     }
 
 }

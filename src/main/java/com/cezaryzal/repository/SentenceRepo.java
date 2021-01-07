@@ -21,5 +21,8 @@ public interface SentenceRepo extends JpaRepository<Sentence, Long> {
             nativeQuery = true)
     Optional<Sentence> findRandomFirstByReplayDateLessThanEqual(@Param("localDate") LocalDate localDate);
 
+    @Query(value = "select count(*) from sentence where replay_date <= :localDate",
+            nativeQuery = true)
+    Optional<Integer> getCounterReplayDateLessThanEqual(@Param("localDate") LocalDate localDate);
 
 }
