@@ -2,9 +2,9 @@ CREATE DATABASE IF NOT EXISTS `language_memo`;
 
 SET FOREIGN_KEY_CHECKS = 0;
 
-DROP TABLE IF EXISTS `sentence`;
+DROP TABLE IF EXISTS `sentenceModel`;
 
-CREATE TABLE `sentence`(
+CREATE TABLE `sentenceModel`(
                 `id` BIGINT NOT NULL AUTO_INCREMENT,
                 `language_eng` VARCHAR (32) NOT NULL,
                 `language_pol` VARCHAR (32) NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE `sentence`(
                 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-INSERT INTO `sentence` VALUES
+INSERT INTO `sentenceModel` VALUES
 (1, 'home', 'dom', 'miejsce, nie budynek', 'znasz', 1, 1, '2019-12-15', '2019-12-15', '2019-12-15'),
 (2, 'field', 'pole', 'miejsce do okreslania zmiennych', 'na roli', 1, 1, '2019-12-14', '2019-12-15', '2019-12-15'),
 (3, 'granted', 'zgoda', 'inaczej pozwolenie(pol)', 'po kłótni', 1, 1, '2019-12-14', '2019-12-15', '2019-12-15'),
