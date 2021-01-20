@@ -6,15 +6,16 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-public interface SentenceRepoService {
-
-    Optional<SentenceModel> findById(Long id);
+public interface RepoService {
 
     List<SentenceModel> findAllByReplayDateLessThanEqual(String localDate);
 
     List<SentenceModel> getListSentenceByLowestReplayLevel(int limitReplayLevel);
 
-    Optional<SentenceModel> findRandomFirstByReplayDateLessThanEqual(Object localDate);
+    Optional<SentenceModel> findRandomFirstByReplayDateLessThanEqual(Object inputDate);
+
+
+    Optional<SentenceModel> findById(Long id);
 
     List<SentenceModel> findAll();
 

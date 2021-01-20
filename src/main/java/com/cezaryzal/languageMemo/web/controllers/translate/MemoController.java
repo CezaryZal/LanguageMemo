@@ -1,4 +1,4 @@
-package com.cezaryzal.languageMemo.web.controllers.memo;
+package com.cezaryzal.languageMemo.web.controllers.translate;
 
 import com.cezaryzal.languageMemo.application.translate.components.TranslateComponentInput;
 import com.cezaryzal.languageMemo.application.model.AppendSentence;

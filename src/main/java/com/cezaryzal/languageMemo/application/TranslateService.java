@@ -6,9 +6,10 @@ import com.cezaryzal.languageMemo.application.model.AppendSentence;
 import com.cezaryzal.languageMemo.application.translate.add.SentenceModelCreator;
 import com.cezaryzal.languageMemo.application.translate.difficult.ShortSentenceFromNativeDifficultImpl;
 import com.cezaryzal.languageMemo.application.translate.first.TranslateFromNativeFirstImpl;
-import com.cezaryzal.languageMemo.application.translate.result.ResponseService;
-import com.cezaryzal.languageMemo.application.reposervice.SentenceRepoService;
+import com.cezaryzal.languageMemo.application.translate.result.FromNativeResponseService;
+import com.cezaryzal.languageMemo.application.reposervice.RepoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,20 +17,23 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class ApiService {
+public class TranslateService {
 
-    private final SentenceRepoService sentenceRepoService;
+    private final RepoService repoService;
     private final SentenceModelCreator sentenceModelCreator;
-    private final ResponseService responseService;
+    private final FromNativeResponseService fromNativeResponseService;
     private final TranslateFromNativeFirstImpl translateFromNativeFirstImpl;
     private final ShortSentenceFromNativeDifficultImpl difficultSentence;
 
     @Autowired
-    public ApiService(SentenceRepoService sentenceRepoService, SentenceModelCreator sentenceModelCreator,
-                      ResponseService responseService, TranslateFromNativeFirstImpl translateFromNativeFirstImpl, ShortSentenceFromNativeDifficultImpl difficultSentence) {
-        this.sentenceRepoService = sentenceRepoService;
+    public TranslateService(@Qualifier("fromNativeRepoServiceImp") RepoService repoService,
+                            SentenceModelCreator sentenceModelCreator,
+                            FromNativeResponseService fromNativeResponseService,
+                            TranslateFromNativeFirstImpl translateFromNativeFirstImpl,
+                            ShortSentenceFromNativeDifficultImpl difficultSentence) {
+        this.repoService = repoService;
         this.sentenceModelCreator = sentenceModelCreator;
-        this.responseService = responseService;
+        this.fromNativeResponseService = fromNativeResponseService;
         this.translateFromNativeFirstImpl = translateFromNativeFirstImpl;
         this.difficultSentence = difficultSentence;
     }
@@ -39,13 +43,13 @@ public class ApiService {
     }
 
     public String addNewSentenceThroughInputSentence (AppendSentence appendSentence){
-        sentenceRepoService.addNewSentence(sentenceModelCreator.createByInput(appendSentence));
+        repoService.addNewSentence(sentenceModelCreator.createByInput(appendSentence));
 
         return "Nowy record został umieszczony w bazie danych";
     }
 
     public TranslateComponentDto getResultByInputAnswer(TranslateComponentInput translateComponentInput){
-        return responseService.resultByInputAnswer(translateComponentInput);
+        return fromNativeResponseService.resultByInputAnswer(translateComponentInput);
     }
 
     public Map<String, String> getMapWithMostDifficultSentence(){
@@ -53,7 +57,7 @@ public class ApiService {
     }
 
     public Optional<Integer> getCounterReplayDateLessThanEqual() {
-        return sentenceRepoService.getCounter(LocalDate.now());
+        return repoService.getCounter(LocalDate.now());
     }
 
 }
