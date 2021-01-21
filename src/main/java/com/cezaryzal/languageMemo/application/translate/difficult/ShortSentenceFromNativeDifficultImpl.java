@@ -7,12 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
-public class ShortSentenceFromNativeDifficultImpl implements Difficult{
+public class ShortSentenceFromNativeDifficultImpl extends MapDifficultSentenceCreator implements Difficult{
 
     private final RepoService repoService;
 
@@ -27,13 +26,5 @@ public class ShortSentenceFromNativeDifficultImpl implements Difficult{
         List<SentenceModel> mostDifficultSentenceModel =
                 repoService.getListSentenceByLowestReplayLevel(1);
         return modifyListToGetMapDifficultSentences(mostDifficultSentenceModel);
-    }
-
-    private Map<String, String> modifyListToGetMapDifficultSentences (List<SentenceModel> mostDifficultSentenceModel){
-        Map<String, String> mapDifficultSentences = new HashMap<>();
-        mostDifficultSentenceModel.forEach(sentence -> mapDifficultSentences
-                .put(sentence.getLanguagePol(), sentence.getLanguageEng()));
-
-        return mapDifficultSentences;
     }
 }

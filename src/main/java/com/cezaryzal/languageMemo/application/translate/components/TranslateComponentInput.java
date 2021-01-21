@@ -8,4 +8,5 @@ public class TranslateComponentInput {
     private Long sentenceId;
     private String phrase;
     private int numberOfTries;
+    private String type;
 }

@@ -53,9 +53,12 @@ public class FromNativeResponseService {
                 .orElseThrow(() -> new EntityNotFoundException("Szukany record na podstawie id nie istnieje"));
     }
 
+    //TODO usunąć type z componentu TranslateComponentInput
     private boolean checkingCorrectnessOfPhraseTranslation(TranslateComponentInput translateComponentInput,
                                                            SentenceModel currentlyUsedSentenceModel) {
-        return sentencesComparator.comparingInputPhrasesWithPattern(translateComponentInput,
+
+        return sentencesComparator.comparingInputPhrasesWithPattern(translateComponentInput.getType(),
+                                                                    translateComponentInput,
                                                                     currentlyUsedSentenceModel);
     }
 
