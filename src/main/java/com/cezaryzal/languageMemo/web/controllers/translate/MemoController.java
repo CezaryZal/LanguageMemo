@@ -13,8 +13,6 @@ public interface MemoController {
 
     TranslateComponentDto resultByInputAnswer (TranslateComponentInput translateComponentInput);
 
-    String addNewSentence (AppendSentence appendSentence);
-
     Map<String, String> getMapWithMostDifficultSentence();
 
     Optional<Integer> getCounter();

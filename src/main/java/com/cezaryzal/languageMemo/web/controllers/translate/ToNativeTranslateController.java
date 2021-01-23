@@ -1,8 +1,8 @@
 package com.cezaryzal.languageMemo.web.controllers.translate;
 
-import com.cezaryzal.languageMemo.application.translate.components.TranslateComponentInput;
-import com.cezaryzal.languageMemo.application.translate.components.TranslateComponentDto;
 import com.cezaryzal.languageMemo.application.TranslateService;
+import com.cezaryzal.languageMemo.application.translate.components.TranslateComponentDto;
+import com.cezaryzal.languageMemo.application.translate.components.TranslateComponentInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,28 +12,29 @@ import java.util.Optional;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/fromNative")
-public class FromNativeTranslateControllerImp implements MemoController {
+public class ToNativeTranslateController implements MemoController{
 
     private final TranslateService translateService;
 
     @Autowired
-    public FromNativeTranslateControllerImp(TranslateService translateService) {
+    public ToNativeTranslateController(TranslateService translateService) {
         this.translateService = translateService;
     }
+
 
     @GetMapping("/first")
     @Override
     public TranslateComponentDto getFirstSentence() {
         return translateService
-                .handleFromNativeTranslateService()
+                .handleToNativeTranslateService()
                 .getFirstSentenceDto();
     }
 
-    @PostMapping ("/result")
+    @PostMapping("/result")
     @Override
     public TranslateComponentDto resultByInputAnswer(@RequestBody TranslateComponentInput translateComponentInput) {
         return translateService
-                .handleFromNativeTranslateService()
+                .handleToNativeTranslateService()
                 .getResultByInputAnswer(translateComponentInput);
     }
 
@@ -41,7 +42,7 @@ public class FromNativeTranslateControllerImp implements MemoController {
     @Override
     public Map<String, String> getMapWithMostDifficultSentence() {
         return translateService
-                .handleFromNativeTranslateService()
+                .handleToNativeTranslateService()
                 .getMapWithMostDifficultSentence();
     }
 
@@ -49,7 +50,7 @@ public class FromNativeTranslateControllerImp implements MemoController {
     @Override
     public Optional<Integer> getCounter() {
         return translateService
-                .handleFromNativeTranslateService()
+                .handleToNativeTranslateService()
                 .getCounterReplayDateLessThanEqual();
     }
 }

@@ -1,4 +1,4 @@
-package com.cezaryzal.languageMemo.application.translate;
+package com.cezaryzal.languageMemo.application.translate.result;
 
 import com.cezaryzal.languageMemo.application.translate.components.TranslateComponentInput;
 import com.cezaryzal.languageMemo.application.model.SentenceModel;

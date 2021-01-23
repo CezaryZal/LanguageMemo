@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
-public class FromNativeRandomSentenceModel {
+public class FromNativeRandomSentenceModel implements RandomSentenceModel{
 
     private final RepoService repoService;
 
@@ -19,7 +19,7 @@ public class FromNativeRandomSentenceModel {
         this.repoService = repoService;
     }
 
-
+    @Override
     public SentenceModel getRandomSentenceByTodayDate() {
         Optional<SentenceModel> nextRandomSentenceByTodayDate = repoService
                 .findRandomFirstByReplayDateLessThanEqual(LocalDate.now());

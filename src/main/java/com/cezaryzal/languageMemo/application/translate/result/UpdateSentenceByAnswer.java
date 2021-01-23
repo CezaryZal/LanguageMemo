@@ -12,8 +12,8 @@ import java.time.LocalDate;
 @Service
 public class UpdateSentenceByAnswer {
 
-    private ReplayLevelModifier replayLevelModifier;
-    private ReplayDateModifier replayDateModifier;
+    private final ReplayLevelModifier replayLevelModifier;
+    private final ReplayDateModifier replayDateModifier;
 
     @Autowired
     public UpdateSentenceByAnswer(ReplayLevelModifier replayLevelModifier, ReplayDateModifier replayDateModifier) {
