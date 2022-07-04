@@ -1,7 +1,7 @@
 package com.cezaryzal.languageMemo.web.controllers.sentence;
 
-import com.cezaryzal.languageMemo.application.model.SentenceModel;
-import com.cezaryzal.languageMemo.application.reposervice.RepoService;
+import com.cezaryzal.languageMemo.model.SentenceModel;
+import com.cezaryzal.languageMemo.repository.service.RepoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;

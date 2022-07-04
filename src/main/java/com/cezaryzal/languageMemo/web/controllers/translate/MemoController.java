@@ -1,8 +1,7 @@
 package com.cezaryzal.languageMemo.web.controllers.translate;
 
-import com.cezaryzal.languageMemo.application.translate.components.TranslateComponentInput;
-import com.cezaryzal.languageMemo.application.model.AppendSentence;
-import com.cezaryzal.languageMemo.application.translate.components.TranslateComponentDto;
+import com.cezaryzal.languageMemo.translate.components.TranslateComponentInput;
+import com.cezaryzal.languageMemo.translate.components.TranslateComponentDto;
 
 import java.util.Map;
 import java.util.Optional;
