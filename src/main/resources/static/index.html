@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      .data {
+        display: block;
+        min-height: 100px;
+        min-width: 200px;
+        padding: 10px;
+        border: 1px solid black;
+      }
+      .letter-spacing {
+        letter-spacing: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="data"></div>
+      <form class="form">
+        <input type="text" placeholder="wpisz" class="input" />
+        <button class="check">Check</button>
+      </form>
+    </div>
+    <script>
+      const data = document.querySelector('.data');
+      const input = document.querySelector('.input');
+      const btn = document.querySelector('.check');
+      let boilerdata;
+
+      const loadData = box => {
+        // const p1 = document.createElement('p');
+        // p1.textContent = `sentenceId: ${boilerdata.sentenceId}`;
+
+        const p2 = document.createElement('p');
+        p2.textContent = `headerToTranslate: ${box.headerToTranslate}`;
+        const p3 = document.createElement('p');
+        const span3 = document.createElement('span');
+        p3.textContent = `progressThroughLastTries: `;
+        p3.appendChild(span3);
+        span3.textContent = `${box.progressThroughLastTries}`;
+
+        span3.classList.add('letter-spacing');
+        const p4 = document.createElement('p');
+        p4.textContent = `numbersOfTries: ${box.numberOfTries}`;
+        const p5 = document.createElement('p');
+        p5.textContent = `hint: ${box.hint}`;
+        const p6 = document.createElement('p');
+        p6.textContent = `correctAnswer: ${box.correctAnswer}`;
+        // data.appendChild(p1);
+        data.appendChild(p2);
+        data.appendChild(p3);
+        data.appendChild(p4);
+        data.appendChild(p5);
+        data.appendChild(p6);
+        if (box.phrase) {
+          const p7 = document.createElement('p');
+          p7.textContent = `phrase: ${box.phrase}`;
+          data.appendChild(p7);
+        }
+      };
+
+      fetch('http://localhost:8082/language-memo/api/first', {
+        method: 'GET',
+        headers: [
+          ["Content-Type", "application/json; charset=UTF-8"],
+          ["Content-Type", "text/plain"],
+          ['Access-Control-Allow-Origin', '*']
+        ]
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          boilerdata = data;
+          loadData(boilerdata);
+        })
+        .catch(err => (data.textContent = `Cos nie tak: ${err}`));
+
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const newData = {
+          numberOfTries: boilerdata.numberOfTries,
+          phrase: input.value,
+          sentenceId: boilerdata.sentenceId,
+        };
+
+        fetch('http://localhost:8082/LanguageMemo/api/result', {
+          method: 'POST',
+          body: JSON.stringify(newData),
+          headers: { 'Content-type': 'application/json; charset=UTF-8' },
+        })
+          .then(res => res.json())
+          .then(items => {
+            data.textContent = '';
+            loadData(items);
+
+            boilerdata = items;
+            input.value = '';
+          });
+      });
+    </script>
+  </body>
+</html>

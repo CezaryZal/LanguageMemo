@@ -26,12 +26,12 @@ which enables effective learning.
 
 To repeat on daily basis the sentences in a foreign language you must run the program 
 and enable the frontend application (*index.html* file). Then, 
-the home page displays the sentenceModel in the original language and hint.  
-After entering the answer, press the button ‘Check’. If the word/sentenceModel is incorrect, 
+the home page displays the sentence in the original language and hint.  
+After entering the answer, press the button ‘Check’. If the word/sentence is incorrect, 
 the application returns a string with empty fields filled with overlapping valid letters. 
-If it's correct, we get the next sentenceModel from the daily collection.
+If it's correct, we get the next sentence from the daily collection.
 
-To add a new sentenceModel to study, use endpoint `**/api/add` on category 
+To add a new sentence to study, use endpoint `**/api/add` on category 
 *'memo-controller-imp'* of Swagger UI at `**/language-memo/swagger-ui.html`.
 
 To display a map of difficult words/sentences, you also need to use Swagger in the 
