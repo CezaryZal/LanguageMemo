@@ -13,58 +13,70 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/sentence")
 public class SentenceControllerImpl implements SentenceController{
-    private final RepositorySentenceService sentenceService;
+    private final RepositorySentenceService repositorySentenceService;
 
     @Autowired
-    public SentenceControllerImpl(RepositorySentenceService sentenceService) {
-        this.sentenceService = sentenceService;
+    public SentenceControllerImpl(RepositorySentenceService repositorySentenceService) {
+        this.repositorySentenceService = repositorySentenceService;
     }
 
     @GetMapping("/{id}")
     @Override
     public Optional<Sentence> findById(@PathVariable Long id) {
-        return sentenceService.findById(id);
+        return repositorySentenceService.findById(id);
     }
     @Override
     public List<Sentence> findAll() {
-        return sentenceService.findAll();
+        return repositorySentenceService.findAll();
     }
     @PostMapping
     @Override
     public Sentence addNewSentence(@RequestBody Sentence sentence) {
-        return sentenceService.addNewSentence(sentence);
+        return repositorySentenceService.addNewSentence(sentence);
     }
     @PutMapping
     @Override
     public Sentence updateSentence(@RequestBody Sentence sentence) {
-        return sentenceService.updateSentence(sentence);
+        return repositorySentenceService.updateSentence(sentence);
     }
     @DeleteMapping("/{id}")
     @Override
     public void deleteSentenceById(@PathVariable Long id) {
-        sentenceService.deleteSentenceById(id);
+        repositorySentenceService.deleteSentenceById(id);
     }
 
     //YYYY-MM-DD; {date}<replay_date
     @GetMapping("/dates/{date}")
     @Override
     public List<Sentence> getByReplayDateLessThanEqual(@PathVariable String date) {
-        return sentenceService.getByReplayDateLessThanEqual(LocalDate.parse(date));
+        return repositorySentenceService.getByReplayDateLessThanEqual(LocalDate.parse(date));
     }
     @GetMapping("/random/{date}")
     @Override
     public Optional<Sentence> getRandomSentenceByReplayDateLessThanEqual(@PathVariable String date) {
-        return sentenceService.getRandomByReplayDateLessThanEqual(date);
+        return repositorySentenceService.getRandomByReplayDateLessThanEqual(date);
     }
     @GetMapping("/limit/{number}")
     @Override
     public List<Sentence> getListSentenceByLowerReplayLevel(@PathVariable int number) {
-        return sentenceService.getListSentenceByLowerReplayLevel(number);
+        return repositorySentenceService.getListSentenceByLowerReplayLevel(number);
     }
     @GetMapping("/answer/{correctAnswer}")
     @Override
     public List<Sentence> getSentenceByCorrectAnswer(String correctAnswer) {
-        return sentenceService.getSentenceByCorrectAnswer(correctAnswer);
+        return repositorySentenceService.getSentenceByCorrectAnswer(correctAnswer);
+    }
+
+    @GetMapping("/part-word/clues/{inside}")
+    @Override
+    public List<Sentence> getSentenceListByCluesContainingInsideString(@PathVariable String inside){
+        return repositorySentenceService.getSentenceListByCluesContainingInsideString(inside);
+    }
+
+    @GetMapping("/part-word/correct-answer/{inside}")
+    @Override
+    public List<Sentence> getSentenceListByAnswerContainingInsideString(@PathVariable String inside) {
+        return repositorySentenceService.getSentenceListByAnswerContainingInsideString(inside);
     }
 
 

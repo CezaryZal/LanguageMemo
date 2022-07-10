@@ -18,4 +18,6 @@ public interface SentenceController {
     Optional<Sentence> getRandomSentenceByReplayDateLessThanEqual(String date);
     List<Sentence> getListSentenceByLowerReplayLevel(int number);
     List<Sentence> getSentenceByCorrectAnswer(String correctAnswer);
+    public List<Sentence> getSentenceListByCluesContainingInsideString(String inside);
+    public List<Sentence> getSentenceListByAnswerContainingInsideString(String inside);
 }

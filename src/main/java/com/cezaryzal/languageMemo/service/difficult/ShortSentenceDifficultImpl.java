@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class ShortSentenceFromNativeDifficultImpl extends MapDifficultSentenceCreator implements Difficult{
+public class ShortSentenceDifficultImpl extends MapDifficultSentenceCreator implements Difficult{
 
     private final RepositorySentenceService repositorySentenceService;
 
     @Autowired
-    public ShortSentenceFromNativeDifficultImpl(RepositorySentenceService repositorySentenceService) {
+    public ShortSentenceDifficultImpl(RepositorySentenceService repositorySentenceService) {
         this.repositorySentenceService = repositorySentenceService;
     }
 

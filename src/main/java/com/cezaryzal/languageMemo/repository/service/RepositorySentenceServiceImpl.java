@@ -1,6 +1,6 @@
 package com.cezaryzal.languageMemo.repository.service;
 
-import com.cezaryzal.languageMemo.repository.SentenceRepository;
+import com.cezaryzal.languageMemo.repository.SentenceJpaRepository;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,14 +13,14 @@ import java.util.Optional;
 public class RepositorySentenceServiceImpl extends CrudSentenceRepository implements RepositorySentenceService {
 
     @Autowired
-    public RepositorySentenceServiceImpl(SentenceRepository sentenceRepository) {
-        super(sentenceRepository);
+    public RepositorySentenceServiceImpl(SentenceJpaRepository sentenceJpaRepository) {
+        super(sentenceJpaRepository);
     }
 
 
     @Override
     public List<Sentence> getByReplayDateLessThanEqual(LocalDate localDate) {
-        return sentenceRepository.findByReplayDateLessThanEqual(localDate);
+        return sentenceJpaRepository.findByReplayDateLessThanEqual(localDate);
     }
 
     //SQL get query works: (input) '2021-12-20' < (replay_date) '2021-12-20'
@@ -33,22 +33,32 @@ public class RepositorySentenceServiceImpl extends CrudSentenceRepository implem
             currentDate = (LocalDate) inputDate;
         }
         System.out.println(currentDate.toString());
-        return sentenceRepository.findRandomByReplayDateLessThanEqual(currentDate);
+        return sentenceJpaRepository.findRandomByReplayDateLessThanEqual(currentDate);
     }
 
     @Override
     public List<Sentence> getListSentenceByLowerReplayLevel(int limitReplayLevel) {
-        return sentenceRepository.listSentenceByLowerReplayLevel(limitReplayLevel);
+        return sentenceJpaRepository.listSentenceByLowerReplayLevel(limitReplayLevel);
     }
 
     @Override
     public List<Sentence> getSentenceByCorrectAnswer(String correctAnswer){
-        return sentenceRepository.findByCorrectAnswer(correctAnswer);
+        return sentenceJpaRepository.findByCorrectAnswer(correctAnswer.trim());
     }
 
     @Override
-    public Optional<Integer> getCounterReplayDateFromNativeLessThanEqual(LocalDate localDate) {
-        return sentenceRepository.getCounterReplayDateFromNativeLessThanEqual(localDate);
+    public Optional<Integer> getCounterReplayDateLessThanEqual(LocalDate localDate) {
+        return sentenceJpaRepository.getCounterReplayDateLessThanEqual(localDate);
+    }
+
+    @Override
+    public List<Sentence> getSentenceListByCluesContainingInsideString(String pattern) {
+        return sentenceJpaRepository.getSentenceListByCluesContainingInsideString(pattern.trim());
+    }
+
+    @Override
+    public List<Sentence> getSentenceListByAnswerContainingInsideString(String pattern) {
+        return sentenceJpaRepository.getSentenceListByAnswerContainingInsideString(pattern.trim());
     }
 
 

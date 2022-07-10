@@ -9,10 +9,12 @@ import com.cezaryzal.languageMemo.service.create.SentenceCreator;
 import com.cezaryzal.languageMemo.service.difficult.Difficult;
 import com.cezaryzal.languageMemo.service.first.FirstComponentDtoOutput;
 import com.cezaryzal.languageMemo.service.result.service.ResultService;
+import com.cezaryzal.languageMemo.service.search.FinderBySimilarSpellings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -23,18 +25,21 @@ public class SentenceService {
     private final FirstComponentDtoOutput firstComponentDtoOutput;
     private final ResultService resultService;
     private final Difficult difficultSentence;
+    private final FinderBySimilarSpellings finderBySimilarSpellings;
 
     @Autowired
     public SentenceService(RepositorySentenceService repositorySentenceService,
                            SentenceCreator sentenceCreator,
                            FirstComponentDtoOutput firstComponentDtoOutput,
                            ResultService resultService,
-                           Difficult difficultSentence) {
+                           Difficult difficultSentence,
+                           FinderBySimilarSpellings finderBySimilarSpellings) {
         this.repositorySentenceService = repositorySentenceService;
         this.sentenceCreator = sentenceCreator;
         this.firstComponentDtoOutput = firstComponentDtoOutput;
         this.resultService = resultService;
         this.difficultSentence = difficultSentence;
+        this.finderBySimilarSpellings = finderBySimilarSpellings;
     }
 
     public String addNewSentenceThroughAppendedSentence(AppendSentence appendSentence){
@@ -56,6 +61,16 @@ public class SentenceService {
     }
 
     public Optional<Integer> getCounterReplayDateLessThanEqual() {
-        return repositorySentenceService.getCounterReplayDateFromNativeLessThanEqual(LocalDate.now());
+        return repositorySentenceService.getCounterReplayDateLessThanEqual(LocalDate.now());
+    }
+
+    public List<Sentence> searchSentenceListOfSimilarSpellingsByClues(String word){
+        String parsedWord = finderBySimilarSpellings.parseWordBasedOnLength(word);
+        return repositorySentenceService.getSentenceListByCluesContainingInsideString(parsedWord);
+    }
+
+    public List<Sentence> searchSentenceListOfSimilarSpellingsByAnswer(String word){
+        String parsedWord = finderBySimilarSpellings.parseWordBasedOnLength(word);
+        return repositorySentenceService.getSentenceListByAnswerContainingInsideString(parsedWord);
     }
 }

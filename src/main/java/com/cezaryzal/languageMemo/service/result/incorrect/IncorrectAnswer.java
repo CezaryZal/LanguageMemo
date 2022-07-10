@@ -107,7 +107,7 @@ public class IncorrectAnswer {
 
         return ComponentDtoOutput.builder()
                 .sentenceId(componentDtoInput.getSentenceId())
-                .headerToTranslate(currentlyUsedSentence.getHint())
+                .headerToTranslate(currentlyUsedSentence.getClues())
                 .progressThroughLastTries(progressPhrase)
                 .isCorrectAnswer(false)
                 .numberOfTries(numberOfTries)

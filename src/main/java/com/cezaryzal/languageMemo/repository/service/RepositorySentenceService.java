@@ -18,6 +18,8 @@ public interface RepositorySentenceService {
     Optional<Sentence> getRandomByReplayDateLessThanEqual(Object localDate);
     List<Sentence> getListSentenceByLowerReplayLevel(int limitReplayLevel);
     List<Sentence> getSentenceByCorrectAnswer(String correctAnswer);
-    Optional<Integer> getCounterReplayDateFromNativeLessThanEqual(LocalDate localDate);
+    Optional<Integer> getCounterReplayDateLessThanEqual(LocalDate localDate);
+    List<Sentence> getSentenceListByCluesContainingInsideString(String pattern);
+    List<Sentence> getSentenceListByAnswerContainingInsideString(String pattern);
 
 }
