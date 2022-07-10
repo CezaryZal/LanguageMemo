@@ -2,7 +2,6 @@ package com.cezaryzal.languageMemo.repository;
 
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -32,4 +31,7 @@ public interface SentenceJpaRepository extends JpaRepository<Sentence, Long> {
 
     @Query(value = "SELECT * FROM sentence WHERE correct_answer LIKE %?1%", nativeQuery = true)
     List<Sentence> getSentenceListByAnswerContainingInsideString(String pattern);
+
+    @Query(value = "SELECT * FROM sentence WHERE correct_answer LIKE %?1% AND clues LIKE %?2%", nativeQuery = true)
+    Sentence getSentenceListByAnswerAndCluesContainingInsideString(String answerPattern, String cluesPattern);
 }

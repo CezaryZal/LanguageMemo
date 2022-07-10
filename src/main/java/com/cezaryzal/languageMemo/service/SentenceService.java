@@ -42,13 +42,19 @@ public class SentenceService {
         this.finderBySimilarSpellings = finderBySimilarSpellings;
     }
 
-    public String addNewSentenceThroughAppendedSentence(AppendSentence appendSentence){
-        Sentence sentence = repositorySentenceService.addNewSentence(
-                sentenceCreator.createSentenceByAppendedSentenceModel(appendSentence));
-        return "Nowy record został dodany do bazy danych";
+    public String addNewSentenceThroughAppendedSentence(AppendSentence appendSentence) {
+        Sentence similarSentence = getSimilarSentenceToNewSentence(
+                appendSentence.getCorrectAnswer(),
+                appendSentence.getClues());
+        if (similarSentence == null) {
+            repositorySentenceService.addNewSentence(
+                    sentenceCreator.createSentenceByAppendedSentenceModel(appendSentence));
+            return "New Sentence was appended to repository.";
+        } else
+            return "This Sentence has already been added to repository. Sentence: " + similarSentence.toString();
     }
 
-    public ComponentDtoOutput getFirstComponentDtoOutput(){
+    public ComponentDtoOutput getFirstComponentDtoOutput() {
         return firstComponentDtoOutput.getFirstComponentDtoOutput();
     }
 
@@ -56,7 +62,7 @@ public class SentenceService {
         return resultService.resultByInputAnswer(componentDtoInput);
     }
 
-    public Map<String, String> getMapWithMostDifficultSentence(){
+    public Map<String, String> getMapWithMostDifficultSentence() {
         return difficultSentence.getMapDifficultSentence();
     }
 
@@ -64,13 +70,19 @@ public class SentenceService {
         return repositorySentenceService.getCounterReplayDateLessThanEqual(LocalDate.now());
     }
 
-    public List<Sentence> searchSentenceListOfSimilarSpellingsByClues(String word){
-        String parsedWord = finderBySimilarSpellings.parseWordBasedOnLength(word);
-        return repositorySentenceService.getSentenceListByCluesContainingInsideString(parsedWord);
+    public List<Sentence> searchSentenceListOfSimilarSpellingsByClues(String word) {
+        return repositorySentenceService.getSentenceListByCluesContainingInsideString(
+                finderBySimilarSpellings.parseWordBasedOnLength(word));
     }
 
-    public List<Sentence> searchSentenceListOfSimilarSpellingsByAnswer(String word){
-        String parsedWord = finderBySimilarSpellings.parseWordBasedOnLength(word);
-        return repositorySentenceService.getSentenceListByAnswerContainingInsideString(parsedWord);
+    public List<Sentence> searchSentenceListOfSimilarSpellingsByAnswer(String word) {
+        return repositorySentenceService.getSentenceListByAnswerContainingInsideString(
+                finderBySimilarSpellings.parseWordBasedOnLength(word));
+    }
+
+    private Sentence getSimilarSentenceToNewSentence(String answerPattern, String cluesPattern) {
+        return repositorySentenceService.getSentenceListByAnswerAndCluesContainingInsideString(
+                finderBySimilarSpellings.parseWordBasedOnLength(answerPattern),
+                finderBySimilarSpellings.parseWordBasedOnLength(cluesPattern));
     }
 }

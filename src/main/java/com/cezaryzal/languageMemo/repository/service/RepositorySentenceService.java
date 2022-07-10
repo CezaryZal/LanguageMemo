@@ -21,5 +21,6 @@ public interface RepositorySentenceService {
     Optional<Integer> getCounterReplayDateLessThanEqual(LocalDate localDate);
     List<Sentence> getSentenceListByCluesContainingInsideString(String pattern);
     List<Sentence> getSentenceListByAnswerContainingInsideString(String pattern);
+    Sentence getSentenceListByAnswerAndCluesContainingInsideString(String answerPattern, String cluesPattern);
 
 }

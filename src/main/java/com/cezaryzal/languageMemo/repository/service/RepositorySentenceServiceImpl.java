@@ -61,5 +61,11 @@ public class RepositorySentenceServiceImpl extends CrudSentenceRepository implem
         return sentenceJpaRepository.getSentenceListByAnswerContainingInsideString(pattern.trim());
     }
 
+    @Override
+    public Sentence getSentenceListByAnswerAndCluesContainingInsideString(String answerPattern, String cluesPattern) {
+        return sentenceJpaRepository
+                .getSentenceListByAnswerAndCluesContainingInsideString(answerPattern.trim(), cluesPattern.trim());
+    }
+
 
 }
