@@ -46,7 +46,7 @@ public class SentenceService {
         Sentence similarSentence = getSimilarSentenceToNewSentence(
                 appendSentence.getCorrectAnswer(),
                 appendSentence.getClues());
-        if (similarSentence == null) {
+        if (similarSentence == null || !isNotBlankSentence(appendSentence)) {
             repositorySentenceService.addNewSentence(
                     sentenceCreator.createSentenceByAppendedSentenceModel(appendSentence));
             return "New Sentence was appended to repository.";
@@ -84,5 +84,24 @@ public class SentenceService {
         return repositorySentenceService.getSentenceListByAnswerAndCluesContainingInsideString(
                 finderBySimilarSpellings.parseWordBasedOnLength(answerPattern),
                 finderBySimilarSpellings.parseWordBasedOnLength(cluesPattern));
+    }
+
+//    TODO Fine pattern to validation method
+    private boolean isNotBlankSentence (AppendSentence appendSentence){
+        if (appendSentence.getCorrectAnswer().isBlank() ||
+                appendSentence.getCorrectAnswer().isEmpty() ||
+                appendSentence.getCorrectAnswer() == null){
+            return false;
+        } else if (appendSentence.getClues().isBlank() ||
+                appendSentence.getClues().isEmpty() ||
+                appendSentence.getClues() == null){
+            return false;
+        } else if (appendSentence.getHint().isBlank() ||
+                appendSentence.getHint().isEmpty() ||
+                appendSentence.getHint() == null){
+            return false;
+        } else return !appendSentence.getExampleOfUse().isBlank() &&
+                !appendSentence.getExampleOfUse().isEmpty() &&
+                appendSentence.getExampleOfUse() != null;
     }
 }

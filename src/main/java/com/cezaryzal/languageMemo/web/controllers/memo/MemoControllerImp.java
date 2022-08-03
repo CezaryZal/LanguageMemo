@@ -42,7 +42,7 @@ public class MemoControllerImp implements MemoController{
     public Map<String, String> getMapWithMostDifficultSentence() {
         return sentenceService.getMapWithMostDifficultSentence();
     }
-    @GetMapping("/counter-daily-sentence")
+    @GetMapping("/counter_daily_sentence")
     @Override
     public Optional<Integer> getCounter() {
         return sentenceService.getCounterReplayDateLessThanEqual();
@@ -52,7 +52,7 @@ public class MemoControllerImp implements MemoController{
     public List<Sentence> searchSentenceListOfSimilarSpellingsByClues(@PathVariable String word) {
         return sentenceService.searchSentenceListOfSimilarSpellingsByClues(word);
     }
-    @GetMapping("/search/correct-answer/{word}")
+    @GetMapping("/search/correct_answer/{word}")
     @Override
     public List<Sentence> searchSentenceListOfSimilarSpellingsByCorrectAnswer(@PathVariable String word) {
         return sentenceService.searchSentenceListOfSimilarSpellingsByAnswer(word);
