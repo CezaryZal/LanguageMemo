@@ -1,5 +1,6 @@
 package com.cezaryzal.languageMemo.web.controllers.memo;
 
+import com.cezaryzal.languageMemo.config.MainConfig;
 import com.cezaryzal.languageMemo.model.AppendSentence;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import com.cezaryzal.languageMemo.service.SentenceService;
@@ -32,26 +33,35 @@ public class MemoControllerImp implements MemoController{
     public ComponentDtoOutput getFirstSentence() {
         return sentenceService.getFirstComponentDtoOutput();
     }
+
     @PostMapping("/result")
     @Override
     public ComponentDtoOutput resultByInputAnswer(@RequestBody ComponentDtoInput componentDtoInput) {
-        return sentenceService.getResultByInputAnswer(componentDtoInput);
+        ComponentDtoOutput resultByInputAnswer = sentenceService.getResultByInputAnswer(componentDtoInput);
+        MainConfig.LOGGER.info(
+                "\n<------Memo controller: " + componentDtoInput
+        );
+        return resultByInputAnswer;
     }
+
     @GetMapping("/difficult")
     @Override
     public Map<String, String> getMapWithMostDifficultSentence() {
         return sentenceService.getMapWithMostDifficultSentence();
     }
+
     @GetMapping("/counter_daily_sentence")
     @Override
     public Optional<Integer> getCounter() {
         return sentenceService.getCounterReplayDateLessThanEqual();
     }
+
     @GetMapping("/search/clues/{word}")
     @Override
     public List<Sentence> searchSentenceListOfSimilarSpellingsByClues(@PathVariable String word) {
         return sentenceService.searchSentenceListOfSimilarSpellingsByClues(word);
     }
+
     @GetMapping("/search/correct_answer/{word}")
     @Override
     public List<Sentence> searchSentenceListOfSimilarSpellingsByCorrectAnswer(@PathVariable String word) {

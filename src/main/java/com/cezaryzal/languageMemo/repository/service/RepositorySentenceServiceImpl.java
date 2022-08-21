@@ -1,5 +1,6 @@
 package com.cezaryzal.languageMemo.repository.service;
 
+import com.cezaryzal.languageMemo.config.MainConfig;
 import com.cezaryzal.languageMemo.repository.SentenceJpaRepository;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,11 @@ public class RepositorySentenceServiceImpl extends CrudSentenceRepository implem
         } else {
             currentDate = (LocalDate) inputDate;
         }
-        System.out.println(currentDate.toString());
-        return sentenceJpaRepository.findRandomByReplayDateLessThanEqual(currentDate);
+        Optional<Sentence> randomSentence = sentenceJpaRepository.findRandomByReplayDateLessThanEqual(currentDate);
+        MainConfig.LOGGER.info(
+                "<------Repository_sentence_service: Random sentence by replay date less:\n\n\n" + randomSentence.toString()
+        );
+        return randomSentence;
     }
 
     @Override
