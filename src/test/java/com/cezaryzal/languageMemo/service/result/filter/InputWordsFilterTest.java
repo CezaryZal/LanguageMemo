@@ -5,42 +5,49 @@ import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class InputWordsFilterTest {
-    private CurrentPlayedSentenceComponent currentPlayedSentenceComponent;
+    private CurrentPlayedSentenceComponent currentlyPlayedCase;
+    private final String stubProgressPhrase = "___________________";
 
     @Autowired
     private ReplacementBlankCharacters replacementBlankCharacters;
+    @Autowired
+    private @Qualifier("inputWordsFilter") InputFilter inputWordsFilter;
 
     @Before
     public void setup(){
         Sentence sampleSentenceForTest = getSampleSentenceForTest();
-        currentPlayedSentenceComponent = new CurrentPlayedSentenceComponent(replacementBlankCharacters);
-        currentPlayedSentenceComponent.initialProgressPhrase(sampleSentenceForTest);
+        currentlyPlayedCase = new CurrentPlayedSentenceComponent(replacementBlankCharacters);
+        currentlyPlayedCase.initialProgressPhrase(sampleSentenceForTest);
+    }
+
+    @BeforeEach
+    public void beforeEachTest(){
+        currentlyPlayedCase.setProgressPhrase(stubProgressPhrase);
     }
 
     @Test
-    public void catchCorrectWordToProgressPhraseFirstTest() {
-        InputWordsFilter inputWordsFilter = new InputWordsFilter(currentPlayedSentenceComponent);
-        String stubProgressPhrase = "_______________";
-
+    public void catchCorrectPieceToProgressPhraseFirstTest() {
         String inputPhrases = "semi";
-        String[] splittedInputPhrases = inputPhrases.split("[ _\\-]");
-        inputWordsFilter.catchCorrectWordToProgressPhrase(splittedInputPhrases, stubProgressPhrase);
-        Assert.assertEquals("semi___________", currentPlayedSentenceComponent.getProgressPhrase());
-        Assert.assertNotEquals("semi-__________", currentPlayedSentenceComponent.getProgressPhrase());
+
+        inputWordsFilter.catchCorrectPieceToProgressPhrase(currentlyPlayedCase, inputPhrases);
+
+        Assert.assertEquals(currentlyPlayedCase.getProgressPhrase().length(), stubProgressPhrase.length());
+        Assert.assertEquals("semi_______________", currentlyPlayedCase.getProgressPhrase());
+        Assert.assertNotEquals("semi-______________", currentlyPlayedCase.getProgressPhrase());
     }
 
     @Test
-    public void catchCorrectWordToProgressPhraseSecondTest() {
-        InputWordsFilter inputWordsFilter = new InputWordsFilter(currentPlayedSentenceComponent);
-        String stubProgressPhrase = "_______________";
+    public void catchCorrectPieceToProgressPhraseSecondTest() {
         //TODO w testach integracyjnych przepisać przyapdek
 //        String inputSecondPhrases = "se";
 //        String[] splittedInputSecondPhrases = inputSecondPhrases.split("[ _\\-]");
@@ -49,58 +56,55 @@ public class InputWordsFilterTest {
 //        Assert.assertNotEquals("se___________", currentPlayedSentenceComponent.getProgressPhrase());
 
         String inputPhrases = "sem";
-        String[] splittedInputPhrases = inputPhrases.split("[ _\\-]");
-        inputWordsFilter.catchCorrectWordToProgressPhrase(splittedInputPhrases, stubProgressPhrase);
-        Assert.assertEquals("sem____________", currentPlayedSentenceComponent.getProgressPhrase());
-        Assert.assertNotEquals("_____________", currentPlayedSentenceComponent.getProgressPhrase());
+
+        inputWordsFilter.catchCorrectPieceToProgressPhrase(currentlyPlayedCase, inputPhrases);
+
+        Assert.assertEquals("sem________________", currentlyPlayedCase.getProgressPhrase());
+        Assert.assertNotEquals("_________________", currentlyPlayedCase.getProgressPhrase());
+        Assert.assertNotEquals("semi_____________", currentlyPlayedCase.getProgressPhrase());
     }
 
     @Test
-    public void catchCorrectWordToProgressPhraseThirdTest() {
-        InputWordsFilter inputWordsFilter = new InputWordsFilter(currentPlayedSentenceComponent);
-        String stubProgressPhrase = "___________________";
-
+    public void catchCorrectPieceToProgressPhraseThirdTest() {
         String inputPhrases = "detached";
-        String[] splittedInputPhrases = inputPhrases.split("[ _\\-]");
-        inputWordsFilter.catchCorrectWordToProgressPhrase(splittedInputPhrases, stubProgressPhrase);
-        Assert.assertEquals("_____detached______", currentPlayedSentenceComponent.getProgressPhrase());
-        Assert.assertNotEquals("____-detached______", currentPlayedSentenceComponent.getProgressPhrase());
+
+        inputWordsFilter.catchCorrectPieceToProgressPhrase(currentlyPlayedCase, inputPhrases);
+
+        Assert.assertEquals("_____detached______", currentlyPlayedCase.getProgressPhrase());
+        Assert.assertNotEquals("____-detached______", currentlyPlayedCase.getProgressPhrase());
+        Assert.assertNotEquals("____-________ _____", currentlyPlayedCase.getProgressPhrase());
     }
 
     @Test
-    public void catchCorrectWordToProgressPhraseFourthTest() {
-        InputWordsFilter inputWordsFilter = new InputWordsFilter(currentPlayedSentenceComponent);
-        String stubProgressPhrase = "___________________";
-
+    public void catchCorrectPieceToProgressPhraseFourthTest() {
         String inputPhrases = "ched";
-        String[] splittedInputPhrases = inputPhrases.split("[ _\\-]");
-        inputWordsFilter.catchCorrectWordToProgressPhrase(splittedInputPhrases, stubProgressPhrase);
-        Assert.assertEquals("_________ched______", currentPlayedSentenceComponent.getProgressPhrase());
-        Assert.assertNotEquals("_____detached______", currentPlayedSentenceComponent.getProgressPhrase());
+
+        inputWordsFilter.catchCorrectPieceToProgressPhrase(currentlyPlayedCase, inputPhrases);
+
+        Assert.assertEquals("_________ched______", currentlyPlayedCase.getProgressPhrase());
+        Assert.assertNotEquals("_____detached______", currentlyPlayedCase.getProgressPhrase());
+        Assert.assertNotEquals("_____detached______", currentlyPlayedCase.getProgressPhrase());
     }
 
     @Test
-    public void catchCorrectWordToProgressPhraseFifthTest() {
-        InputWordsFilter inputWordsFilter = new InputWordsFilter(currentPlayedSentenceComponent);
-        String stubProgressPhrase = "___________________";
-
+    public void catchCorrectPieceToProgressPhraseFifthTest() {
         String inputPhrases = "house";
-        String[] splittedInputPhrases = inputPhrases.split("[ _\\-]");
-        inputWordsFilter.catchCorrectWordToProgressPhrase(splittedInputPhrases, stubProgressPhrase);
-        Assert.assertEquals("______________house", currentPlayedSentenceComponent.getProgressPhrase());
-        Assert.assertNotEquals("____________- house", currentPlayedSentenceComponent.getProgressPhrase());
+
+        inputWordsFilter.catchCorrectPieceToProgressPhrase(currentlyPlayedCase, inputPhrases);
+
+        Assert.assertEquals("______________house", currentlyPlayedCase.getProgressPhrase());
+        Assert.assertNotEquals("____________- house", currentlyPlayedCase.getProgressPhrase());
     }
 
     @Test
-    public void catchCorrectWordToProgressPhraseSixthTest() {
-        InputWordsFilter inputWordsFilter = new InputWordsFilter(currentPlayedSentenceComponent);
-        String stubProgressPhrase = "___________________";
-
+    public void catchCorrectPieceToProgressPhraseSixthTest() {
         String inputPhrases = "ched ";
-        String[] splittedInputPhrases = inputPhrases.split("[ _\\-]");
-        inputWordsFilter.catchCorrectWordToProgressPhrase(splittedInputPhrases, stubProgressPhrase);
-        Assert.assertEquals("_________ched______", currentPlayedSentenceComponent.getProgressPhrase());
-        Assert.assertNotEquals("_________ched _____", currentPlayedSentenceComponent.getProgressPhrase());
+
+        inputWordsFilter.catchCorrectPieceToProgressPhrase(currentlyPlayedCase, inputPhrases);
+
+        Assert.assertEquals("_________ched______", currentlyPlayedCase.getProgressPhrase());
+        Assert.assertNotEquals("_________ched _____", currentlyPlayedCase.getProgressPhrase());
+        Assert.assertNotEquals("___________________", currentlyPlayedCase.getProgressPhrase());
     }
 
 
@@ -111,5 +115,4 @@ public class InputWordsFilterTest {
         testingSentence.setCorrectAnswer("semi-detached house");
         return testingSentence;
     }
-
 }

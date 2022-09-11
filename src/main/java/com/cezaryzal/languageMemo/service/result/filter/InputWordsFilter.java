@@ -1,25 +1,24 @@
 package com.cezaryzal.languageMemo.service.result.filter;
 
 import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
+import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
-public class InputWordsFilter {
-    private final CurrentPlayedSentenceComponent currentPlayedSentence;
-
-    public InputWordsFilter(CurrentPlayedSentenceComponent currentPlayedSentence) {
-        this.currentPlayedSentence = currentPlayedSentence;
-    }
-
+@Service
+public class InputWordsFilter implements InputFilter{
 
     //TODO validacja czy frazy poniżej 3 liter zostają zamieniane na puste blanki
-    public void catchCorrectWordToProgressPhrase(String[] splittedInputPhrases, String progressPhrase){
+    @Override
+    public void catchCorrectPieceToProgressPhrase(final CurrentPlayedSentenceComponent currentlyPlayedCase,
+                                                  String inputPhrases) {
         StringBuilder creatingProgressPhrase = new StringBuilder();
 
-        Arrays.stream(splittedInputPhrases)
+        Arrays.stream(inputPhrases.split("[ _\\-]"))
                 .forEach(word -> {
-                    if (currentPlayedSentence.getUsedSentence().getCorrectAnswer().contains(word)) {
-                        int index = currentPlayedSentence
+                    String progressPhrase = currentlyPlayedCase.getProgressPhrase();
+                    if (currentlyPlayedCase.getUsedSentence().getCorrectAnswer().contains(word)) {
+                        int index = currentlyPlayedCase
                                 .getUsedSentence()
                                 .getCorrectAnswer()
                                 .indexOf(word);
@@ -33,6 +32,6 @@ public class InputWordsFilter {
                                 .append(progressPhrase.substring(index + word.length()));
                     }
                 });
-        currentPlayedSentence.setProgressPhrase(creatingProgressPhrase.toString());
+        currentlyPlayedCase.setProgressPhrase(creatingProgressPhrase.toString());
     }
 }

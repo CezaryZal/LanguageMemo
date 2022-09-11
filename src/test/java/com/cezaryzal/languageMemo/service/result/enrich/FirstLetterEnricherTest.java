@@ -18,7 +18,7 @@ public class FirstLetterEnricherTest {
     private CurrentPlayedSentenceComponent currentlyPlayedCase;
 
     @Autowired
-    private @Qualifier("firstLetterEnricher") Enricher enricher;
+    private @Qualifier("firstLetterEnricher") Enricher firstLetterEnricher;
     @Autowired
     private ReplacementBlankCharacters replacementBlankCharacters;
 
@@ -30,48 +30,50 @@ public class FirstLetterEnricherTest {
     }
 
     @Test
-    public void catchCorrectWordToProgressPhraseFirstTest() {
+    public void enrichProgressPhraseFirstTest() {
+        String stubProgressPhrase = "____-________ _____";
         String expectedString = "s___-________ _____";
         String unexpectedString = "s___-d_______ h____";
-        currentlyPlayedCase.setProgressPhrase("____-________ _____");
+        currentlyPlayedCase.setProgressPhrase(stubProgressPhrase);
 
-        enricher.enrichProgressPhrase(currentlyPlayedCase);
+        firstLetterEnricher.enrichProgressPhrase(currentlyPlayedCase);
 
+        Assert.assertEquals(currentlyPlayedCase.getProgressPhrase().length(), stubProgressPhrase.length());
         Assert.assertEquals(expectedString, currentlyPlayedCase.getProgressPhrase());
         Assert.assertNotEquals(unexpectedString, currentlyPlayedCase.getProgressPhrase());
     }
 
     @Test
-    public void catchCorrectWordToProgressPhraseSecondTest() {
+    public void enrichProgressPhraseSecondTest() {
         String expectedString = "sem_-________ _____";
         String unexpectedString = "s___-________ _____";
         currentlyPlayedCase.setProgressPhrase("sem_-________ _____");
 
-        enricher.enrichProgressPhrase(currentlyPlayedCase);
+        firstLetterEnricher.enrichProgressPhrase(currentlyPlayedCase);
 
         Assert.assertEquals(expectedString, currentlyPlayedCase.getProgressPhrase());
         Assert.assertNotEquals(unexpectedString, currentlyPlayedCase.getProgressPhrase());
     }
 
     @Test
-    public void catchCorrectWordToProgressPhraseThirdTest() {
+    public void enrichProgressPhraseThirdTest() {
         String expectedString = "sen_-________ _____";
         String unexpectedString = "ten_-________ _____";
         currentlyPlayedCase.setProgressPhrase("ten_-________ _____");
 
-        enricher.enrichProgressPhrase(currentlyPlayedCase);
+        firstLetterEnricher.enrichProgressPhrase(currentlyPlayedCase);
 
         Assert.assertEquals(expectedString, currentlyPlayedCase.getProgressPhrase());
         Assert.assertNotEquals(unexpectedString, currentlyPlayedCase.getProgressPhrase());
     }
 
     @Test
-    public void catchCorrectWordToProgressPhraseFourthTest() {
+    public void enrichProgressPhraseFourthTest() {
         String expectedString = "s_n____________o___";
         String unexpectedString = "sen_-________ _o___";
         currentlyPlayedCase.setProgressPhrase("__n____________o___");
 
-        enricher.enrichProgressPhrase(currentlyPlayedCase);
+        firstLetterEnricher.enrichProgressPhrase(currentlyPlayedCase);
 
         Assert.assertEquals(expectedString, currentlyPlayedCase.getProgressPhrase());
         Assert.assertNotEquals(unexpectedString, currentlyPlayedCase.getProgressPhrase());
