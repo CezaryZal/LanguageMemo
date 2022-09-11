@@ -4,10 +4,10 @@ import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
 
 import java.util.Arrays;
 
-public class WordsByProgressPhrase {
+public class InputWordsFilter {
     private final CurrentPlayedSentenceComponent currentPlayedSentence;
 
-    public WordsByProgressPhrase(CurrentPlayedSentenceComponent currentPlayedSentence) {
+    public InputWordsFilter(CurrentPlayedSentenceComponent currentPlayedSentence) {
         this.currentPlayedSentence = currentPlayedSentence;
     }
 

@@ -1,4 +1,4 @@
-package com.cezaryzal.languageMemo.demo;
+package com.cezaryzal.languageMemo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,7 +1,6 @@
-package com.cezaryzal.languageMemo.service.result.filter;
+package com.cezaryzal.languageMemo.service.result.enrich;
 
 import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
-import com.cezaryzal.languageMemo.service.result.enrich.Enricher;
 import org.springframework.stereotype.Service;
 
 @Service
