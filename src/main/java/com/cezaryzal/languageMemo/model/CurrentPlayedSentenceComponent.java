@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-@ApplicationScope
+//@ApplicationScope
 public class CurrentPlayedSentenceComponent {
 
     private final ReplacementBlankCharacters replacementBlankCharacters;

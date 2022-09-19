@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public class FirstLettersEnricher implements Enricher {
 
     @Override
-    public void enrichProgressPhrase(CurrentPlayedSentenceComponent currentlyPlayedCase) {
+    public void enrichProgressPhrase(final CurrentPlayedSentenceComponent currentlyPlayedCase) {
         String correctAnswer = currentlyPlayedCase
                 .getUsedSentence()
                 .getCorrectAnswer();

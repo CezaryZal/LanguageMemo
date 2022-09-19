@@ -1,8 +1,6 @@
 package com.cezaryzal.languageMemo.service;
 
-import com.cezaryzal.languageMemo.model.AppendSentence;
-import com.cezaryzal.languageMemo.model.ComponentDtoInput;
-import com.cezaryzal.languageMemo.model.ComponentDtoOutput;
+import com.cezaryzal.languageMemo.model.*;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import com.cezaryzal.languageMemo.repository.service.RepositorySentenceService;
 import com.cezaryzal.languageMemo.service.create.SentenceCreator;
@@ -14,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class SentenceService {
@@ -55,7 +53,7 @@ public class SentenceService {
     }
 
     public ComponentDtoOutput getFirstComponentDtoOutput() {
-        return firstComponentDtoOutput.getFirstComponentDtoOutput();
+         return firstComponentDtoOutput.getFirstComponentDtoOutput();
     }
 
     public ComponentDtoOutput getResultByInputAnswer(ComponentDtoInput componentDtoInput) {
@@ -70,14 +68,16 @@ public class SentenceService {
         return repositorySentenceService.getCounterReplayDateLessThanEqual(LocalDate.now());
     }
 
-    public List<Sentence> searchSentenceListOfSimilarSpellingsByClues(String word) {
-        return repositorySentenceService.getSentenceListByCluesContainingInsideString(
-                finderBySimilarSpellings.parseWordBasedOnLength(word));
+    public Set<Sentence> searchSentenceListOfSimilarSpellingsByClues(String sentenceInput) {
+        return finderBySimilarSpellings.findSentenceListOfSimilarSpellingsByClues(
+                sentenceInput,
+                SentenceNavigator.CLUES);
     }
 
-    public List<Sentence> searchSentenceListOfSimilarSpellingsByAnswer(String word) {
-        return repositorySentenceService.getSentenceListByAnswerContainingInsideString(
-                finderBySimilarSpellings.parseWordBasedOnLength(word));
+    public Set<Sentence> searchSentenceListOfSimilarSpellingsByAnswer(String sentenceInput) {
+        return finderBySimilarSpellings.findSentenceListOfSimilarSpellingsByClues(
+                sentenceInput,
+                SentenceNavigator.CORRECT_ANSWER);
     }
 
     private Sentence getSimilarSentenceToNewSentence(String answerPattern, String cluesPattern) {

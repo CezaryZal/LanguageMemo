@@ -4,16 +4,10 @@ import com.cezaryzal.languageMemo.model.ComponentDtoInput;
 import com.cezaryzal.languageMemo.model.ComponentDtoOutput;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import com.cezaryzal.languageMemo.repository.service.RepositorySentenceService;
-import com.cezaryzal.languageMemo.service.result.incorrect.IncorrectAnswer;
-import com.cezaryzal.languageMemo.service.result.NextComponentDtoOutput;
-import com.cezaryzal.languageMemo.service.result.SentencesComparator;
-import com.cezaryzal.languageMemo.service.result.UpdateSentenceByAnswer;
-import com.cezaryzal.languageMemo.config.ApiConstants;
+import com.cezaryzal.languageMemo.service.result.answer.IncorrectAnswer;
+import com.cezaryzal.languageMemo.service.result.answer.UpdateSentenceByAnswer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityNotFoundException;
-import java.util.Optional;
 
 @Service
 public class ResultService extends CheckingSentences{
@@ -24,12 +18,10 @@ public class ResultService extends CheckingSentences{
     private final NextComponentDtoOutput nextComponentDtoOutput;
 
     @Autowired
-    public ResultService(SentencesComparator sentencesComparator,
-                         IncorrectAnswer incorrectAnswer,
+    public ResultService(IncorrectAnswer incorrectAnswer,
                          RepositorySentenceService repositorySentenceService,
                          UpdateSentenceByAnswer updateSentenceByAnswer,
                          NextComponentDtoOutput nextComponentDtoOutput) {
-        super(sentencesComparator);
         this.incorrectAnswer = incorrectAnswer;
         this.repositorySentenceService = repositorySentenceService;
         this.updateSentenceByAnswer = updateSentenceByAnswer;
@@ -38,48 +30,41 @@ public class ResultService extends CheckingSentences{
 
 
     public ComponentDtoOutput resultByInputAnswer(ComponentDtoInput componentDtoInput) {
-        Sentence currentlyUsedSentence =
-                getCurrentlyUsedSentenceFromDBById(componentDtoInput.getSentenceId());
+        Sentence currentlyUsedSentence = repositorySentenceService
+                .findById(componentDtoInput.getSentenceId())
+                .orElseThrow();
         boolean answerIsCorrect = checkingCorrectnessOfPhraseTranslation(componentDtoInput,
                 currentlyUsedSentence);
 
         return answerIsCorrect ?
-                handleCorrectAnswer(componentDtoInput, currentlyUsedSentence) :
-                handleIncorrectAnswer(componentDtoInput, currentlyUsedSentence);
+                handleCorrectAnswer(componentDtoInput) :
+                incorrectAnswer.validationByOnNumberOfTries(componentDtoInput, currentlyUsedSentence);
     }
 
-    //Zrobić oddzielną klasę na sprawdzenie poprawności przesłanego Answer; tutaj nie będzie mozliwości umieszczenia nulla
-    private Sentence getCurrentlyUsedSentenceFromDBById(Long id) {
-        Optional<Sentence> searchSentence = repositorySentenceService.findById(id);
-        return searchSentence
-                .orElseThrow(() -> new EntityNotFoundException("Szukany record na podstawie id nie istnieje"));
-    }
-
-    private ComponentDtoOutput handleCorrectAnswer(ComponentDtoInput componentDtoInput,
-                                                   Sentence currentlyUsedSentence) {
-        updateCurrentlyUsedSentence(updateSentenceByAnswer.getUpdatedSentence(componentDtoInput,
-                currentlyUsedSentence));
+    private ComponentDtoOutput handleCorrectAnswer(ComponentDtoInput componentDtoInput) {
+        updateCurrentlyUsedSentence(updateSentenceByAnswer.getUpdatedReplayDataSentence(componentDtoInput));
 
         return getNextSentenceDtoToShow(true);
     }
 
-    private ComponentDtoOutput handleIncorrectAnswer(ComponentDtoInput componentDtoInput,
-                                                     Sentence currentlyUsedSentence) {
+    // option, force to always write the correct answer
+//    private ComponentDtoOutput handleIncorrectAnswer(ComponentDtoInput componentDtoInput,
+//                                                     Sentence currentlyUsedSentence) {
+//
+//        if (componentDtoInput.getNumberOfTries() <= ApiConstants.MAX_REPLAY_LEVEL_VALUE){
+//            return incorrectAnswer.inputValidationBasedOnNumberOfTries(
+//                    componentDtoInput,
+//                    currentlyUsedSentence);
+//        } else {
+//            updateCurrentlyUsedSentence(updateSentenceByAnswer.getUpdatedReplayDataSentence(componentDtoInput,
+//                    currentlyUsedSentence));
+//
+//            return getNextSentenceDtoToShow(false);
+//        }
+//    }
 
-        if (componentDtoInput.getNumberOfTries() <= ApiConstants.MAX_REPLAY_LEVEL_VALUE){
-            return incorrectAnswer.inputValidationBasedOnNumberOfTries(
-                    componentDtoInput,
-                    currentlyUsedSentence);
-        } else {
-            updateCurrentlyUsedSentence(updateSentenceByAnswer.getUpdatedSentence(componentDtoInput,
-                    currentlyUsedSentence));
-
-            return getNextSentenceDtoToShow(false);
-        }
-    }
-
-    private void updateCurrentlyUsedSentence(Sentence updateSentence) {
-        repositorySentenceService.updateSentence(updateSentence);
+    private void updateCurrentlyUsedSentence(Sentence updatedSentence) {
+        repositorySentenceService.updateSentence(updatedSentence);
     }
 
     private ComponentDtoOutput getNextSentenceDtoToShow(boolean isCorrectAnswer) {

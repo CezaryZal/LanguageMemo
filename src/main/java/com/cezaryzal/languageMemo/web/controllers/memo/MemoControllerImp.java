@@ -9,9 +9,9 @@ import com.cezaryzal.languageMemo.model.ComponentDtoInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -56,15 +56,15 @@ public class MemoControllerImp implements MemoController{
         return sentenceService.getCounterReplayDateLessThanEqual();
     }
 
-    @GetMapping("/search/clues/{word}")
+    @GetMapping("/search/clues/{sentenceInput}")
     @Override
-    public List<Sentence> searchSentenceListOfSimilarSpellingsByClues(@PathVariable String word) {
-        return sentenceService.searchSentenceListOfSimilarSpellingsByClues(word);
+    public Set<Sentence> searchSentenceListOfSimilarSpellingsByClues(@PathVariable String sentenceInput) {
+        return sentenceService.searchSentenceListOfSimilarSpellingsByClues(sentenceInput);
     }
 
-    @GetMapping("/search/correct_answer/{word}")
+    @GetMapping("/search/correct_answer/{sentenceInput}")
     @Override
-    public List<Sentence> searchSentenceListOfSimilarSpellingsByCorrectAnswer(@PathVariable String word) {
-        return sentenceService.searchSentenceListOfSimilarSpellingsByAnswer(word);
+    public Set<Sentence> searchSentenceListOfSimilarSpellingsByCorrectAnswer(@PathVariable String sentenceInput) {
+        return sentenceService.searchSentenceListOfSimilarSpellingsByAnswer(sentenceInput);
     }
 }

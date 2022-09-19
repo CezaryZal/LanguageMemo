@@ -5,9 +5,9 @@ import com.cezaryzal.languageMemo.model.ComponentDtoInput;
 import com.cezaryzal.languageMemo.model.ComponentDtoOutput;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 public interface MemoController {
 
@@ -16,7 +16,7 @@ public interface MemoController {
     Map<String, String> getMapWithMostDifficultSentence();
     Optional<Integer> getCounter();
     String addNewSentence(AppendSentence appendSentence);
-    List<Sentence> searchSentenceListOfSimilarSpellingsByClues(String word);
-    List<Sentence> searchSentenceListOfSimilarSpellingsByCorrectAnswer(String word);
+    Set<Sentence> searchSentenceListOfSimilarSpellingsByClues(String word);
+    Set<Sentence> searchSentenceListOfSimilarSpellingsByCorrectAnswer(String word);
 
 }

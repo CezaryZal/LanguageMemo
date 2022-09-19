@@ -58,8 +58,8 @@ public class EverySecondLetterEnricherTest {
     @Test
     public void enrichProgressPhraseThirdTest() {
         String expectedString = "se_i-d_t_c_e_ _o_s_";
-        String unexpectedString = "_e_i-d_t_c_e_ ";
-        currentlyPlayedCase.setProgressPhrase("s___-________");
+        String unexpectedString = "_e_i-d_t_c_e_ _____";
+        currentlyPlayedCase.setProgressPhrase("s___-________ _____");
 
         everySecondLetterEnricher.enrichProgressPhrase(currentlyPlayedCase);
 
