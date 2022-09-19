@@ -67,6 +67,7 @@ public class IncorrectAnswer {
                 return createSentenceDTOByValidator(componentDtoInput);
             case 5:
                 fullLetterEnrich.enrichProgressPhrase(currentPlayedSentenceComponent);
+                //TODO zapisać do store nieudaną próbę (ostatnia szansa)
                 return createSentenceDTOByValidator(componentDtoInput);
             default:
                 return createSentenceDTOByValidator(componentDtoInput);
@@ -77,7 +78,7 @@ public class IncorrectAnswer {
 
     private ComponentDtoOutput createSentenceDTOByValidator(ComponentDtoInput componentDtoInput) {
         int numberOfTries = componentDtoInput.getNumberOfTries();
-        if (numberOfTries < 5){
+        if (numberOfTries < 6){
             numberOfTries++;
         }
 

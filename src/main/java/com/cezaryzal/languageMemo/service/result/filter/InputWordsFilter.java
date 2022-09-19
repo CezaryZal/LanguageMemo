@@ -16,22 +16,26 @@ public class InputWordsFilter implements InputFilter{
 
         Arrays.stream(inputPhrases.split("[ _\\-]"))
                 .forEach(word -> {
-                    String progressPhrase = currentlyPlayedCase.getProgressPhrase();
-                    if (currentlyPlayedCase.getUsedSentence().getCorrectAnswer().contains(word)) {
-                        int index = currentlyPlayedCase
-                                .getUsedSentence()
-                                .getCorrectAnswer()
-                                .indexOf(word);
+                    if (word.length() > 2) {
+                        String progressPhrase = currentlyPlayedCase.getProgressPhrase();
+                        if (currentlyPlayedCase.getUsedSentence().getCorrectAnswer().contains(word)) {
+                            int index = currentlyPlayedCase
+                                    .getUsedSentence()
+                                    .getCorrectAnswer()
+                                    .indexOf(word);
 
-                        if (index != 0)
+                            if (index != 0)
+                                creatingProgressPhrase
+                                        .append(progressPhrase, 0, index);
+
                             creatingProgressPhrase
-                                    .append(progressPhrase, 0, index);
+                                    .append(word)
+                                    .append(progressPhrase.substring(index + word.length()));
+                        }
+                    }});
+        String createdProgressPhrase = creatingProgressPhrase.toString();
 
-                        creatingProgressPhrase
-                                .append(word)
-                                .append(progressPhrase.substring(index + word.length()));
-                    }
-                });
-        currentlyPlayedCase.setProgressPhrase(creatingProgressPhrase.toString());
+        if (!createdProgressPhrase.isBlank())
+        currentlyPlayedCase.setProgressPhrase(createdProgressPhrase);
     }
 }
