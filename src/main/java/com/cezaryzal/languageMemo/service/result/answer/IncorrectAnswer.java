@@ -3,7 +3,6 @@ package com.cezaryzal.languageMemo.service.result.answer;
 import com.cezaryzal.languageMemo.model.ComponentDtoInput;
 import com.cezaryzal.languageMemo.model.ComponentDtoOutput;
 import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
-import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import com.cezaryzal.languageMemo.service.result.enrich.Enricher;
 import com.cezaryzal.languageMemo.service.result.filter.InputFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +39,7 @@ public class IncorrectAnswer {
         this.currentPlayedSentenceComponent = currentPlayedSentenceComponent;
     }
 
-    public ComponentDtoOutput validationByOnNumberOfTries(ComponentDtoInput componentDtoInput,
-                                                          Sentence currentlyUsedSentence) {
-        if (!currentPlayedSentenceComponent.getInitialize())
-        currentPlayedSentenceComponent.initialProgressPhrase(currentlyUsedSentence);
+    public ComponentDtoOutput validationByOnNumberOfTries(ComponentDtoInput componentDtoInput) {
 
         String inputPhrase = componentDtoInput.getPhrase();
 
@@ -74,8 +70,6 @@ public class IncorrectAnswer {
         }
     }
 
-
-
     private ComponentDtoOutput createSentenceDTOByValidator(ComponentDtoInput componentDtoInput) {
         int numberOfTries = componentDtoInput.getNumberOfTries();
         if (numberOfTries < 6){
@@ -97,5 +91,4 @@ public class IncorrectAnswer {
                         .getHint())
                 .build();
     }
-
 }
