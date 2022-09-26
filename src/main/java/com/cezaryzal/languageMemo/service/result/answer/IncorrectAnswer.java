@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
-public class IncorrectAnswer {
+public class IncorrectAnswer implements ServiceAnswer{
     private final InputFilter inputLetterFilter;
     private final InputFilter inputWordsFilter;
     private final Enricher specialMarkEnricher;
@@ -39,13 +39,17 @@ public class IncorrectAnswer {
         this.currentPlayedSentenceComponent = currentPlayedSentenceComponent;
     }
 
-    public ComponentDtoOutput validationByOnNumberOfTries(ComponentDtoInput componentDtoInput) {
+    public ComponentDtoOutput serviceByInputComponent(ComponentDtoInput componentDtoInput) {
 
         String inputPhrase = componentDtoInput.getPhrase();
 
         inputWordsFilter.catchCorrectPieceToProgressPhrase(currentPlayedSentenceComponent, inputPhrase);
         inputLetterFilter.catchCorrectPieceToProgressPhrase(currentPlayedSentenceComponent, inputPhrase);
 
+        return validationByOnNumberOfTries(componentDtoInput);
+    }
+
+    private ComponentDtoOutput validationByOnNumberOfTries(ComponentDtoInput componentDtoInput){
         int numberOfTries = componentDtoInput.getNumberOfTries();
 
         switch (numberOfTries){

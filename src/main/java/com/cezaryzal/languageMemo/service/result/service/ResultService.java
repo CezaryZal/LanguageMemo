@@ -5,6 +5,7 @@ import com.cezaryzal.languageMemo.model.ComponentDtoOutput;
 import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import com.cezaryzal.languageMemo.repository.service.RepositorySentenceService;
+import com.cezaryzal.languageMemo.service.result.answer.CorrectAnswer;
 import com.cezaryzal.languageMemo.service.result.answer.IncorrectAnswer;
 import com.cezaryzal.languageMemo.service.result.answer.UpdateSentenceByAnswer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,21 +15,18 @@ import org.springframework.stereotype.Service;
 public class ResultService extends CheckingSentences{
 
     private final IncorrectAnswer incorrectAnswer;
+    private final CorrectAnswer correctAnswer;
     private final RepositorySentenceService repositorySentenceService;
-    private final UpdateSentenceByAnswer updateSentenceByAnswer;
-    private final NextComponentDtoOutput nextComponentDtoOutput;
     private final CurrentPlayedSentenceComponent currentlyPlayedCase;
 
     @Autowired
     public ResultService(IncorrectAnswer incorrectAnswer,
+                         CorrectAnswer correctAnswer,
                          RepositorySentenceService repositorySentenceService,
-                         UpdateSentenceByAnswer updateSentenceByAnswer,
-                         NextComponentDtoOutput nextComponentDtoOutput,
                          CurrentPlayedSentenceComponent currentlyPlayedCase) {
         this.incorrectAnswer = incorrectAnswer;
+        this.correctAnswer = correctAnswer;
         this.repositorySentenceService = repositorySentenceService;
-        this.updateSentenceByAnswer = updateSentenceByAnswer;
-        this.nextComponentDtoOutput = nextComponentDtoOutput;
         this.currentlyPlayedCase = currentlyPlayedCase;
     }
 
@@ -47,14 +45,7 @@ public class ResultService extends CheckingSentences{
                                                                 currentlyPlayedCase.getUsedSentence());
 
         return answerIsCorrect ?
-                handleCorrectAnswer(componentDtoInput) :
-                incorrectAnswer.validationByOnNumberOfTries(componentDtoInput);
-    }
-
-    private ComponentDtoOutput handleCorrectAnswer(ComponentDtoInput componentDtoInput) {
-        repositorySentenceService.updateSentence(updateSentenceByAnswer
-                                                        .getUpdatedReplayDataSentence(componentDtoInput));
-
-        return nextComponentDtoOutput.getNextComponentDtoOutput(true);
+                correctAnswer.serviceByInputComponent(componentDtoInput) :
+                incorrectAnswer.serviceByInputComponent(componentDtoInput);
     }
 }
