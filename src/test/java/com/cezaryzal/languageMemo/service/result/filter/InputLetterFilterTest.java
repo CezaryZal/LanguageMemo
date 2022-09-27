@@ -5,21 +5,17 @@ import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
 public class InputLetterFilterTest {
     private CurrentPlayedSentenceComponent currentlyPlayedCase;
+    private final InputFilter inputLetterFilter;
+    private final ReplacementBlankCharacters replacementBlankCharacters;
 
-    @Autowired
-    private ReplacementBlankCharacters replacementBlankCharacters;
-    @Autowired
-    private @Qualifier("inputLetterFilter") InputFilter inputLetterFilter;
+
+    public InputLetterFilterTest() {
+        this.inputLetterFilter = new InputLetterFilter();
+        this.replacementBlankCharacters = new ReplacementBlankCharacters();
+    }
 
     @Before
     public void setup(){

@@ -6,22 +6,18 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
 public class InputWordsFilterTest {
-    private CurrentPlayedSentenceComponent currentlyPlayedCase;
+    private final ReplacementBlankCharacters replacementBlankCharacters;
+    private final InputFilter inputWordsFilter;
     private final String stubProgressPhrase = "___________________";
 
-    @Autowired
-    private ReplacementBlankCharacters replacementBlankCharacters;
-    @Autowired
-    private @Qualifier("inputWordsFilter") InputFilter inputWordsFilter;
+    private CurrentPlayedSentenceComponent currentlyPlayedCase;
+
+    public InputWordsFilterTest() {
+        this.replacementBlankCharacters = new ReplacementBlankCharacters();
+        this.inputWordsFilter = new InputWordsFilter();
+    }
 
     @Before
     public void setup(){
