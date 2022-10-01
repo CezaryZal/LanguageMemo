@@ -1,0 +1,22 @@
+server:
+  port: 8082
+  servlet:
+    context-path: "/language-memo"
+
+spring:
+  jpa:
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans=true: true
+        show_sql: true
+    hibernate:
+      ddl-auto: "update"
+  datasource:
+    url: "jdbc:mysql://localhost:3306/language_memo?characterEncoding=UTF-8&serverTimezone=UTC"
+    username: "hbstudent"
+    password: "HBstudent!123"
+  jackson:
+    time-zone: "Europe/Warsaw"
+
+#spring.datasource.username=root
+#spring.datasource.password=SQLSerwer2019!@
