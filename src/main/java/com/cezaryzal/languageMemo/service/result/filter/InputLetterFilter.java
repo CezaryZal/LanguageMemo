@@ -2,11 +2,19 @@ package com.cezaryzal.languageMemo.service.result.filter;
 
 import com.cezaryzal.languageMemo.config.ApiConstants;
 import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class InputLetterFilter implements InputFilter{
     StringBuilder creatingProgressPhrase;
+
+    private final ApiConstants apiConstants;
+
+    @Autowired
+    public InputLetterFilter(ApiConstants apiConstants) {
+        this.apiConstants = apiConstants;
+    }
 
     @Override
     public void catchCorrectPieceToProgressPhrase(final CurrentPlayedSentenceComponent currentlyPlayedCase, String inputPhrases) {
@@ -36,7 +44,7 @@ public class InputLetterFilter implements InputFilter{
         } else if (progressPhrase.charAt(indexOfLetterCompared) == correctAnswer.charAt(indexOfLetterCompared)){
             creatingProgressPhrase.append(progressPhrase.charAt(indexOfLetterCompared));
         } else {
-            creatingProgressPhrase.append(ApiConstants.INCORRECT_LETTER);
+            creatingProgressPhrase.append(apiConstants.getIncorrectLetter());
         }
     }
 }

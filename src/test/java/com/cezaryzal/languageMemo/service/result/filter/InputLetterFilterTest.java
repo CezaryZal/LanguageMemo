@@ -1,27 +1,40 @@
 package com.cezaryzal.languageMemo.service.result.filter;
 
+import com.cezaryzal.languageMemo.config.ApiConstants;
 import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+
+@ExtendWith(MockitoExtension.class)
 public class InputLetterFilterTest {
     private CurrentPlayedSentenceComponent currentlyPlayedCase;
-    private final InputFilter inputLetterFilter;
     private final ReplacementBlankCharacters replacementBlankCharacters;
+
+    @Mock
+    public ApiConstants apiConstants;
+    @InjectMocks
+    private InputLetterFilter inputLetterFilter;
 
 
     public InputLetterFilterTest() {
-        this.inputLetterFilter = new InputLetterFilter();
         this.replacementBlankCharacters = new ReplacementBlankCharacters();
     }
 
-    @Before
+    @BeforeEach
     public void setup(){
         Sentence sampleSentenceForTest = getSampleSentenceForTest();
         currentlyPlayedCase = new CurrentPlayedSentenceComponent(replacementBlankCharacters);
         currentlyPlayedCase.initialProgressPhrase(sampleSentenceForTest);
+        Mockito.when(apiConstants.getIncorrectLetter())
+                .thenReturn('_');
     }
 
     @Test

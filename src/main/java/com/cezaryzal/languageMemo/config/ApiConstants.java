@@ -1,11 +1,22 @@
 package com.cezaryzal.languageMemo.config;
 
-import org.springframework.stereotype.Component;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 
-@Component
+@Configuration
+@Getter
 public class ApiConstants {
-    public static final char INCORRECT_LETTER = '_';
-    public static final int NUMBER_THAT_SCALES_REPLAY_LEVEL = 1;
-    public static final int MIN_REPLAY_LEVEL_VALUE = 0;
-    public static final int MAX_REPLAY_LEVEL_VALUE = 5;
+
+    @Value("${service.incorrect-letter}")
+    public char incorrectLetter;
+
+    @Value("${service.scales-replay-level-number}")
+    public int scalesReplayLevelNumber;
+
+    @Value("${service.min-replay-level-value}")
+    public int minReplayLevelValue;
+
+    @Value("${service.max-replay-level-value}")
+    public int maxReplayLevelValue;
 }

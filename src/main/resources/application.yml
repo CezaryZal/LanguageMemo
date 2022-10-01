@@ -20,3 +20,9 @@ spring:
 
 #spring.datasource.username=root
 #spring.datasource.password=SQLSerwer2019!@
+
+service:
+  incorrect-letter: '_'
+  scales-replay-level-number: 1
+  min-replay-level-value: 0
+  max-replay-level-value: 5
