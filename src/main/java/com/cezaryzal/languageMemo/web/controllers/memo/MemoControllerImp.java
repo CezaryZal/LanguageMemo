@@ -6,6 +6,7 @@ import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import com.cezaryzal.languageMemo.service.SentenceService;
 import com.cezaryzal.languageMemo.model.ComponentDtoOutput;
 import com.cezaryzal.languageMemo.model.ComponentDtoInput;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,7 @@ import java.util.Set;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@Slf4j
 @RequestMapping("/api")
 public class MemoControllerImp implements MemoController{
     private final SentenceService sentenceService;
@@ -38,7 +40,7 @@ public class MemoControllerImp implements MemoController{
     @Override
     public ComponentDtoOutput resultByInputAnswer(@RequestBody ComponentDtoInput componentDtoInput) {
         ComponentDtoOutput resultByInputAnswer = sentenceService.getResultByInputAnswer(componentDtoInput);
-        MainConfig.LOGGER.info(
+        log.debug(
                 "\n<------Memo controller: " + componentDtoInput
         );
         return resultByInputAnswer;
