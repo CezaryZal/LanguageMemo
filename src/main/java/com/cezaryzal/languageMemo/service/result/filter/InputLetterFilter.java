@@ -1,6 +1,6 @@
 package com.cezaryzal.languageMemo.service.result.filter;
 
-import com.cezaryzal.languageMemo.config.ApiConstants;
+import com.cezaryzal.languageMemo.config.ServiceResultConfig;
 import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 public class InputLetterFilter implements InputFilter{
     StringBuilder creatingProgressPhrase;
 
-    private final ApiConstants apiConstants;
+    private final ServiceResultConfig serviceResultConfig;
 
     @Autowired
-    public InputLetterFilter(ApiConstants apiConstants) {
-        this.apiConstants = apiConstants;
+    public InputLetterFilter(ServiceResultConfig serviceResultConfig) {
+        this.serviceResultConfig = serviceResultConfig;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class InputLetterFilter implements InputFilter{
         } else if (progressPhrase.charAt(indexOfLetterCompared) == correctAnswer.charAt(indexOfLetterCompared)){
             creatingProgressPhrase.append(progressPhrase.charAt(indexOfLetterCompared));
         } else {
-            creatingProgressPhrase.append(apiConstants.getIncorrectLetter());
+            creatingProgressPhrase.append(serviceResultConfig.getIncorrectLetter());
         }
     }
 }

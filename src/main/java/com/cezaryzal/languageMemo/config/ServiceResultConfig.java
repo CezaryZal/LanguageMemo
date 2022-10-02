@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @Getter
-public class ApiConstants {
+public class ServiceResultConfig {
 
     @Value("${service.incorrect-letter}")
     public char incorrectLetter;

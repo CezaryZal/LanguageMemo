@@ -1,26 +1,26 @@
 package com.cezaryzal.languageMemo.service.result.modifier;
 
-import com.cezaryzal.languageMemo.config.ApiConstants;
+import com.cezaryzal.languageMemo.config.ServiceResultConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ReplayLevelModifier {
 
-    private final ApiConstants apiConstants;
+    private final ServiceResultConfig serviceResultConfig;
 
     @Autowired
-    public ReplayLevelModifier(ApiConstants apiConstants) {
-        this.apiConstants = apiConstants;
+    public ReplayLevelModifier(ServiceResultConfig serviceResultConfig) {
+        this.serviceResultConfig = serviceResultConfig;
     }
 
     public int  changeReplayLevelByNumberOfTries(int numberOfTries, int replayLevel){
-        int updateReplayLevel = replayLevel - numberOfTries + apiConstants.getScalesReplayLevelNumber();
+        int updateReplayLevel = replayLevel - numberOfTries + serviceResultConfig.getScalesReplayLevelNumber();
 
-        if (updateReplayLevel <= apiConstants.getMinReplayLevelValue()){
-            return apiConstants.getMinReplayLevelValue();
-        } else if (updateReplayLevel >= apiConstants.getMaxReplayLevelValue()){
-            return apiConstants.getMaxReplayLevelValue();
+        if (updateReplayLevel <= serviceResultConfig.getMinReplayLevelValue()){
+            return serviceResultConfig.getMinReplayLevelValue();
+        } else if (updateReplayLevel >= serviceResultConfig.getMaxReplayLevelValue()){
+            return serviceResultConfig.getMaxReplayLevelValue();
         }
         return updateReplayLevel;
     }

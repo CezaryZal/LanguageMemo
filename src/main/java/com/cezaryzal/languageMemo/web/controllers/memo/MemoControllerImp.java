@@ -1,6 +1,5 @@
 package com.cezaryzal.languageMemo.web.controllers.memo;
 
-import com.cezaryzal.languageMemo.config.MainConfig;
 import com.cezaryzal.languageMemo.model.AppendSentence;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import com.cezaryzal.languageMemo.service.SentenceService;

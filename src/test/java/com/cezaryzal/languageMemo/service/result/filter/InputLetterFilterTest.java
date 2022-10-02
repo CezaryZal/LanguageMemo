@@ -1,6 +1,6 @@
 package com.cezaryzal.languageMemo.service.result.filter;
 
-import com.cezaryzal.languageMemo.config.ApiConstants;
+import com.cezaryzal.languageMemo.config.ServiceResultConfig;
 import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import org.junit.Assert;
@@ -19,7 +19,7 @@ public class InputLetterFilterTest {
     private final ReplacementBlankCharacters replacementBlankCharacters;
 
     @Mock
-    public ApiConstants apiConstants;
+    public ServiceResultConfig serviceResultConfig;
     @InjectMocks
     private InputLetterFilter inputLetterFilter;
 
@@ -33,7 +33,7 @@ public class InputLetterFilterTest {
         Sentence sampleSentenceForTest = getSampleSentenceForTest();
         currentlyPlayedCase = new CurrentPlayedSentenceComponent(replacementBlankCharacters);
         currentlyPlayedCase.initialProgressPhrase(sampleSentenceForTest);
-        Mockito.when(apiConstants.getIncorrectLetter())
+        Mockito.when(serviceResultConfig.getIncorrectLetter())
                 .thenReturn('_');
     }
 
