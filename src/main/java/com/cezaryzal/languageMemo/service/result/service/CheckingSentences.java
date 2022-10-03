@@ -1,6 +1,6 @@
 package com.cezaryzal.languageMemo.service.result.service;
 
-import com.cezaryzal.languageMemo.model.ComponentDtoInput;
+import com.cezaryzal.languageMemo.model.MemoItemDtoInput;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import org.springframework.stereotype.Service;
 
@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 abstract class CheckingSentences {
 
     //TODO usunąć type z componentu TranslateComponentInput
-    boolean checkingCorrectnessOfPhraseTranslation(ComponentDtoInput componentDtoInput,
+    boolean checkingCorrectnessOfPhraseTranslation(MemoItemDtoInput memoItemDtoInput,
                                                    Sentence currentlyUsedSentence) {
 
-        return componentDtoInput
+        return memoItemDtoInput
                 .getPhrase()
                 .equalsIgnoreCase(currentlyUsedSentence
                                         .getCorrectAnswer());

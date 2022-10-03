@@ -1,7 +1,7 @@
 package com.cezaryzal.languageMemo.service.result.answer;
 
 import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
-import com.cezaryzal.languageMemo.model.ComponentDtoInput;
+import com.cezaryzal.languageMemo.model.MemoItemDtoInput;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import com.cezaryzal.languageMemo.service.result.modifier.ReplayDateModifier;
 import com.cezaryzal.languageMemo.service.result.modifier.ReplayLevelModifier;
@@ -24,9 +24,9 @@ public class UpdateSentenceByAnswer {
         this.currentlyPlayedCase = currentlyPlayedCase;
     }
 
-    public Sentence getUpdatedReplayDataSentence(ComponentDtoInput componentDtoInput){
+    public Sentence getUpdatedReplayDataSentence(MemoItemDtoInput memoItemDtoInput){
         Sentence currentlyUsedSentence = currentlyPlayedCase.getUsedSentence();
-        int modifiedReplayLevel = modifyReplayLevel(componentDtoInput.getNumberOfTries(), currentlyUsedSentence);
+        int modifiedReplayLevel = modifyReplayLevel(memoItemDtoInput.getNumberOfTries(), currentlyUsedSentence);
 
         currentlyUsedSentence.setReplayLevel(modifiedReplayLevel);
         currentlyUsedSentence.setReplayDate(modifyReplayDate(modifiedReplayLevel));

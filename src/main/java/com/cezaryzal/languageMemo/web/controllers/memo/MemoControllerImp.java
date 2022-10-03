@@ -3,8 +3,8 @@ package com.cezaryzal.languageMemo.web.controllers.memo;
 import com.cezaryzal.languageMemo.model.AppendSentence;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import com.cezaryzal.languageMemo.service.SentenceService;
-import com.cezaryzal.languageMemo.model.ComponentDtoOutput;
-import com.cezaryzal.languageMemo.model.ComponentDtoInput;
+import com.cezaryzal.languageMemo.model.MemoItemDtoOutput;
+import com.cezaryzal.languageMemo.model.MemoItemDtoInput;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,16 +31,16 @@ public class MemoControllerImp implements MemoController{
     }
     @GetMapping("/first")
     @Override
-    public ComponentDtoOutput getFirstSentence() {
+    public MemoItemDtoOutput getFirstSentence() {
         return sentenceService.getFirstComponentDtoOutput();
     }
 
     @PostMapping("/result")
     @Override
-    public ComponentDtoOutput resultByInputAnswer(@RequestBody ComponentDtoInput componentDtoInput) {
-        ComponentDtoOutput resultByInputAnswer = sentenceService.getResultByInputAnswer(componentDtoInput);
+    public MemoItemDtoOutput resultByInputAnswer(@RequestBody MemoItemDtoInput memoItemDtoInput) {
+        MemoItemDtoOutput resultByInputAnswer = sentenceService.getResultByInputAnswer(memoItemDtoInput);
         log.debug(
-                "\n<------Memo controller: " + componentDtoInput
+                "\n<------Memo controller: " + memoItemDtoInput
         );
         return resultByInputAnswer;
     }

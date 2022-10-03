@@ -1,7 +1,7 @@
 package com.cezaryzal.languageMemo.service.result.answer;
 
-import com.cezaryzal.languageMemo.model.ComponentDtoInput;
-import com.cezaryzal.languageMemo.model.ComponentDtoOutput;
+import com.cezaryzal.languageMemo.model.MemoItemDtoInput;
+import com.cezaryzal.languageMemo.model.MemoItemDtoOutput;
 import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
 import com.cezaryzal.languageMemo.service.result.enrich.Enricher;
 import com.cezaryzal.languageMemo.service.result.filter.InputFilter;
@@ -39,49 +39,49 @@ public class IncorrectAnswer implements ServiceAnswer{
         this.currentPlayedSentenceComponent = currentPlayedSentenceComponent;
     }
 
-    public ComponentDtoOutput serviceByInputComponent(ComponentDtoInput componentDtoInput) {
+    public MemoItemDtoOutput serviceByInputComponent(MemoItemDtoInput memoItemDtoInput) {
 
-        String inputPhrase = componentDtoInput.getPhrase();
+        String inputPhrase = memoItemDtoInput.getPhrase();
 
         inputWordsFilter.catchCorrectPieceToProgressPhrase(currentPlayedSentenceComponent, inputPhrase);
         inputLetterFilter.catchCorrectPieceToProgressPhrase(currentPlayedSentenceComponent, inputPhrase);
 
-        return validationByOnNumberOfTries(componentDtoInput);
+        return validationByOnNumberOfTries(memoItemDtoInput);
     }
 
-    private ComponentDtoOutput validationByOnNumberOfTries(ComponentDtoInput componentDtoInput){
-        int numberOfTries = componentDtoInput.getNumberOfTries();
+    private MemoItemDtoOutput validationByOnNumberOfTries(MemoItemDtoInput memoItemDtoInput){
+        int numberOfTries = memoItemDtoInput.getNumberOfTries();
 
         switch (numberOfTries){
             case 1:
                 specialMarkEnricher.enrichProgressPhrase(currentPlayedSentenceComponent);
-                return createSentenceDTOByValidator(componentDtoInput);
+                return createSentenceDTOByValidator(memoItemDtoInput);
             case 2:
                 firstLetterEnricher.enrichProgressPhrase(currentPlayedSentenceComponent);
-                return createSentenceDTOByValidator(componentDtoInput);
+                return createSentenceDTOByValidator(memoItemDtoInput);
             case 3:
                 firstLettersEnricher.enrichProgressPhrase(currentPlayedSentenceComponent);
-                return createSentenceDTOByValidator(componentDtoInput);
+                return createSentenceDTOByValidator(memoItemDtoInput);
             case 4:
                 everySecondLetterEnricher.enrichProgressPhrase(currentPlayedSentenceComponent);
-                return createSentenceDTOByValidator(componentDtoInput);
+                return createSentenceDTOByValidator(memoItemDtoInput);
             case 5:
                 fullLetterEnrich.enrichProgressPhrase(currentPlayedSentenceComponent);
                 //TODO zapisać do store nieudaną próbę (ostatnia szansa)
-                return createSentenceDTOByValidator(componentDtoInput);
+                return createSentenceDTOByValidator(memoItemDtoInput);
             default:
-                return createSentenceDTOByValidator(componentDtoInput);
+                return createSentenceDTOByValidator(memoItemDtoInput);
         }
     }
 
-    private ComponentDtoOutput createSentenceDTOByValidator(ComponentDtoInput componentDtoInput) {
-        int numberOfTries = componentDtoInput.getNumberOfTries();
+    private MemoItemDtoOutput createSentenceDTOByValidator(MemoItemDtoInput memoItemDtoInput) {
+        int numberOfTries = memoItemDtoInput.getNumberOfTries();
         if (numberOfTries < 6){
             numberOfTries++;
         }
 
-        return ComponentDtoOutput.builder()
-                .sentenceId(componentDtoInput
+        return MemoItemDtoOutput.builder()
+                .sentenceId(memoItemDtoInput
                         .getSentenceId())
                 .headerToTranslate(currentPlayedSentenceComponent
                         .getUsedSentence()

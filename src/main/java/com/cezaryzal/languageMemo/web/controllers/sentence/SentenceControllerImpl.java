@@ -67,13 +67,13 @@ public class SentenceControllerImpl implements SentenceController{
         return repositorySentenceService.getSentenceByCorrectAnswer(correctAnswer);
     }
 
-    @GetMapping("/part-word/clues/{inside}")
+    @GetMapping("/part-word/clues/{phrase}")
     @Override
     public List<Sentence> getSentenceListByCluesContainingInsideString(@PathVariable String inside){
         return repositorySentenceService.getSentenceListByCluesContainingInsideString(inside);
     }
 
-    @GetMapping("/part-word/correct_answer/{inside}")
+    @GetMapping("/part-word/correct_answer/{phrase}")
     @Override
     public List<Sentence> getSentenceListByAnswerContainingInsideString(@PathVariable String inside) {
         return repositorySentenceService.getSentenceListByAnswerContainingInsideString(inside);

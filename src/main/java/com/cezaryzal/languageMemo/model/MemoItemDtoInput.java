@@ -3,7 +3,7 @@ package com.cezaryzal.languageMemo.model;
 import lombok.Data;
 
 @Data
-public class ComponentDtoInput {
+public class MemoItemDtoInput {
 
     private Long sentenceId;
     private String phrase;

@@ -52,12 +52,12 @@ public class SentenceService {
             return "This Sentence has already been added to repository. Sentence: " + similarSentence.toString();
     }
 
-    public ComponentDtoOutput getFirstComponentDtoOutput() {
+    public MemoItemDtoOutput getFirstComponentDtoOutput() {
          return firstComponentDtoOutput.getFirstComponentDtoOutput();
     }
 
-    public ComponentDtoOutput getResultByInputAnswer(ComponentDtoInput componentDtoInput) {
-        return resultService.resultByInputAnswer(componentDtoInput);
+    public MemoItemDtoOutput getResultByInputAnswer(MemoItemDtoInput memoItemDtoInput) {
+        return resultService.resultByInputAnswer(memoItemDtoInput);
     }
 
     public Map<String, String> getMapWithMostDifficultSentence() {

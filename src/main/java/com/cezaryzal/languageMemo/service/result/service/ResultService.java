@@ -1,13 +1,12 @@
 package com.cezaryzal.languageMemo.service.result.service;
 
-import com.cezaryzal.languageMemo.model.ComponentDtoInput;
-import com.cezaryzal.languageMemo.model.ComponentDtoOutput;
+import com.cezaryzal.languageMemo.model.MemoItemDtoInput;
+import com.cezaryzal.languageMemo.model.MemoItemDtoOutput;
 import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import com.cezaryzal.languageMemo.repository.service.RepositorySentenceService;
 import com.cezaryzal.languageMemo.service.result.answer.CorrectAnswer;
 import com.cezaryzal.languageMemo.service.result.answer.IncorrectAnswer;
-import com.cezaryzal.languageMemo.service.result.answer.UpdateSentenceByAnswer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,21 +30,21 @@ public class ResultService extends CheckingSentences{
     }
 
 
-    public ComponentDtoOutput resultByInputAnswer(ComponentDtoInput componentDtoInput) {
+    public MemoItemDtoOutput resultByInputAnswer(MemoItemDtoInput memoItemDtoInput) {
 
-        if (componentDtoInput.getNumberOfTries() == 0){
+        if (memoItemDtoInput.getNumberOfTries() == 0){
             Sentence currentlyUsedSentence = repositorySentenceService
-                    .findById(componentDtoInput.getSentenceId())
+                    .findById(memoItemDtoInput.getSentenceId())
                     .orElseThrow();
 
             currentlyPlayedCase.initialProgressPhrase(currentlyUsedSentence);
         }
         boolean answerIsCorrect = checkingCorrectnessOfPhraseTranslation(
-                                                                componentDtoInput,
+                memoItemDtoInput,
                                                                 currentlyPlayedCase.getUsedSentence());
 
         return answerIsCorrect ?
-                correctAnswer.serviceByInputComponent(componentDtoInput) :
-                incorrectAnswer.serviceByInputComponent(componentDtoInput);
+                correctAnswer.serviceByInputComponent(memoItemDtoInput) :
+                incorrectAnswer.serviceByInputComponent(memoItemDtoInput);
     }
 }

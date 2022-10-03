@@ -1,8 +1,8 @@
 package com.cezaryzal.languageMemo.service.result.answer;
 
-import com.cezaryzal.languageMemo.model.ComponentDtoInput;
-import com.cezaryzal.languageMemo.model.ComponentDtoOutput;
+import com.cezaryzal.languageMemo.model.MemoItemDtoInput;
+import com.cezaryzal.languageMemo.model.MemoItemDtoOutput;
 
 public interface ServiceAnswer {
-    ComponentDtoOutput serviceByInputComponent(ComponentDtoInput componentDtoInput);
+    MemoItemDtoOutput serviceByInputComponent(MemoItemDtoInput memoItemDtoInput);
 }
