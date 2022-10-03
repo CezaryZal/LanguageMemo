@@ -1,13 +1,13 @@
 package com.cezaryzal.languageMemo.service.result.enrich;
 
-import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
+import com.cezaryzal.languageMemo.model.CurrentPlayedMemoItem;
 import org.springframework.stereotype.Service;
 
 @Service
 public class FirstLettersEnricher implements Enricher {
 
     @Override
-    public void enrichProgressPhrase(final CurrentPlayedSentenceComponent currentlyPlayedCase) {
+    public void enrichProgressPhrase(final CurrentPlayedMemoItem currentlyPlayedCase) {
         String correctAnswer = currentlyPlayedCase
                 .getUsedSentence()
                 .getCorrectAnswer();

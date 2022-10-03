@@ -1,6 +1,6 @@
 package com.cezaryzal.languageMemo.service.result.filter;
 
-import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
+import com.cezaryzal.languageMemo.model.CurrentPlayedMemoItem;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,7 +12,7 @@ public class InputWordsFilterTest {
     private final InputFilter inputWordsFilter;
     private final String stubProgressPhrase = "___________________";
 
-    private CurrentPlayedSentenceComponent currentlyPlayedCase;
+    private CurrentPlayedMemoItem currentlyPlayedCase;
 
     public InputWordsFilterTest() {
         this.replacementBlankCharacters = new ReplacementBlankCharacters();
@@ -22,7 +22,7 @@ public class InputWordsFilterTest {
     @Before
     public void setup(){
         Sentence sampleSentenceForTest = getSampleSentenceForTest();
-        currentlyPlayedCase = new CurrentPlayedSentenceComponent(replacementBlankCharacters);
+        currentlyPlayedCase = new CurrentPlayedMemoItem(replacementBlankCharacters);
         currentlyPlayedCase.initialProgressPhrase(sampleSentenceForTest);
     }
 

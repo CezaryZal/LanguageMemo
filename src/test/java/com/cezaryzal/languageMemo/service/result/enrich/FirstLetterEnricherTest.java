@@ -1,6 +1,6 @@
 package com.cezaryzal.languageMemo.service.result.enrich;
 
-import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
+import com.cezaryzal.languageMemo.model.CurrentPlayedMemoItem;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import com.cezaryzal.languageMemo.service.result.filter.ReplacementBlankCharacters;
 import org.junit.Assert;
@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class FirstLetterEnricherTest {
-    private CurrentPlayedSentenceComponent currentlyPlayedCase;
+    private CurrentPlayedMemoItem currentlyPlayedCase;
 
     @Autowired
     private @Qualifier("firstLetterEnricher") Enricher firstLetterEnricher;
@@ -25,7 +25,7 @@ public class FirstLetterEnricherTest {
     @Before
     public void setup() {
         Sentence sampleSentenceForTest = getSampleSentenceForTest();
-        currentlyPlayedCase = new CurrentPlayedSentenceComponent(replacementBlankCharacters);
+        currentlyPlayedCase = new CurrentPlayedMemoItem(replacementBlankCharacters);
         currentlyPlayedCase.initialProgressPhrase(sampleSentenceForTest);
     }
 

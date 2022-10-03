@@ -2,7 +2,7 @@ package com.cezaryzal.languageMemo.service.result.answer;
 
 import com.cezaryzal.languageMemo.model.MemoItemDtoInput;
 import com.cezaryzal.languageMemo.model.MemoItemDtoOutput;
-import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
+import com.cezaryzal.languageMemo.model.CurrentPlayedMemoItem;
 import com.cezaryzal.languageMemo.service.result.enrich.Enricher;
 import com.cezaryzal.languageMemo.service.result.filter.InputFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class IncorrectAnswer implements ServiceAnswer{
     private final Enricher firstLettersEnricher;
     private final Enricher everySecondLetterEnricher;
     private final Enricher fullLetterEnrich;
-    private final CurrentPlayedSentenceComponent currentPlayedSentenceComponent;
+    private final CurrentPlayedMemoItem currentPlayedMemoItem;
 
     @Autowired
     public IncorrectAnswer(@Qualifier("specialMarkEnricher") Enricher specialMarkEnricher,
@@ -28,7 +28,7 @@ public class IncorrectAnswer implements ServiceAnswer{
                            @Qualifier("firstLettersEnricher") Enricher firstLettersEnricher,
                            @Qualifier("everySecondLetterEnricher") Enricher everySecondLetterEnricher,
                            @Qualifier("fullLetterEnrich") Enricher fullLetterEnrich,
-                           CurrentPlayedSentenceComponent currentPlayedSentenceComponent) {
+                           CurrentPlayedMemoItem currentPlayedMemoItem) {
         this.specialMarkEnricher = specialMarkEnricher;
         this.inputLetterFilter = inputLetterFilter;
         this.inputWordsFilter = inputWordsFilter;
@@ -36,15 +36,15 @@ public class IncorrectAnswer implements ServiceAnswer{
         this.firstLettersEnricher = firstLettersEnricher;
         this.everySecondLetterEnricher = everySecondLetterEnricher;
         this.fullLetterEnrich = fullLetterEnrich;
-        this.currentPlayedSentenceComponent = currentPlayedSentenceComponent;
+        this.currentPlayedMemoItem = currentPlayedMemoItem;
     }
 
-    public MemoItemDtoOutput serviceByInputComponent(MemoItemDtoInput memoItemDtoInput) {
+    public MemoItemDtoOutput serviceByMemoItemInput(MemoItemDtoInput memoItemDtoInput) {
 
         String inputPhrase = memoItemDtoInput.getPhrase();
 
-        inputWordsFilter.catchCorrectPieceToProgressPhrase(currentPlayedSentenceComponent, inputPhrase);
-        inputLetterFilter.catchCorrectPieceToProgressPhrase(currentPlayedSentenceComponent, inputPhrase);
+        inputWordsFilter.catchCorrectPieceToProgressPhrase(currentPlayedMemoItem, inputPhrase);
+        inputLetterFilter.catchCorrectPieceToProgressPhrase(currentPlayedMemoItem, inputPhrase);
 
         return validationByOnNumberOfTries(memoItemDtoInput);
     }
@@ -54,19 +54,19 @@ public class IncorrectAnswer implements ServiceAnswer{
 
         switch (numberOfTries){
             case 1:
-                specialMarkEnricher.enrichProgressPhrase(currentPlayedSentenceComponent);
+                specialMarkEnricher.enrichProgressPhrase(currentPlayedMemoItem);
                 return createSentenceDTOByValidator(memoItemDtoInput);
             case 2:
-                firstLetterEnricher.enrichProgressPhrase(currentPlayedSentenceComponent);
+                firstLetterEnricher.enrichProgressPhrase(currentPlayedMemoItem);
                 return createSentenceDTOByValidator(memoItemDtoInput);
             case 3:
-                firstLettersEnricher.enrichProgressPhrase(currentPlayedSentenceComponent);
+                firstLettersEnricher.enrichProgressPhrase(currentPlayedMemoItem);
                 return createSentenceDTOByValidator(memoItemDtoInput);
             case 4:
-                everySecondLetterEnricher.enrichProgressPhrase(currentPlayedSentenceComponent);
+                everySecondLetterEnricher.enrichProgressPhrase(currentPlayedMemoItem);
                 return createSentenceDTOByValidator(memoItemDtoInput);
             case 5:
-                fullLetterEnrich.enrichProgressPhrase(currentPlayedSentenceComponent);
+                fullLetterEnrich.enrichProgressPhrase(currentPlayedMemoItem);
                 //TODO zapisać do store nieudaną próbę (ostatnia szansa)
                 return createSentenceDTOByValidator(memoItemDtoInput);
             default:
@@ -83,14 +83,14 @@ public class IncorrectAnswer implements ServiceAnswer{
         return MemoItemDtoOutput.builder()
                 .sentenceId(memoItemDtoInput
                         .getSentenceId())
-                .headerToTranslate(currentPlayedSentenceComponent
+                .headerToTranslate(currentPlayedMemoItem
                         .getUsedSentence()
                         .getClues())
-                .progressThroughLastTries(currentPlayedSentenceComponent
+                .progressThroughLastTries(currentPlayedMemoItem
                         .getProgressPhrase())
                 .isCorrectAnswer(false)
                 .numberOfTries(numberOfTries)
-                .hint(currentPlayedSentenceComponent
+                .hint(currentPlayedMemoItem
                         .getUsedSentence()
                         .getHint())
                 .build();

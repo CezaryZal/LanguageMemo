@@ -1,7 +1,7 @@
 package com.cezaryzal.languageMemo.service.result.filter;
 
 import com.cezaryzal.languageMemo.config.ServiceResultConfig;
-import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
+import com.cezaryzal.languageMemo.model.CurrentPlayedMemoItem;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 public class InputLetterFilterTest {
-    private CurrentPlayedSentenceComponent currentlyPlayedCase;
+    private CurrentPlayedMemoItem currentlyPlayedCase;
     private final ReplacementBlankCharacters replacementBlankCharacters;
 
     @Mock
@@ -31,7 +31,7 @@ public class InputLetterFilterTest {
     @BeforeEach
     public void setup(){
         Sentence sampleSentenceForTest = getSampleSentenceForTest();
-        currentlyPlayedCase = new CurrentPlayedSentenceComponent(replacementBlankCharacters);
+        currentlyPlayedCase = new CurrentPlayedMemoItem(replacementBlankCharacters);
         currentlyPlayedCase.initialProgressPhrase(sampleSentenceForTest);
         Mockito.when(serviceResultConfig.getIncorrectLetter())
                 .thenReturn('_');

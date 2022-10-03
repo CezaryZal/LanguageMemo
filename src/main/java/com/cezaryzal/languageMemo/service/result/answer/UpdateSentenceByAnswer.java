@@ -1,6 +1,6 @@
 package com.cezaryzal.languageMemo.service.result.answer;
 
-import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
+import com.cezaryzal.languageMemo.model.CurrentPlayedMemoItem;
 import com.cezaryzal.languageMemo.model.MemoItemDtoInput;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import com.cezaryzal.languageMemo.service.result.modifier.ReplayDateModifier;
@@ -15,10 +15,10 @@ public class UpdateSentenceByAnswer {
 
     private final ReplayLevelModifier replayLevelModifier;
     private final ReplayDateModifier replayDateModifier;
-    private final CurrentPlayedSentenceComponent currentlyPlayedCase;
+    private final CurrentPlayedMemoItem currentlyPlayedCase;
 
     @Autowired
-    public UpdateSentenceByAnswer(ReplayLevelModifier replayLevelModifier, ReplayDateModifier replayDateModifier, CurrentPlayedSentenceComponent currentlyPlayedCase) {
+    public UpdateSentenceByAnswer(ReplayLevelModifier replayLevelModifier, ReplayDateModifier replayDateModifier, CurrentPlayedMemoItem currentlyPlayedCase) {
         this.replayLevelModifier = replayLevelModifier;
         this.replayDateModifier = replayDateModifier;
         this.currentlyPlayedCase = currentlyPlayedCase;

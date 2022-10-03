@@ -1,7 +1,7 @@
 package com.cezaryzal.languageMemo.service.result.filter;
 
 import com.cezaryzal.languageMemo.config.ServiceResultConfig;
-import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
+import com.cezaryzal.languageMemo.model.CurrentPlayedMemoItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class InputLetterFilter implements InputFilter{
     }
 
     @Override
-    public void catchCorrectPieceToProgressPhrase(final CurrentPlayedSentenceComponent currentlyPlayedCase, String inputPhrases) {
+    public void catchCorrectPieceToProgressPhrase(final CurrentPlayedMemoItem currentlyPlayedCase, String inputPhrases) {
         creatingProgressPhrase = new StringBuilder();
         for (int i = 0;
              i < currentlyPlayedCase
@@ -29,7 +29,7 @@ public class InputLetterFilter implements InputFilter{
         }
         currentlyPlayedCase.setProgressPhrase(creatingProgressPhrase.toString());
     }
-    private void compareAndInsertLetterToProgressSentence(CurrentPlayedSentenceComponent currentlyPlayedCase,
+    private void compareAndInsertLetterToProgressSentence(CurrentPlayedMemoItem currentlyPlayedCase,
                                                           int indexOfLetterCompared,
                                                           String inputPhrases){
         String correctAnswer = currentlyPlayedCase

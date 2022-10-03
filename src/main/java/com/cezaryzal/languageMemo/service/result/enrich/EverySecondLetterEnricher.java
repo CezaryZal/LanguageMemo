@@ -1,6 +1,6 @@
 package com.cezaryzal.languageMemo.service.result.enrich;
 
-import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
+import com.cezaryzal.languageMemo.model.CurrentPlayedMemoItem;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -8,7 +8,7 @@ public class EverySecondLetterEnricher implements Enricher {
     StringBuilder creatingProgressPhrase;
 
     @Override
-    public void enrichProgressPhrase(CurrentPlayedSentenceComponent currentlyPlayedCase) {
+    public void enrichProgressPhrase(CurrentPlayedMemoItem currentlyPlayedCase) {
         creatingProgressPhrase = new StringBuilder();
         String correctAnswer = currentlyPlayedCase
                 .getUsedSentence()

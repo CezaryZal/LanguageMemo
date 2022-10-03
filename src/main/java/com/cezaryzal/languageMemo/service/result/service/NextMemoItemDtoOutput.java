@@ -1,6 +1,6 @@
 package com.cezaryzal.languageMemo.service.result.service;
 
-import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
+import com.cezaryzal.languageMemo.model.CurrentPlayedMemoItem;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import com.cezaryzal.languageMemo.service.SentenceComponentDataFiller;
 import com.cezaryzal.languageMemo.model.MemoItemDtoOutput;
@@ -9,26 +9,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class NextComponentDtoOutput extends SentenceComponentDataFiller {
+public class NextMemoItemDtoOutput extends SentenceComponentDataFiller {
 
     private final RandomSentence randomSentence;
-    private final CurrentPlayedSentenceComponent componentData;
+    private final CurrentPlayedMemoItem currentPlayedMemoItem;
 
     @Autowired
-    public NextComponentDtoOutput(RandomSentence randomSentence,
-                                  CurrentPlayedSentenceComponent componentData) {
+    public NextMemoItemDtoOutput(RandomSentence randomSentence,
+                                 CurrentPlayedMemoItem currentPlayedMemoItem) {
         this.randomSentence = randomSentence;
-        this.componentData = componentData;
+        this.currentPlayedMemoItem = currentPlayedMemoItem;
     }
 
-    public MemoItemDtoOutput getNextComponentDtoOutput(boolean isCorrectAnswer) {
-        String lastSentence = componentData.getUsedSentence().getClues() + "-" +
-        componentData.getUsedSentence().getCorrectAnswer();
+    public MemoItemDtoOutput getNextMemoItemDtoOutput(boolean isCorrectAnswer) {
+        String lastSentence = currentPlayedMemoItem.getUsedSentence().getClues() + "-" +
+        currentPlayedMemoItem.getUsedSentence().getCorrectAnswer();
 
         Sentence randomSentenceByTodayDate = randomSentence.getRandomSentenceByTodayDate();
-        componentData.initialProgressPhrase(randomSentenceByTodayDate);
+        currentPlayedMemoItem.initialProgressPhrase(randomSentenceByTodayDate);
 
-        return createComponentDtoFirstTry(
+        return createMemoItemDtoFirstTry(
                 isCorrectAnswer,
                 lastSentence,
                 randomSentenceByTodayDate);

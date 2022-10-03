@@ -32,7 +32,7 @@ public class MemoControllerImp implements MemoController{
     @GetMapping("/first")
     @Override
     public MemoItemDtoOutput getFirstSentence() {
-        return sentenceService.getFirstComponentDtoOutput();
+        return sentenceService.getStartMemoItemDtoOutput();
     }
 
     @PostMapping("/result")

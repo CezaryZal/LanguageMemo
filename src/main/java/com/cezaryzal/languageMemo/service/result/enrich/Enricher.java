@@ -1,8 +1,8 @@
 package com.cezaryzal.languageMemo.service.result.enrich;
 
-import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
+import com.cezaryzal.languageMemo.model.CurrentPlayedMemoItem;
 
 public interface Enricher {
 
-    void enrichProgressPhrase(final CurrentPlayedSentenceComponent currentlyPlayedCase);
+    void enrichProgressPhrase(final CurrentPlayedMemoItem currentlyPlayedCase);
 }

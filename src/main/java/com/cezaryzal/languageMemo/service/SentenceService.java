@@ -5,7 +5,7 @@ import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import com.cezaryzal.languageMemo.repository.service.RepositorySentenceService;
 import com.cezaryzal.languageMemo.service.create.SentenceCreator;
 import com.cezaryzal.languageMemo.service.difficult.Difficult;
-import com.cezaryzal.languageMemo.service.first.FirstComponentDtoOutput;
+import com.cezaryzal.languageMemo.service.first.StartMemoItemDtoOutput;
 import com.cezaryzal.languageMemo.service.result.service.ResultService;
 import com.cezaryzal.languageMemo.service.search.FinderBySimilarSpellings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.Set;
 public class SentenceService {
     private final RepositorySentenceService repositorySentenceService;
     private final SentenceCreator sentenceCreator;
-    private final FirstComponentDtoOutput firstComponentDtoOutput;
+    private final StartMemoItemDtoOutput startMemoItemDtoOutput;
     private final ResultService resultService;
     private final Difficult difficultSentence;
     private final FinderBySimilarSpellings finderBySimilarSpellings;
@@ -28,13 +28,13 @@ public class SentenceService {
     @Autowired
     public SentenceService(RepositorySentenceService repositorySentenceService,
                            SentenceCreator sentenceCreator,
-                           FirstComponentDtoOutput firstComponentDtoOutput,
+                           StartMemoItemDtoOutput startMemoItemDtoOutput,
                            ResultService resultService,
                            Difficult difficultSentence,
                            FinderBySimilarSpellings finderBySimilarSpellings) {
         this.repositorySentenceService = repositorySentenceService;
         this.sentenceCreator = sentenceCreator;
-        this.firstComponentDtoOutput = firstComponentDtoOutput;
+        this.startMemoItemDtoOutput = startMemoItemDtoOutput;
         this.resultService = resultService;
         this.difficultSentence = difficultSentence;
         this.finderBySimilarSpellings = finderBySimilarSpellings;
@@ -52,8 +52,8 @@ public class SentenceService {
             return "This Sentence has already been added to repository. Sentence: " + similarSentence.toString();
     }
 
-    public MemoItemDtoOutput getFirstComponentDtoOutput() {
-         return firstComponentDtoOutput.getFirstComponentDtoOutput();
+    public MemoItemDtoOutput getStartMemoItemDtoOutput() {
+         return startMemoItemDtoOutput.getMemoItemDtoOutputWithStartParams();
     }
 
     public MemoItemDtoOutput getResultByInputAnswer(MemoItemDtoInput memoItemDtoInput) {

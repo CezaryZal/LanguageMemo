@@ -1,6 +1,6 @@
 package com.cezaryzal.languageMemo.service.result.enrich;
 
-import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
+import com.cezaryzal.languageMemo.model.CurrentPlayedMemoItem;
 import com.cezaryzal.languageMemo.service.result.filter.ReplacementBlankCharacters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class SpecialMarkEnricher implements Enricher{
     }
 
     @Override
-    public void enrichProgressPhrase(final CurrentPlayedSentenceComponent currentlyPlayedCase) {
+    public void enrichProgressPhrase(final CurrentPlayedMemoItem currentlyPlayedCase) {
         StringBuilder creatingProgressPhrase = new StringBuilder();
         String correctAnswer = currentlyPlayedCase
                 .getUsedSentence()

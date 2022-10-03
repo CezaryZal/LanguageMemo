@@ -4,5 +4,5 @@ import com.cezaryzal.languageMemo.model.MemoItemDtoInput;
 import com.cezaryzal.languageMemo.model.MemoItemDtoOutput;
 
 public interface ServiceAnswer {
-    MemoItemDtoOutput serviceByInputComponent(MemoItemDtoInput memoItemDtoInput);
+    MemoItemDtoOutput serviceByMemoItemInput(MemoItemDtoInput memoItemDtoInput);
 }

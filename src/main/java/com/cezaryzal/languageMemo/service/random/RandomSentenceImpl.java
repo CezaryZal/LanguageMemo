@@ -22,7 +22,11 @@ public class RandomSentenceImpl implements RandomSentence{
     public Sentence getRandomSentenceByTodayDate() {
         Optional<Sentence> randomSentenceByTodayDate = sentenceService
                 .getRandomByReplayDateLessThanEqual(LocalDate.now());
-        return randomSentenceByTodayDate.orElseThrow(
-                ()-> new RuntimeException("Brak kolajnych sformułowań do powtórzenia"));
+        return randomSentenceByTodayDate.orElse(new Sentence(
+                0L,
+                "Wszystkie sformułowania na dziś zostały odgadnięte",
+                "Dobra robora!",
+                "Zrób sobię przerwę")
+        );
     }
 }

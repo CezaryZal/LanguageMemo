@@ -18,6 +18,16 @@ import java.time.LocalDate;
 @Entity(name = "sentence")
 public class Sentence {
 
+    public Sentence(Long id,
+                    String clues,
+                    String correctAnswer,
+                    String hint){
+        this.id = id;
+        this.clues = clues;
+        this.correctAnswer = correctAnswer;
+        this.hint = hint;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,6 +1,6 @@
 package com.cezaryzal.languageMemo.service.result.filter;
 
-import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
+import com.cezaryzal.languageMemo.model.CurrentPlayedMemoItem;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -10,7 +10,7 @@ public class InputWordsFilter implements InputFilter{
 
     //TODO validacja czy frazy poniżej 3 liter zostają zamieniane na puste blanki
     @Override
-    public void catchCorrectPieceToProgressPhrase(final CurrentPlayedSentenceComponent currentlyPlayedCase,
+    public void catchCorrectPieceToProgressPhrase(final CurrentPlayedMemoItem currentlyPlayedCase,
                                                   String inputPhrases) {
         StringBuilder creatingProgressPhrase = new StringBuilder();
 

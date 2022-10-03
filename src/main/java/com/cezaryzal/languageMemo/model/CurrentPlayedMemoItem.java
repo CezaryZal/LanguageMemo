@@ -11,7 +11,7 @@ import java.util.List;
 
 @Component
 //@ApplicationScope
-public class CurrentPlayedSentenceComponent {
+public class CurrentPlayedMemoItem {
 
     private final ReplacementBlankCharacters replacementBlankCharacters;
 
@@ -21,7 +21,7 @@ public class CurrentPlayedSentenceComponent {
     private boolean isInitialize;
 
     @Autowired
-    public CurrentPlayedSentenceComponent(ReplacementBlankCharacters replacementBlankCharacters) {
+    public CurrentPlayedMemoItem(ReplacementBlankCharacters replacementBlankCharacters) {
         this.replacementBlankCharacters = replacementBlankCharacters;
     }
 

@@ -2,7 +2,7 @@ package com.cezaryzal.languageMemo.service.result.service;
 
 import com.cezaryzal.languageMemo.model.MemoItemDtoInput;
 import com.cezaryzal.languageMemo.model.MemoItemDtoOutput;
-import com.cezaryzal.languageMemo.model.CurrentPlayedSentenceComponent;
+import com.cezaryzal.languageMemo.model.CurrentPlayedMemoItem;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import com.cezaryzal.languageMemo.repository.service.RepositorySentenceService;
 import com.cezaryzal.languageMemo.service.result.answer.CorrectAnswer;
@@ -16,13 +16,13 @@ public class ResultService extends CheckingSentences{
     private final IncorrectAnswer incorrectAnswer;
     private final CorrectAnswer correctAnswer;
     private final RepositorySentenceService repositorySentenceService;
-    private final CurrentPlayedSentenceComponent currentlyPlayedCase;
+    private final CurrentPlayedMemoItem currentlyPlayedCase;
 
     @Autowired
     public ResultService(IncorrectAnswer incorrectAnswer,
                          CorrectAnswer correctAnswer,
                          RepositorySentenceService repositorySentenceService,
-                         CurrentPlayedSentenceComponent currentlyPlayedCase) {
+                         CurrentPlayedMemoItem currentlyPlayedCase) {
         this.incorrectAnswer = incorrectAnswer;
         this.correctAnswer = correctAnswer;
         this.repositorySentenceService = repositorySentenceService;
@@ -44,7 +44,7 @@ public class ResultService extends CheckingSentences{
                                                                 currentlyPlayedCase.getUsedSentence());
 
         return answerIsCorrect ?
-                correctAnswer.serviceByInputComponent(memoItemDtoInput) :
-                incorrectAnswer.serviceByInputComponent(memoItemDtoInput);
+                correctAnswer.serviceByMemoItemInput(memoItemDtoInput) :
+                incorrectAnswer.serviceByMemoItemInput(memoItemDtoInput);
     }
 }
