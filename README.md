@@ -10,7 +10,7 @@ For example, well-known phrases will be repeated once every two weeks.
 The application allows learning any language at any level of difficulty, 
 due to the fact that the user creates a database of word/sentences.
 
->The project is an alpha (pre-beta) version – basic functionality works, but still requires a number of modifications.
+>The project is a beta version – main functionality works.
 
 At the moment, the application is for personal use, but **will be expanded soon** 
 with additional options (main ideas are listed at the end of the document in To do list)
@@ -37,11 +37,33 @@ To add a new sentence to study, use endpoint `**/api/add` on category
 To display a map of difficult words/sentences, you also need to use Swagger in the 
 same category at the endpoint `**/api/difficult`.
 
+## Business Logic
+Condition of 'replayLevel':
+0 – repeat from yesterday
+1 – repeat from day before yesterday
+2 – repeat from 3 days before
+4 – repeat from 5 days before
+5 – repeat from 7 days before
+
+Change 'replayLevel' while playing only one per day.
+'replayLevel' will increase after placing correct answer and low tries.
+
+Number of tries:
+start – without hints
+0 – show inputSpace with sentence length
+1 – show with special mark
+2 – show with first letter of sentence
+3 - show with all first letters of sentence
+4 - show with every second letter
+5 – show all correct answers
+6 - show all correct answers, keeps looping step until client put correct answer
+
 
 ## Applied technologies and tools
 Backend:
 - Maven
 - Spring (Boot, Data)
+- Junit, Mockito
 - REST API
 - Lombok 
 - Swagger UI 
@@ -55,7 +77,9 @@ Frontend:
 ## To do list
 - [x] create a simple frontend to use the application
 - [x] add the endpoint to show the most difficult sentences
-- [ ] add input object validation
+- [x] add compering module new created Sentences with existing one
+- [ ] **create level-repeatDate configuration in application.yml**
+- [ ] **save to store last try (before show last numberOfTries)**
 - [ ] add the endpoint to learning new sentences, outside the daily mode
 - [ ] provide the possibility of creation a new account to manage own sentences
 - [ ] add Spring security (Authentication and authorization type Basic)
