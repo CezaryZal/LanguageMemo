@@ -22,15 +22,13 @@ public class NextMemoItemDtoOutput extends SentenceComponentDataFiller {
     }
 
     public MemoItemDtoOutput getNextMemoItemDtoOutput(boolean isCorrectAnswer) {
-        String lastSentence = currentPlayedMemoItem.getUsedSentence().getClues() + "-" +
-        currentPlayedMemoItem.getUsedSentence().getCorrectAnswer();
-
         Sentence randomSentenceByTodayDate = randomSentence.getRandomSentenceByTodayDate();
+        currentPlayedMemoItem.saveSentenceInCacheBeforeNextOne();
         currentPlayedMemoItem.initialProgressPhrase(randomSentenceByTodayDate);
 
         return createMemoItemDtoFirstTry(
                 isCorrectAnswer,
-                lastSentence,
+                currentPlayedMemoItem.getLastSentence(),
                 randomSentenceByTodayDate);
     }
 }

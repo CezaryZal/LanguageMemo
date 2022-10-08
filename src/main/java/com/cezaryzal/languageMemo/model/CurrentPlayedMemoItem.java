@@ -16,6 +16,7 @@ public class CurrentPlayedMemoItem {
     private final ReplacementBlankCharacters replacementBlankCharacters;
 
     private Sentence usedSentence;
+    private String lastSentence = "Pierwsza próba";
     private List<String> splittedCorrectAnswer;
     private String progressPhrase;
     private boolean isInitialize;
@@ -23,6 +24,13 @@ public class CurrentPlayedMemoItem {
     @Autowired
     public CurrentPlayedMemoItem(ReplacementBlankCharacters replacementBlankCharacters) {
         this.replacementBlankCharacters = replacementBlankCharacters;
+    }
+
+    public void saveSentenceInCacheBeforeNextOne (){
+        lastSentence = usedSentence.getClues() + "-" + usedSentence.getCorrectAnswer();
+    }
+    public String getLastSentence(){
+        return lastSentence;
     }
 
     public void setProgressPhrase(String progressPhrase){
