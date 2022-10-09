@@ -1,5 +1,6 @@
 package com.cezaryzal.languageMemo.service.result.enrich;
 
+import com.cezaryzal.languageMemo.config.ServiceResultConfig;
 import com.cezaryzal.languageMemo.model.CurrentPlayedMemoItem;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import com.cezaryzal.languageMemo.service.result.filter.ReplacementBlankCharacters;
@@ -25,7 +26,7 @@ public class FirstLettersEnricherTest {
     @Before
     public void setup() {
         Sentence sampleSentenceForTest = getSampleSentenceForTest();
-        currentlyPlayedCase = new CurrentPlayedMemoItem(replacementBlankCharacters);
+        currentlyPlayedCase = new CurrentPlayedMemoItem(replacementBlankCharacters, new ServiceResultConfig());
         currentlyPlayedCase.initialProgressPhrase(sampleSentenceForTest);
     }
 

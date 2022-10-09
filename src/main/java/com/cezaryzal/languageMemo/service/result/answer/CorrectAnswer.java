@@ -23,8 +23,8 @@ public class CorrectAnswer implements ServiceAnswer{
 
     @Override
     public MemoItemDtoOutput serviceByMemoItemInput(MemoItemDtoInput memoItemDtoInput) {
-        repositorySentenceService.updateSentence(updateSentenceByAnswer
-                .getUpdatedReplayDataSentence(memoItemDtoInput));
+        repositorySentenceService.updateSentence(
+                updateSentenceByAnswer.getUpdatedReplayDataSentence(memoItemDtoInput));
 
         return nextMemoItemDtoOutput.getNextMemoItemDtoOutput(true);
     }

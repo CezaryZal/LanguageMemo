@@ -26,7 +26,7 @@ public class UpdateSentenceByAnswer {
 
     public Sentence getUpdatedReplayDataSentence(MemoItemDtoInput memoItemDtoInput){
         Sentence currentlyUsedSentence = currentlyPlayedCase.getUsedSentence();
-        int modifiedReplayLevel = modifyReplayLevel(memoItemDtoInput.getNumberOfTries(), currentlyUsedSentence);
+        int modifiedReplayLevel = modifyReplayLevel(memoItemDtoInput.getGuess(), currentlyUsedSentence);
 
         currentlyUsedSentence.setReplayLevel(modifiedReplayLevel);
         currentlyUsedSentence.setReplayDate(modifyReplayDate(modifiedReplayLevel));
@@ -34,9 +34,9 @@ public class UpdateSentenceByAnswer {
         return currentlyUsedSentence;
     }
     
-    private int modifyReplayLevel(int numberOfTries, Sentence currentlyUsedSentence){
+    private int modifyReplayLevel(int guess, Sentence currentlyUsedSentence){
         return replayLevelModifier
-                .changeReplayLevelByNumberOfTries(numberOfTries, currentlyUsedSentence.getReplayLevel());
+                .changeReplayLevelByNumberOfTries(guess, currentlyUsedSentence.getReplayLevel());
     }
     
     private LocalDate modifyReplayDate(int replayLevel){

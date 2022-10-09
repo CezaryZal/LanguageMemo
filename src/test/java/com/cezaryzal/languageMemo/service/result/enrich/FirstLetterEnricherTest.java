@@ -1,5 +1,6 @@
 package com.cezaryzal.languageMemo.service.result.enrich;
 
+import com.cezaryzal.languageMemo.config.ServiceResultConfig;
 import com.cezaryzal.languageMemo.model.CurrentPlayedMemoItem;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import com.cezaryzal.languageMemo.service.result.filter.ReplacementBlankCharacters;
@@ -7,6 +8,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +20,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class FirstLetterEnricherTest {
     private CurrentPlayedMemoItem currentlyPlayedCase;
 
+    @Mock
+    public ServiceResultConfig serviceResultConfig;
+
     @Autowired
     private @Qualifier("firstLetterEnricher") Enricher firstLetterEnricher;
     @Autowired
@@ -24,8 +30,10 @@ public class FirstLetterEnricherTest {
 
     @Before
     public void setup() {
+        Mockito.when(serviceResultConfig.getInitialStringOfLastSentence())
+                .thenReturn("First try");
         Sentence sampleSentenceForTest = getSampleSentenceForTest();
-        currentlyPlayedCase = new CurrentPlayedMemoItem(replacementBlankCharacters);
+        currentlyPlayedCase = new CurrentPlayedMemoItem(replacementBlankCharacters, serviceResultConfig);
         currentlyPlayedCase.initialProgressPhrase(sampleSentenceForTest);
     }
 

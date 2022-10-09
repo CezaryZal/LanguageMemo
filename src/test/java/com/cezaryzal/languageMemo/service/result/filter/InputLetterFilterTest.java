@@ -30,8 +30,10 @@ public class InputLetterFilterTest {
 
     @BeforeEach
     public void setup(){
+        Mockito.when(serviceResultConfig.getInitialStringOfLastSentence())
+                .thenReturn("First try");
         Sentence sampleSentenceForTest = getSampleSentenceForTest();
-        currentlyPlayedCase = new CurrentPlayedMemoItem(replacementBlankCharacters);
+        currentlyPlayedCase = new CurrentPlayedMemoItem(replacementBlankCharacters, serviceResultConfig);
         currentlyPlayedCase.initialProgressPhrase(sampleSentenceForTest);
         Mockito.when(serviceResultConfig.getIncorrectLetter())
                 .thenReturn('_');

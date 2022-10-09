@@ -57,6 +57,8 @@ public class SentenceService {
     }
 
     public MemoItemDtoOutput getResultByInputAnswer(MemoItemDtoInput memoItemDtoInput) {
+        if (memoItemDtoInput.getSentenceId() == null)
+            return getStartMemoItemDtoOutput();
         return resultService.resultByInputAnswer(memoItemDtoInput);
     }
 

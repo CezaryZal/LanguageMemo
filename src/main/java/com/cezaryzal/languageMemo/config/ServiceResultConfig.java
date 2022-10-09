@@ -8,15 +8,18 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 public class ServiceResultConfig {
 
-    @Value("${service.incorrect-letter}")
-    public char incorrectLetter;
+    @Value("${service.descriptions.incorrect-letter}")
+    private char incorrectLetter;
 
-    @Value("${service.scales-replay-level-number}")
-    public int scalesReplayLevelNumber;
+    @Value("${service.descriptions.initial-item-DTO-output.last-sentence}")
+    private String initialStringOfLastSentence;
 
-    @Value("${service.min-replay-level-value}")
-    public int minReplayLevelValue;
+    @Value("${service.variables.scales-replay-level-number}")
+    private int scalesReplayLevelNumber;
 
-    @Value("${service.max-replay-level-value}")
-    public int maxReplayLevelValue;
+    @Value("${service.variables.min-replay-level-value}")
+    private int minReplayLevelValue;
+
+    @Value("${service.variables.max-replay-level-value}")
+    private int maxReplayLevelValue;
 }

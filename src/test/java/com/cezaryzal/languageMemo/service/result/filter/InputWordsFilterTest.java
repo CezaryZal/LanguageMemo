@@ -1,16 +1,25 @@
 package com.cezaryzal.languageMemo.service.result.filter;
 
+import com.cezaryzal.languageMemo.config.ServiceResultConfig;
 import com.cezaryzal.languageMemo.model.CurrentPlayedMemoItem;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+
+@ExtendWith(MockitoExtension.class)
 public class InputWordsFilterTest {
     private final ReplacementBlankCharacters replacementBlankCharacters;
     private final InputFilter inputWordsFilter;
     private final String stubProgressPhrase = "___________________";
+
+    @Mock
+    public ServiceResultConfig serviceResultConfig;
 
     private CurrentPlayedMemoItem currentlyPlayedCase;
 
@@ -19,10 +28,12 @@ public class InputWordsFilterTest {
         this.inputWordsFilter = new InputWordsFilter();
     }
 
-    @Before
+    @BeforeEach
     public void setup(){
+        Mockito.when(serviceResultConfig.getInitialStringOfLastSentence())
+                .thenReturn("First try");
         Sentence sampleSentenceForTest = getSampleSentenceForTest();
-        currentlyPlayedCase = new CurrentPlayedMemoItem(replacementBlankCharacters);
+        currentlyPlayedCase = new CurrentPlayedMemoItem(replacementBlankCharacters, serviceResultConfig);
         currentlyPlayedCase.initialProgressPhrase(sampleSentenceForTest);
     }
 

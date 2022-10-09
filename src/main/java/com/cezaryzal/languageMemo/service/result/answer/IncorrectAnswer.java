@@ -50,9 +50,9 @@ public class IncorrectAnswer implements ServiceAnswer{
     }
 
     private MemoItemDtoOutput validationByOnNumberOfTries(MemoItemDtoInput memoItemDtoInput){
-        int numberOfTries = memoItemDtoInput.getNumberOfTries();
+        int guess = memoItemDtoInput.getGuess();
 
-        switch (numberOfTries){
+        switch (guess){
             case 1:
                 specialMarkEnricher.enrichProgressPhrase(currentPlayedMemoItem);
                 return createSentenceDTOByValidator(memoItemDtoInput);
@@ -75,9 +75,9 @@ public class IncorrectAnswer implements ServiceAnswer{
     }
 
     private MemoItemDtoOutput createSentenceDTOByValidator(MemoItemDtoInput memoItemDtoInput) {
-        int numberOfTries = memoItemDtoInput.getNumberOfTries();
-        if (numberOfTries < 6){
-            numberOfTries++;
+        int guess = memoItemDtoInput.getGuess();
+        if (guess < 6){
+            guess++;
         }
 
         return MemoItemDtoOutput.builder()
@@ -88,8 +88,9 @@ public class IncorrectAnswer implements ServiceAnswer{
                         .getClues())
                 .progressThroughLastTries(currentPlayedMemoItem
                         .getProgressPhrase())
+                .lastSentence(currentPlayedMemoItem.getLastSentence())
                 .isCorrectAnswer(false)
-                .numberOfTries(numberOfTries)
+                .guess(guess)
                 .hint(currentPlayedMemoItem
                         .getUsedSentence()
                         .getHint())

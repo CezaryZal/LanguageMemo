@@ -14,8 +14,8 @@ public class ReplayLevelModifier {
         this.serviceResultConfig = serviceResultConfig;
     }
 
-    public int changeReplayLevelByNumberOfTries(int numberOfTries, int replayLevel){
-        int updateReplayLevel = replayLevel - (numberOfTries + serviceResultConfig.getScalesReplayLevelNumber());
+    public int changeReplayLevelByNumberOfTries(int guess, int replayLevel){
+        int updateReplayLevel = replayLevel - guess + serviceResultConfig.getScalesReplayLevelNumber();
 
         if (updateReplayLevel <= serviceResultConfig.getMinReplayLevelValue()){
             return serviceResultConfig.getMinReplayLevelValue();

@@ -16,33 +16,32 @@ public class ResultService extends CheckingSentences{
     private final IncorrectAnswer incorrectAnswer;
     private final CorrectAnswer correctAnswer;
     private final RepositorySentenceService repositorySentenceService;
-    private final CurrentPlayedMemoItem currentlyPlayedCase;
+    private final CurrentPlayedMemoItem currentPlayedMemoItem;
 
     @Autowired
     public ResultService(IncorrectAnswer incorrectAnswer,
                          CorrectAnswer correctAnswer,
                          RepositorySentenceService repositorySentenceService,
-                         CurrentPlayedMemoItem currentlyPlayedCase) {
+                         CurrentPlayedMemoItem currentPlayedMemoItem) {
         this.incorrectAnswer = incorrectAnswer;
         this.correctAnswer = correctAnswer;
         this.repositorySentenceService = repositorySentenceService;
-        this.currentlyPlayedCase = currentlyPlayedCase;
+        this.currentPlayedMemoItem = currentPlayedMemoItem;
     }
 
 
     public MemoItemDtoOutput resultByInputAnswer(MemoItemDtoInput memoItemDtoInput) {
 
-        if (memoItemDtoInput.getNumberOfTries() == 0){
+        if (memoItemDtoInput.getGuess() == 0){
             Sentence currentlyUsedSentence = repositorySentenceService
                     .findById(memoItemDtoInput.getSentenceId())
                     .orElseThrow();
-
-            currentlyPlayedCase.initialProgressPhrase(currentlyUsedSentence);
+            currentPlayedMemoItem.initialProgressPhrase(currentlyUsedSentence);
         }
         boolean answerIsCorrect = checkingCorrectnessOfPhraseTranslation(
                 memoItemDtoInput,
-                                                                currentlyPlayedCase.getUsedSentence());
-
+                currentPlayedMemoItem.getUsedSentence()
+        );
         return answerIsCorrect ?
                 correctAnswer.serviceByMemoItemInput(memoItemDtoInput) :
                 incorrectAnswer.serviceByMemoItemInput(memoItemDtoInput);

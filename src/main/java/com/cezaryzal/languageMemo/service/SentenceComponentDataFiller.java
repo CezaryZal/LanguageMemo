@@ -14,7 +14,7 @@ public abstract class SentenceComponentDataFiller {
                 .progressThroughLastTries("Pierwsza próba")
                 .lastSentence(lastSentence)
                 .isCorrectAnswer(isCorrectAnswer)
-                .numberOfTries(0)
+                .guess(0)
                 .hint(sentence.getHint())
                 .build();
     }
@@ -26,7 +26,7 @@ public abstract class SentenceComponentDataFiller {
                  .progressThroughLastTries(endingDummySentence.getCorrectAnswer())
                  .lastSentence("------")
                  .isCorrectAnswer(true)
-                 .numberOfTries(0)
+                 .guess(0)
                  .hint(endingDummySentence.getHint())
                  .build();
     }

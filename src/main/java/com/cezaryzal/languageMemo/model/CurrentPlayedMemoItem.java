@@ -1,10 +1,10 @@
 package com.cezaryzal.languageMemo.model;
 
+import com.cezaryzal.languageMemo.config.ServiceResultConfig;
 import com.cezaryzal.languageMemo.repository.entity.Sentence;
 import com.cezaryzal.languageMemo.service.result.filter.ReplacementBlankCharacters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.ApplicationScope;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,16 +14,20 @@ import java.util.List;
 public class CurrentPlayedMemoItem {
 
     private final ReplacementBlankCharacters replacementBlankCharacters;
+    private final ServiceResultConfig serviceResultConfig;
 
     private Sentence usedSentence;
-    private String lastSentence = "Pierwsza próba";
+    private String lastSentence;
     private List<String> splittedCorrectAnswer;
     private String progressPhrase;
     private boolean isInitialize;
 
     @Autowired
-    public CurrentPlayedMemoItem(ReplacementBlankCharacters replacementBlankCharacters) {
+    public CurrentPlayedMemoItem(ReplacementBlankCharacters replacementBlankCharacters,
+                                 ServiceResultConfig serviceResultConfig) {
         this.replacementBlankCharacters = replacementBlankCharacters;
+        this.serviceResultConfig = serviceResultConfig;
+        this.lastSentence = serviceResultConfig.getInitialStringOfLastSentence();
     }
 
     public void saveSentenceInCacheBeforeNextOne (){

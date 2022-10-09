@@ -14,7 +14,7 @@ public class MemoItemDtoOutput {
     private String progressThroughLastTries;
     private String lastSentence;
     private boolean isCorrectAnswer;
-    private int numberOfTries;
+    private int guess;
     private String hint;
 
 
