@@ -2,7 +2,7 @@ package com.cezaryzal.languageMemo.service.result.filter;
 
 import com.cezaryzal.languageMemo.config.ServiceResultConfig;
 import com.cezaryzal.languageMemo.model.CurrentPlayedMemoItem;
-import com.cezaryzal.languageMemo.repository.entity.Sentence;
+import com.cezaryzal.languageMemo.repository.entity.MemoItem;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,11 +30,11 @@ public class InputWordsFilterTest {
 
     @BeforeEach
     public void setup(){
-        Mockito.when(serviceResultConfig.getInitialStringOfLastSentence())
+        Mockito.when(serviceResultConfig.getInitialStringOfLastMemoItem())
                 .thenReturn("First try");
-        Sentence sampleSentenceForTest = getSampleSentenceForTest();
+        MemoItem sampleMemoItemForTest = getSampleMemoItemForTest();
         currentlyPlayedCase = new CurrentPlayedMemoItem(replacementBlankCharacters, serviceResultConfig);
-        currentlyPlayedCase.initialProgressPhrase(sampleSentenceForTest);
+        currentlyPlayedCase.initialProgressPhrase(sampleMemoItemForTest);
     }
 
     @BeforeEach
@@ -115,11 +115,11 @@ public class InputWordsFilterTest {
     }
 
 
-    private Sentence getSampleSentenceForTest(){
-        Sentence testingSentence = new Sentence();
-        testingSentence.setId(55L);
-        testingSentence.setClues("bliźniak dom");
-        testingSentence.setCorrectAnswer("semi-detached house");
-        return testingSentence;
+    private MemoItem getSampleMemoItemForTest(){
+        MemoItem testingMemoItem = new MemoItem();
+        testingMemoItem.setId(55L);
+        testingMemoItem.setClues("bliźniak dom");
+        testingMemoItem.setCorrectAnswer("semi-detached house");
+        return testingMemoItem;
     }
 }

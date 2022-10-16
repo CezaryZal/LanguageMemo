@@ -2,7 +2,7 @@ package com.cezaryzal.languageMemo.service.result.answer;
 
 import com.cezaryzal.languageMemo.model.CurrentPlayedMemoItem;
 import com.cezaryzal.languageMemo.model.MemoItemDtoInput;
-import com.cezaryzal.languageMemo.repository.entity.Sentence;
+import com.cezaryzal.languageMemo.repository.entity.MemoItem;
 import com.cezaryzal.languageMemo.service.result.modifier.ReplayDateModifier;
 import com.cezaryzal.languageMemo.service.result.modifier.ReplayLevelModifier;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,32 +11,32 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 
 @Service
-public class UpdateSentenceByAnswer {
+public class UpdateMemoItemByAnswer {
 
     private final ReplayLevelModifier replayLevelModifier;
     private final ReplayDateModifier replayDateModifier;
     private final CurrentPlayedMemoItem currentlyPlayedCase;
 
     @Autowired
-    public UpdateSentenceByAnswer(ReplayLevelModifier replayLevelModifier, ReplayDateModifier replayDateModifier, CurrentPlayedMemoItem currentlyPlayedCase) {
+    public UpdateMemoItemByAnswer(ReplayLevelModifier replayLevelModifier, ReplayDateModifier replayDateModifier, CurrentPlayedMemoItem currentlyPlayedCase) {
         this.replayLevelModifier = replayLevelModifier;
         this.replayDateModifier = replayDateModifier;
         this.currentlyPlayedCase = currentlyPlayedCase;
     }
 
-    public Sentence getUpdatedReplayDataSentence(MemoItemDtoInput memoItemDtoInput){
-        Sentence currentlyUsedSentence = currentlyPlayedCase.getUsedSentence();
-        int modifiedReplayLevel = modifyReplayLevel(memoItemDtoInput.getGuess(), currentlyUsedSentence);
+    public MemoItem getUpdatedReplayDataMemoItem(MemoItemDtoInput memoItemDtoInput){
+        MemoItem currentlyUsedMemoItem = currentlyPlayedCase.getUsedMemoItem();
+        int modifiedReplayLevel = modifyReplayLevel(memoItemDtoInput.getGuess(), currentlyUsedMemoItem);
 
-        currentlyUsedSentence.setReplayLevel(modifiedReplayLevel);
-        currentlyUsedSentence.setReplayDate(modifyReplayDate(modifiedReplayLevel));
+        currentlyUsedMemoItem.setReplayLevel(modifiedReplayLevel);
+        currentlyUsedMemoItem.setReplayDate(modifyReplayDate(modifiedReplayLevel));
 
-        return currentlyUsedSentence;
+        return currentlyUsedMemoItem;
     }
     
-    private int modifyReplayLevel(int guess, Sentence currentlyUsedSentence){
+    private int modifyReplayLevel(int guess, MemoItem currentlyUsedMemoItem){
         return replayLevelModifier
-                .changeReplayLevelByNumberOfTries(guess, currentlyUsedSentence.getReplayLevel());
+                .changeReplayLevelByNumberOfTries(guess, currentlyUsedMemoItem.getReplayLevel());
     }
     
     private LocalDate modifyReplayDate(int replayLevel){

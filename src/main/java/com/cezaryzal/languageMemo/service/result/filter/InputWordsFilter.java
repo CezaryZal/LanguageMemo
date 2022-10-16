@@ -18,9 +18,9 @@ public class InputWordsFilter implements InputFilter{
                 .forEach(word -> {
                     if (word.length() > 2) {
                         String progressPhrase = currentlyPlayedCase.getProgressPhrase();
-                        if (currentlyPlayedCase.getUsedSentence().getCorrectAnswer().contains(word)) {
+                        if (currentlyPlayedCase.getUsedMemoItem().getCorrectAnswer().contains(word)) {
                             int index = currentlyPlayedCase
-                                    .getUsedSentence()
+                                    .getUsedMemoItem()
                                     .getCorrectAnswer()
                                     .indexOf(word);
 

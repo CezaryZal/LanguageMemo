@@ -3,29 +3,29 @@ package com.cezaryzal.languageMemo.service.result.service;
 import com.cezaryzal.languageMemo.model.MemoItemDtoInput;
 import com.cezaryzal.languageMemo.model.MemoItemDtoOutput;
 import com.cezaryzal.languageMemo.model.CurrentPlayedMemoItem;
-import com.cezaryzal.languageMemo.repository.entity.Sentence;
-import com.cezaryzal.languageMemo.repository.service.RepositorySentenceService;
+import com.cezaryzal.languageMemo.repository.entity.MemoItem;
+import com.cezaryzal.languageMemo.repository.service.RepositoryMemoItemService;
 import com.cezaryzal.languageMemo.service.result.answer.CorrectAnswer;
 import com.cezaryzal.languageMemo.service.result.answer.IncorrectAnswer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ResultService extends CheckingSentences{
+public class ResultService extends CheckingMemoItem {
 
     private final IncorrectAnswer incorrectAnswer;
     private final CorrectAnswer correctAnswer;
-    private final RepositorySentenceService repositorySentenceService;
+    private final RepositoryMemoItemService repositoryMemoItemService;
     private final CurrentPlayedMemoItem currentPlayedMemoItem;
 
     @Autowired
     public ResultService(IncorrectAnswer incorrectAnswer,
                          CorrectAnswer correctAnswer,
-                         RepositorySentenceService repositorySentenceService,
+                         RepositoryMemoItemService repositoryMemoItemService,
                          CurrentPlayedMemoItem currentPlayedMemoItem) {
         this.incorrectAnswer = incorrectAnswer;
         this.correctAnswer = correctAnswer;
-        this.repositorySentenceService = repositorySentenceService;
+        this.repositoryMemoItemService = repositoryMemoItemService;
         this.currentPlayedMemoItem = currentPlayedMemoItem;
     }
 
@@ -33,14 +33,14 @@ public class ResultService extends CheckingSentences{
     public MemoItemDtoOutput resultByInputAnswer(MemoItemDtoInput memoItemDtoInput) {
 
         if (memoItemDtoInput.getGuess() == 0){
-            Sentence currentlyUsedSentence = repositorySentenceService
-                    .findById(memoItemDtoInput.getSentenceId())
+            MemoItem currentlyUsedMemoItem = repositoryMemoItemService
+                    .findById(memoItemDtoInput.getMemoItemId())
                     .orElseThrow();
-            currentPlayedMemoItem.initialProgressPhrase(currentlyUsedSentence);
+            currentPlayedMemoItem.initialProgressPhrase(currentlyUsedMemoItem);
         }
         boolean answerIsCorrect = checkingCorrectnessOfPhraseTranslation(
                 memoItemDtoInput,
-                currentPlayedMemoItem.getUsedSentence()
+                currentPlayedMemoItem.getUsedMemoItem()
         );
         return answerIsCorrect ?
                 correctAnswer.serviceByMemoItemInput(memoItemDtoInput) :

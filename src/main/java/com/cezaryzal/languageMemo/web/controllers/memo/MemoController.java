@@ -1,9 +1,9 @@
 package com.cezaryzal.languageMemo.web.controllers.memo;
 
-import com.cezaryzal.languageMemo.model.AppendSentence;
+import com.cezaryzal.languageMemo.model.ModelToCreateMemoItem;
 import com.cezaryzal.languageMemo.model.MemoItemDtoInput;
 import com.cezaryzal.languageMemo.model.MemoItemDtoOutput;
-import com.cezaryzal.languageMemo.repository.entity.Sentence;
+import com.cezaryzal.languageMemo.repository.entity.MemoItem;
 
 import java.util.Map;
 import java.util.Optional;
@@ -11,12 +11,12 @@ import java.util.Set;
 
 public interface MemoController {
 
-    MemoItemDtoOutput getFirstSentence ();
+    MemoItemDtoOutput getFirstMemoItem();
     MemoItemDtoOutput resultByInputAnswer (MemoItemDtoInput memoItemDtoInput);
-    Map<String, String> getMapWithMostDifficultSentence();
+    Map<String, String> getMapWithMostDifficultMemoItem();
     Optional<Integer> getCounter();
-    String addNewSentence(AppendSentence appendSentence);
-    Set<Sentence> searchSentenceListOfSimilarSpellingsByClues(String word);
-    Set<Sentence> searchSentenceListOfSimilarSpellingsByCorrectAnswer(String word);
+    String addNewMemoItem(ModelToCreateMemoItem modelToCreateMemoItem);
+    Set<MemoItem> searchMemoItemListOfSimilarSpellingsByClues(String word);
+    Set<MemoItem> searchMemoItemListOfSimilarSpellingsByCorrectAnswer(String word);
 
 }

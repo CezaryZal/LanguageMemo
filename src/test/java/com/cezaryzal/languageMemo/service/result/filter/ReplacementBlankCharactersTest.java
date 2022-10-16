@@ -8,33 +8,33 @@ public class ReplacementBlankCharactersTest {
 
     private final String wordTesting = "flash-cards";
     private final String specialChars = "*#_&-'!?@%^";
-    private final String correctlyReplacementSentenceWithoutSpecialCharsOnEmptyChar = "___________";
-    private final String correctlyReplacementSentenceWithSpecialCharsOnEmptyChar = "_____-_____";
+    private final String correctlyReplacementMemoItemWithoutSpecialCharsOnEmptyChar = "___________";
+    private final String correctlyReplacementMemoItemWithSpecialCharsOnEmptyChar = "_____-_____";
 
 
     @Test
-    public void replaceAllSentenceOnEmptyCharTest(){
+    public void replaceAllMemoItemOnEmptyCharTest(){
         String emptyCharsAfterReplacement =
-                replacementBlankCharacters.replaceAllSentenceOnEmptyChars(wordTesting);
+                replacementBlankCharacters.replaceAllMemoItemOnEmptyChars(wordTesting);
 
         Assert.assertEquals(
                 emptyCharsAfterReplacement,
-                correctlyReplacementSentenceWithoutSpecialCharsOnEmptyChar);
+                correctlyReplacementMemoItemWithoutSpecialCharsOnEmptyChar);
 
         Assert.assertNotEquals(
                 emptyCharsAfterReplacement,
-                correctlyReplacementSentenceWithSpecialCharsOnEmptyChar);
+                correctlyReplacementMemoItemWithSpecialCharsOnEmptyChar);
         Assert.assertNotEquals(emptyCharsAfterReplacement, wordTesting);
     }
 
     @Test
-    public void correctlyReplaceAllSentenceWithSpecialChartsOnEmptyCharTest(){
+    public void correctlyReplaceAllMemoItemWithSpecialChartsOnEmptyCharTest(){
         String emptyCharsAfterReplacement =
-                replacementBlankCharacters.replaceAllSentenceOnEmptyChars(specialChars);
+                replacementBlankCharacters.replaceAllMemoItemOnEmptyChars(specialChars);
 
         Assert.assertEquals(
                 emptyCharsAfterReplacement,
-                correctlyReplacementSentenceWithoutSpecialCharsOnEmptyChar);
+                correctlyReplacementMemoItemWithoutSpecialCharsOnEmptyChar);
         Assert.assertNotEquals(emptyCharsAfterReplacement, specialChars);
     }
 
@@ -45,11 +45,11 @@ public class ReplacementBlankCharactersTest {
 
         Assert.assertEquals(
                 replaceLetterOnEmptyChar,
-                correctlyReplacementSentenceWithSpecialCharsOnEmptyChar);
+                correctlyReplacementMemoItemWithSpecialCharsOnEmptyChar);
 
         Assert.assertNotEquals(
                 replaceLetterOnEmptyChar,
-                correctlyReplacementSentenceWithoutSpecialCharsOnEmptyChar);
+                correctlyReplacementMemoItemWithoutSpecialCharsOnEmptyChar);
         Assert.assertNotEquals(replaceLetterOnEmptyChar, wordTesting);
     }
 }

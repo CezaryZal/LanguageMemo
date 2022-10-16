@@ -9,7 +9,7 @@ public class ReplacementBlankCharacters {
         return phrase.replaceAll("[a-zA-Z]", "_");
     }
 
-    public String replaceAllSentenceOnEmptyChars(String phrase){
+    public String replaceAllMemoItemOnEmptyChars(String phrase){
         return phrase.replaceAll("[^.]", "_");
 
     }

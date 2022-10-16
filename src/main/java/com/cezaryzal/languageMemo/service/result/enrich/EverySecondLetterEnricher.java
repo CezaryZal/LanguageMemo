@@ -11,7 +11,7 @@ public class EverySecondLetterEnricher implements Enricher {
     public void enrichProgressPhrase(CurrentPlayedMemoItem currentlyPlayedCase) {
         creatingProgressPhrase = new StringBuilder();
         String correctAnswer = currentlyPlayedCase
-                .getUsedSentence()
+                .getUsedMemoItem()
                 .getCorrectAnswer();
 
         for (int i = 0; i < correctAnswer.length(); i++) {

@@ -46,21 +46,24 @@
 
         span3.classList.add('letter-spacing');
         const p4 = document.createElement('p');
-        p4.textContent = `numbersOfTries: ${box.numberOfTries}`;
+        p4.textContent = `guess: ${box.guess}`;
         const p5 = document.createElement('p');
-        p5.textContent = `hint: ${box.hint}`;
+        p5.textContent = `last lastMemoItem: ${box.lastMemoItem}`;
         const p6 = document.createElement('p');
-        p6.textContent = `correctAnswer: ${box.correctAnswer}`;
+        p6.textContent = `hint: ${box.hint}`;
+        const p7 = document.createElement('p');
+        p7.textContent = `correctAnswer: ${box.correctAnswer}`;
         // data.appendChild(p1);
         data.appendChild(p2);
         data.appendChild(p3);
         data.appendChild(p4);
         data.appendChild(p5);
         data.appendChild(p6);
+        data.appendChild(p7);
         if (box.phrase) {
-          const p7 = document.createElement('p');
-          p7.textContent = `phrase: ${box.phrase}`;
-          data.appendChild(p7);
+          const p8 = document.createElement('p');
+          p8.textContent = `phrase: ${box.phrase}`;
+          data.appendChild(p8);
         }
       };
 
@@ -84,9 +87,9 @@
         e.preventDefault();
 
         const newData = {
-          numberOfTries: boilerdata.numberOfTries,
+          guess: boilerdata.guess,
           phrase: input.value,
-          sentenceId: boilerdata.sentenceId,
+          memoItemId: boilerdata.memoItemId,
         };
 
         fetch('http://localhost:8082/LanguageMemo/api/result', {

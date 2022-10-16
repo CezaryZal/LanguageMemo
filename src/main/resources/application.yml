@@ -25,10 +25,10 @@ service:
   descriptions:
     incorrect-letter: '_'
     initial-item-DTO-output:
-      last-sentence: "First try"
+      last-memo-item: "First try"
   variables:
     #higher number - less frequent repetition
-    scales-replay-level-number: 1
+    scales-replay-level-number: 2
     min-replay-level-value: 0
     max-replay-level-value: 5
 

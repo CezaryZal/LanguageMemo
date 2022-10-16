@@ -1,8 +1,8 @@
 package com.cezaryzal.languageMemo.service.search;
 
-import com.cezaryzal.languageMemo.model.SentenceNavigator;
-import com.cezaryzal.languageMemo.repository.entity.Sentence;
-import com.cezaryzal.languageMemo.repository.service.RepositorySentenceService;
+import com.cezaryzal.languageMemo.model.MemoItemNavigator;
+import com.cezaryzal.languageMemo.repository.entity.MemoItem;
+import com.cezaryzal.languageMemo.repository.service.RepositoryMemoItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,24 +13,24 @@ import java.util.Set;
 
 @Service
 public class FinderBySimilarSpellings {
-    private final RepositorySentenceService repositorySentenceService;
+    private final RepositoryMemoItemService repositoryMemoItemService;
 
     @Autowired
-    public FinderBySimilarSpellings(RepositorySentenceService repositorySentenceService) {
-        this.repositorySentenceService = repositorySentenceService;
+    public FinderBySimilarSpellings(RepositoryMemoItemService repositoryMemoItemService) {
+        this.repositoryMemoItemService = repositoryMemoItemService;
     }
 
     //potem z Set<> spradzić
-    public Set<Sentence> findSentenceListOfSimilarSpellingsByClues(String sentenceInput, SentenceNavigator navigator){
-        Set<Sentence> matchingSentenceListByInput = new HashSet<>();
+    public Set<MemoItem> findMemoItemListOfSimilarSpellingsByClues(String memoItemInput, MemoItemNavigator navigator){
+        Set<MemoItem> matchingMemoItemListByInput = new HashSet<>();
 
-        Arrays.stream(sentenceInput.split("[ _\\-]"))
+        Arrays.stream(memoItemInput.split("[ _\\-]"))
                 .map(this::parseWordBasedOnLength)
                 .forEach(word -> {
-                    matchingSentenceListByInput
-                            .addAll(getSentenceListByCluesContainingInsideString(word, navigator));
+                    matchingMemoItemListByInput
+                            .addAll(getMemoItemListByCluesContainingInsideString(word, navigator));
                 });
-        return matchingSentenceListByInput;
+        return matchingMemoItemListByInput;
     }
 
     public String parseWordBasedOnLength(String string){
@@ -48,12 +48,12 @@ public class FinderBySimilarSpellings {
             return string.substring(1, wordLength-3);
     }
 
-    private List<Sentence> getSentenceListByCluesContainingInsideString(String word, SentenceNavigator navigator){
+    private List<MemoItem> getMemoItemListByCluesContainingInsideString(String word, MemoItemNavigator navigator){
         switch (navigator){
             case CLUES:
-                return repositorySentenceService.getSentenceListByCluesContainingInsideString(word);
+                return repositoryMemoItemService.getMemoItemListByCluesContainingInsideString(word);
             case CORRECT_ANSWER:
-                return repositorySentenceService.getSentenceListByAnswerContainingInsideString(word);
+                return repositoryMemoItemService.getMemoItemListByAnswerContainingInsideString(word);
         }
         return null;
     }

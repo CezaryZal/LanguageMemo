@@ -2,7 +2,7 @@ package com.cezaryzal.languageMemo.service.result.filter
 
 import com.cezaryzal.languageMemo.config.ServiceResultConfig
 import com.cezaryzal.languageMemo.model.CurrentPlayedMemoItem
-import com.cezaryzal.languageMemo.repository.entity.Sentence
+import com.cezaryzal.languageMemo.repository.entity.MemoItem
 import spock.lang.Specification
 
 class InputLetterFilterTestGroovyTest extends Specification{
@@ -12,7 +12,7 @@ class InputLetterFilterTestGroovyTest extends Specification{
     def setup(){
         replacementBlankCharacters = new ReplacementBlankCharacters()
         currentlyPlayedCase  = new CurrentPlayedMemoItem(replacementBlankCharacters, serviceResultConfig)
-        currentlyPlayedCase.initialProgressPhrase(getSampleSentenceForTest())
+        currentlyPlayedCase.initialProgressPhrase(getSampleMemoItemForTest())
         given:
         serviceResultConfig.getIncorrectLetter() >> '_'
     }
@@ -56,11 +56,11 @@ class InputLetterFilterTestGroovyTest extends Specification{
     }
 
 
-    def getSampleSentenceForTest(){
-        Sentence testingSentence = new Sentence();
-        testingSentence.setId(55L);
-        testingSentence.setClues("bliźniak dom");
-        testingSentence.setCorrectAnswer("semi-detached house");
-        return testingSentence;
+    def getSampleMemoItemForTest(){
+        MemoItem testingMemoItem = new MemoItem();
+        testingMemoItem.setId(55L);
+        testingMemoItem.setClues("bliźniak dom");
+        testingMemoItem.setCorrectAnswer("semi-detached house");
+        return testingMemoItem;
     }
 }

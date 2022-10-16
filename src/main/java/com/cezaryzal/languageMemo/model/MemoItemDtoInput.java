@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class MemoItemDtoInput {
 
-    private Long sentenceId;
+    private Long memoItemId;
     private String phrase;
     private int guess;
     private String type;

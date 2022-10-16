@@ -1,7 +1,7 @@
 package com.cezaryzal.languageMemo.repository.service;
 
 import com.cezaryzal.languageMemo.repository.SentenceJpaRepository;
-import com.cezaryzal.languageMemo.repository.entity.Sentence;
+import com.cezaryzal.languageMemo.repository.entity.MemoItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,31 +9,31 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-abstract class CrudSentenceRepository {
+abstract class CrudMemoItemRepository {
     final SentenceJpaRepository sentenceJpaRepository;
 
     @Autowired
-    public CrudSentenceRepository(SentenceJpaRepository sentenceJpaRepository) {
+    public CrudMemoItemRepository(SentenceJpaRepository sentenceJpaRepository) {
         this.sentenceJpaRepository = sentenceJpaRepository;
     }
 
-    public Optional<Sentence> findById(Long id){
+    public Optional<MemoItem> findById(Long id){
         return sentenceJpaRepository.findById(id);
     }
 
-    public List<Sentence> findAll(){
+    public List<MemoItem> findAll(){
         return sentenceJpaRepository.findAll();
     }
 
-    public Sentence addNewSentence(Sentence sentence){
-        return sentenceJpaRepository.save(sentence);
+    public MemoItem addNewMemoItem(MemoItem memoItem){
+        return sentenceJpaRepository.save(memoItem);
     }
 
-    public Sentence updateSentence(Sentence sentence){
-        return sentenceJpaRepository.save(sentence);
+    public MemoItem updateMemoItem(MemoItem memoItem){
+        return sentenceJpaRepository.save(memoItem);
     }
 
-    public void deleteSentenceById(Long id){
+    public void deleteMemoItemById(Long id){
         sentenceJpaRepository.deleteById(id);
     }
 

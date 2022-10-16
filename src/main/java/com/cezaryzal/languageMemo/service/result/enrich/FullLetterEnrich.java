@@ -11,7 +11,7 @@ public class FullLetterEnrich implements Enricher{
         currentlyPlayedCase
                 .setProgressPhrase(
                         currentlyPlayedCase
-                                .getUsedSentence()
+                                .getUsedMemoItem()
                                 .getCorrectAnswer()
                 );
     }

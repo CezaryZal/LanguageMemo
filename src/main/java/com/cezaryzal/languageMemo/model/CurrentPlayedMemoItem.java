@@ -1,7 +1,7 @@
 package com.cezaryzal.languageMemo.model;
 
 import com.cezaryzal.languageMemo.config.ServiceResultConfig;
-import com.cezaryzal.languageMemo.repository.entity.Sentence;
+import com.cezaryzal.languageMemo.repository.entity.MemoItem;
 import com.cezaryzal.languageMemo.service.result.filter.ReplacementBlankCharacters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,8 +16,8 @@ public class CurrentPlayedMemoItem {
     private final ReplacementBlankCharacters replacementBlankCharacters;
     private final ServiceResultConfig serviceResultConfig;
 
-    private Sentence usedSentence;
-    private String lastSentence;
+    private MemoItem usedMemoItem;
+    private String lastMemoItem;
     private List<String> splittedCorrectAnswer;
     private String progressPhrase;
     private boolean isInitialize;
@@ -27,22 +27,22 @@ public class CurrentPlayedMemoItem {
                                  ServiceResultConfig serviceResultConfig) {
         this.replacementBlankCharacters = replacementBlankCharacters;
         this.serviceResultConfig = serviceResultConfig;
-        this.lastSentence = serviceResultConfig.getInitialStringOfLastSentence();
+        this.lastMemoItem = serviceResultConfig.getInitialStringOfLastMemoItem();
     }
 
-    public void saveSentenceInCacheBeforeNextOne (){
-        lastSentence = usedSentence.getClues() + "-" + usedSentence.getCorrectAnswer();
+    public void saveMemoItemInCacheBeforeNextOne(){
+        lastMemoItem = usedMemoItem.getClues() + "-" + usedMemoItem.getCorrectAnswer();
     }
-    public String getLastSentence(){
-        return lastSentence;
+    public String getLastMemoItem(){
+        return lastMemoItem;
     }
 
     public void setProgressPhrase(String progressPhrase){
         this.progressPhrase = progressPhrase;
     }
 
-    public Sentence getUsedSentence() {
-        return usedSentence;
+    public MemoItem getUsedMemoItem() {
+        return usedMemoItem;
     }
 
     public String getProgressPhrase() {
@@ -61,12 +61,12 @@ public class CurrentPlayedMemoItem {
         isInitialize = false;
     }
 
-    public void initialProgressPhrase(Sentence usedSentence) {
+    public void initialProgressPhrase(MemoItem usedMemoItem) {
         this.isInitialize = true;
-        this.usedSentence = usedSentence;
-        this.progressPhrase = replacementBlankCharacters.replaceAllSentenceOnEmptyChars(usedSentence.getCorrectAnswer());
+        this.usedMemoItem = usedMemoItem;
+        this.progressPhrase = replacementBlankCharacters.replaceAllMemoItemOnEmptyChars(usedMemoItem.getCorrectAnswer());
         this.splittedCorrectAnswer = Arrays
-                .asList(usedSentence
+                .asList(usedMemoItem
                         .getCorrectAnswer()
                         .split("[ _\\-]"));
 

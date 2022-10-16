@@ -1,7 +1,7 @@
 package com.cezaryzal.languageMemo.repository.service;
 
 import com.cezaryzal.languageMemo.repository.SentenceJpaRepository;
-import com.cezaryzal.languageMemo.repository.entity.Sentence;
+import com.cezaryzal.languageMemo.repository.entity.MemoItem;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,42 +12,40 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class RepositorySentenceServiceImpl extends CrudSentenceRepository implements RepositorySentenceService {
+public class RepositoryMemoItemServiceImpl extends CrudMemoItemRepository implements RepositoryMemoItemService {
 
     @Autowired
-    public RepositorySentenceServiceImpl(SentenceJpaRepository sentenceJpaRepository) {
+    public RepositoryMemoItemServiceImpl(SentenceJpaRepository sentenceJpaRepository) {
         super(sentenceJpaRepository);
     }
 
 
     @Override
-    public List<Sentence> getByReplayDateLessThanEqual(LocalDate localDate) {
+    public List<MemoItem> getByReplayDateLessThanEqual(LocalDate localDate) {
         return sentenceJpaRepository.findByReplayDateLessThanEqual(localDate);
     }
 
     //SQL get query works: (input) '2021-12-20' < (replay_date) '2021-12-20'
     @Override
-    public Optional<Sentence> getRandomByReplayDateLessThanEqual(Object inputDate) {
+    public Optional<MemoItem> getRandomByReplayDateLessThanEqual(Object inputDate) {
         LocalDate currentDate;
         if (inputDate.getClass().equals(String.class)){
             currentDate = LocalDate.parse((String) inputDate);
         } else {
             currentDate = (LocalDate) inputDate;
         }
-        Optional<Sentence> randomSentence = sentenceJpaRepository.findRandomByReplayDateLessThanEqual(currentDate);
-        log.debug(
-                "<------Repository_sentence_service: Random sentence by replay date less:\n\n\n" + randomSentence.toString()
-        );
-        return randomSentence;
+        Optional<MemoItem> randomMemoItem = sentenceJpaRepository.findRandomByReplayDateLessThanEqual(currentDate);
+        log.debug("Random MemoItem by replay date less:\n\n\n" + randomMemoItem.toString());
+        return randomMemoItem;
     }
 
     @Override
-    public List<Sentence> getListSentenceByLowerReplayLevel(int limitReplayLevel) {
+    public List<MemoItem> getListMemoItemByLowerReplayLevel(int limitReplayLevel) {
         return sentenceJpaRepository.listSentenceByLowerReplayLevel(limitReplayLevel);
     }
 
     @Override
-    public List<Sentence> getSentenceByCorrectAnswer(String correctAnswer){
+    public List<MemoItem> getMemoItemByCorrectAnswer(String correctAnswer){
         return sentenceJpaRepository.findByCorrectAnswer(correctAnswer.trim());
     }
 
@@ -57,17 +55,17 @@ public class RepositorySentenceServiceImpl extends CrudSentenceRepository implem
     }
 
     @Override
-    public List<Sentence> getSentenceListByCluesContainingInsideString(String pattern) {
+    public List<MemoItem> getMemoItemListByCluesContainingInsideString(String pattern) {
         return sentenceJpaRepository.getSentenceListByCluesContainingInsideString(pattern.trim());
     }
 
     @Override
-    public List<Sentence> getSentenceListByAnswerContainingInsideString(String pattern) {
+    public List<MemoItem> getMemoItemListByAnswerContainingInsideString(String pattern) {
         return sentenceJpaRepository.getSentenceListByAnswerContainingInsideString(pattern.trim());
     }
 
     @Override
-    public Sentence getSentenceListByAnswerAndCluesContainingInsideString(String answerPattern, String cluesPattern) {
+    public MemoItem getMemoItemListByAnswerAndCluesContainingInsideString(String answerPattern, String cluesPattern) {
         return sentenceJpaRepository
                 .getSentenceListByAnswerAndCluesContainingInsideString(answerPattern.trim(), cluesPattern.trim());
     }

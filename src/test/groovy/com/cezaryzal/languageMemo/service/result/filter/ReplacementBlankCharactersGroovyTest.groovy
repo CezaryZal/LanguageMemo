@@ -8,38 +8,38 @@ class ReplacementBlankCharactersGroovyTest extends Specification{
     def replacementBlankCharacters = new ReplacementBlankCharacters()
     def wordTesting = "flash-cards";
     def specialChars = "*#_&-'!?@%^";
-    def correctlyReplacementSentenceWithoutSpecialCharsOnEmptyChar = "___________";
-    def correctlyReplacementSentenceWithSpecialCharsOnEmptyChar = "_____-_____";
+    def correctlyReplacementMemoItemWithoutSpecialCharsOnEmptyChar = "___________";
+    def correctlyReplacementMemoItemWithSpecialCharsOnEmptyChar = "_____-_____";
 
-    def "should replace all Sentence to empty chars String"(){
+    def "should replace all MemoItem to empty chars String"(){
         when:
         def emptyCharsAfterReplacement =
-                replacementBlankCharacters.replaceAllSentenceOnEmptyChars(wordTesting)
+                replacementBlankCharacters.replaceAllMemoItemOnEmptyChars(wordTesting)
         then:
-        emptyCharsAfterReplacement == correctlyReplacementSentenceWithoutSpecialCharsOnEmptyChar
+        emptyCharsAfterReplacement == correctlyReplacementMemoItemWithoutSpecialCharsOnEmptyChar
     }
 
-    def "shouldn't replace all Sentence to empty chars String or get this same string"(){
+    def "shouldn't replace all MemoItem to empty chars String or get this same string"(){
         when:
         def emptyCharsAfterReplacement =
-                replacementBlankCharacters.replaceAllSentenceOnEmptyChars(wordTesting)
+                replacementBlankCharacters.replaceAllMemoItemOnEmptyChars(wordTesting)
         then:
-        emptyCharsAfterReplacement != correctlyReplacementSentenceWithSpecialCharsOnEmptyChar
+        emptyCharsAfterReplacement != correctlyReplacementMemoItemWithSpecialCharsOnEmptyChar
         emptyCharsAfterReplacement != wordTesting
     }
 
-    def "should correctly replace all sentence with special charts on empty char test"(){
+    def "should correctly replace all MemoItem with special charts on empty char test"(){
         when:
         def emptyCharsAfterReplacement =
-                replacementBlankCharacters.replaceAllSentenceOnEmptyChars(specialChars)
+                replacementBlankCharacters.replaceAllMemoItemOnEmptyChars(specialChars)
         then:
-        emptyCharsAfterReplacement == correctlyReplacementSentenceWithoutSpecialCharsOnEmptyChar
+        emptyCharsAfterReplacement == correctlyReplacementMemoItemWithoutSpecialCharsOnEmptyChar
     }
 
-    def "shouldn't correctly replace all sentence with special charts on empty char test"(){
+    def "shouldn't correctly replace all MemoItem with special charts on empty char test"(){
         when:
         def emptyCharsAfterReplacement =
-                replacementBlankCharacters.replaceAllSentenceOnEmptyChars(specialChars)
+                replacementBlankCharacters.replaceAllMemoItemOnEmptyChars(specialChars)
         then:
         emptyCharsAfterReplacement != specialChars
     }
@@ -49,7 +49,7 @@ class ReplacementBlankCharactersGroovyTest extends Specification{
         def emptyCharsAfterReplacement =
                 replacementBlankCharacters.replaceLetterOnEmptyChar(wordTesting)
         then:
-        emptyCharsAfterReplacement == correctlyReplacementSentenceWithSpecialCharsOnEmptyChar
+        emptyCharsAfterReplacement == correctlyReplacementMemoItemWithSpecialCharsOnEmptyChar
     }
 
     def "shouldn't correctly replace letter on empty char test or this same string"(){
@@ -57,7 +57,7 @@ class ReplacementBlankCharactersGroovyTest extends Specification{
         def emptyCharsAfterReplacement =
                 replacementBlankCharacters.replaceLetterOnEmptyChar(wordTesting)
         then:
-        emptyCharsAfterReplacement != correctlyReplacementSentenceWithoutSpecialCharsOnEmptyChar
+        emptyCharsAfterReplacement != correctlyReplacementMemoItemWithoutSpecialCharsOnEmptyChar
         emptyCharsAfterReplacement != wordTesting
     }
 }

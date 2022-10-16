@@ -16,9 +16,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @Entity(name = "sentence")
-public class Sentence {
+public class MemoItem {
 
-    public Sentence(Long id,
+    public MemoItem(Long id,
                     String clues,
                     String correctAnswer,
                     String hint){

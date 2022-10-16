@@ -21,19 +21,19 @@ public class InputLetterFilter implements InputFilter{
         creatingProgressPhrase = new StringBuilder();
         for (int i = 0;
              i < currentlyPlayedCase
-                .getUsedSentence()
+                .getUsedMemoItem()
                 .getCorrectAnswer()
                 .length();
              i++) {
-            compareAndInsertLetterToProgressSentence(currentlyPlayedCase, i, inputPhrases);
+            compareAndInsertLetterToProgressMemoItem(currentlyPlayedCase, i, inputPhrases);
         }
         currentlyPlayedCase.setProgressPhrase(creatingProgressPhrase.toString());
     }
-    private void compareAndInsertLetterToProgressSentence(CurrentPlayedMemoItem currentlyPlayedCase,
+    private void compareAndInsertLetterToProgressMemoItem(CurrentPlayedMemoItem currentlyPlayedCase,
                                                           int indexOfLetterCompared,
                                                           String inputPhrases){
         String correctAnswer = currentlyPlayedCase
-                                        .getUsedSentence()
+                                        .getUsedMemoItem()
                                         .getCorrectAnswer();
         String progressPhrase = currentlyPlayedCase
                                         .getProgressPhrase();

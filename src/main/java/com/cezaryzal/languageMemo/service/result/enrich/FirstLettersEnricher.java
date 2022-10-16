@@ -9,7 +9,7 @@ public class FirstLettersEnricher implements Enricher {
     @Override
     public void enrichProgressPhrase(final CurrentPlayedMemoItem currentlyPlayedCase) {
         String correctAnswer = currentlyPlayedCase
-                .getUsedSentence()
+                .getUsedMemoItem()
                 .getCorrectAnswer();
 
         currentlyPlayedCase

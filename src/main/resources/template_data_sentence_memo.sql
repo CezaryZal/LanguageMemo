@@ -2,9 +2,9 @@ CREATE DATABASE IF NOT EXISTS `language_memo`;
 
 SET FOREIGN_KEY_CHECKS = 0;
 
-DROP TABLE IF EXISTS `sentence`;
+DROP TABLE IF EXISTS `memoItem`;
 
-CREATE TABLE `sentence`(
+CREATE TABLE `memoItem`(
                 `id` BIGINT NOT NULL AUTO_INCREMENT,
                 `clues` VARCHAR (32) NOT NULL,
                 `correct_answer` VARCHAR (32) NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE `sentence`(
                 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-INSERT INTO `sentence` VALUES
+INSERT INTO `memoItem` VALUES
 (1, 'dom', 'house', 'miejsce, nie budynek', 'That\'s the house where Tom was born', 'noun', null, 0, '2021-12-15', '2019-12-15'),
 (2, 'pole', 'field', 'miejsce do okreslania zmiennych lub na roli', 'The football field is enclosed by a wall', 'noun', null, 1, '2021-12-18', '2019-12-15'),
 (3, 'zapewniać', 'provide', 'podobnie jak udowodnić (ang)', 'The store provides its customers with excellent service', 'verb', 'provided;',1, '2021-12-18', '2019-12-15'),

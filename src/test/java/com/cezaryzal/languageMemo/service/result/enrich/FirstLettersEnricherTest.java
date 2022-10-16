@@ -2,7 +2,7 @@ package com.cezaryzal.languageMemo.service.result.enrich;
 
 import com.cezaryzal.languageMemo.config.ServiceResultConfig;
 import com.cezaryzal.languageMemo.model.CurrentPlayedMemoItem;
-import com.cezaryzal.languageMemo.repository.entity.Sentence;
+import com.cezaryzal.languageMemo.repository.entity.MemoItem;
 import com.cezaryzal.languageMemo.service.result.filter.ReplacementBlankCharacters;
 import org.junit.Assert;
 import org.junit.Before;
@@ -25,9 +25,9 @@ public class FirstLettersEnricherTest {
 
     @Before
     public void setup() {
-        Sentence sampleSentenceForTest = getSampleSentenceForTest();
+        MemoItem sampleMemoItemForTest = getSampleMemoItemForTest();
         currentlyPlayedCase = new CurrentPlayedMemoItem(replacementBlankCharacters, new ServiceResultConfig());
-        currentlyPlayedCase.initialProgressPhrase(sampleSentenceForTest);
+        currentlyPlayedCase.initialProgressPhrase(sampleMemoItemForTest);
     }
 
     @Test
@@ -82,11 +82,11 @@ public class FirstLettersEnricherTest {
         Assert.assertNotEquals(unexpectedSecondString, currentlyPlayedCase.getProgressPhrase());
     }
 
-    private Sentence getSampleSentenceForTest() {
-        Sentence testingSentence = new Sentence();
-        testingSentence.setId(55L);
-        testingSentence.setClues("bliźniak dom");
-        testingSentence.setCorrectAnswer("semi-detached house");
-        return testingSentence;
+    private MemoItem getSampleMemoItemForTest() {
+        MemoItem testingMemoItem = new MemoItem();
+        testingMemoItem.setId(55L);
+        testingMemoItem.setClues("bliźniak dom");
+        testingMemoItem.setCorrectAnswer("semi-detached house");
+        return testingMemoItem;
     }
 }

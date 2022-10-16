@@ -1,19 +1,19 @@
 package com.cezaryzal.languageMemo.service.result.service;
 
 import com.cezaryzal.languageMemo.model.MemoItemDtoInput;
-import com.cezaryzal.languageMemo.repository.entity.Sentence;
+import com.cezaryzal.languageMemo.repository.entity.MemoItem;
 import org.springframework.stereotype.Service;
 
 @Service
-abstract class CheckingSentences {
+abstract class CheckingMemoItem {
 
     //TODO usunąć type z componentu TranslateComponentInput
     boolean checkingCorrectnessOfPhraseTranslation(MemoItemDtoInput memoItemDtoInput,
-                                                   Sentence currentlyUsedSentence) {
+                                                   MemoItem currentlyUsedMemoItem) {
 
         return memoItemDtoInput
                 .getPhrase()
-                .equalsIgnoreCase(currentlyUsedSentence
+                .equalsIgnoreCase(currentlyUsedMemoItem
                                         .getCorrectAnswer());
     }
 }

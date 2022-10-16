@@ -18,7 +18,7 @@ public class SpecialMarkEnricher implements Enricher{
     public void enrichProgressPhrase(final CurrentPlayedMemoItem currentlyPlayedCase) {
         StringBuilder creatingProgressPhrase = new StringBuilder();
         String correctAnswer = currentlyPlayedCase
-                .getUsedSentence()
+                .getUsedMemoItem()
                 .getCorrectAnswer();
 
         String phrasesWithoutLetter =

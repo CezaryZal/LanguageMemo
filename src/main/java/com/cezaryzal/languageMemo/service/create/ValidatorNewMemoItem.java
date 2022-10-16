@@ -1,20 +1,20 @@
 package com.cezaryzal.languageMemo.service.create;
 
-import com.cezaryzal.languageMemo.model.AppendSentence;
+import com.cezaryzal.languageMemo.model.ModelToCreateMemoItem;
 import com.cezaryzal.languageMemo.repository.SentenceJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 //TODO finish validation module
-public class ValidatorNewSentence {
+public class ValidatorNewMemoItem {
 
     private SentenceJpaRepository sentenceJpaRepository;
 
     @Autowired
-    public ValidatorNewSentence(SentenceJpaRepository sentenceJpaRepository) {
+    public ValidatorNewMemoItem(SentenceJpaRepository sentenceJpaRepository) {
         this.sentenceJpaRepository = sentenceJpaRepository;
     }
 
-    public String validInputSentenceBeforeAdd (AppendSentence appendSentence){
+    public String validInputMemoItemBeforeAdd(ModelToCreateMemoItem modelToCreateMemoItem){
         return "";
     }
 }

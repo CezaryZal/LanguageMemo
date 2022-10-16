@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class AppendSentence {
+public class ModelToCreateMemoItem {
 
     private String clues;
     private String correctAnswer;

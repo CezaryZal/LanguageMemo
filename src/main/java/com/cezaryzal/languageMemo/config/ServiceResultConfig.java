@@ -11,8 +11,8 @@ public class ServiceResultConfig {
     @Value("${service.descriptions.incorrect-letter}")
     private char incorrectLetter;
 
-    @Value("${service.descriptions.initial-item-DTO-output.last-sentence}")
-    private String initialStringOfLastSentence;
+    @Value("${service.descriptions.initial-item-DTO-output.last-memo-item}")
+    private String initialStringOfLastMemoItem;
 
     @Value("${service.variables.scales-replay-level-number}")
     private int scalesReplayLevelNumber;

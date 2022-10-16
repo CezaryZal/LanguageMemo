@@ -55,44 +55,44 @@ public class IncorrectAnswer implements ServiceAnswer{
         switch (guess){
             case 1:
                 specialMarkEnricher.enrichProgressPhrase(currentPlayedMemoItem);
-                return createSentenceDTOByValidator(memoItemDtoInput);
+                return createMemoItemDTOByValidator(memoItemDtoInput);
             case 2:
                 firstLetterEnricher.enrichProgressPhrase(currentPlayedMemoItem);
-                return createSentenceDTOByValidator(memoItemDtoInput);
+                return createMemoItemDTOByValidator(memoItemDtoInput);
             case 3:
                 firstLettersEnricher.enrichProgressPhrase(currentPlayedMemoItem);
-                return createSentenceDTOByValidator(memoItemDtoInput);
+                return createMemoItemDTOByValidator(memoItemDtoInput);
             case 4:
                 everySecondLetterEnricher.enrichProgressPhrase(currentPlayedMemoItem);
-                return createSentenceDTOByValidator(memoItemDtoInput);
+                return createMemoItemDTOByValidator(memoItemDtoInput);
             case 5:
                 fullLetterEnrich.enrichProgressPhrase(currentPlayedMemoItem);
                 //TODO zapisać do store nieudaną próbę (ostatnia szansa)
-                return createSentenceDTOByValidator(memoItemDtoInput);
+                return createMemoItemDTOByValidator(memoItemDtoInput);
             default:
-                return createSentenceDTOByValidator(memoItemDtoInput);
+                return createMemoItemDTOByValidator(memoItemDtoInput);
         }
     }
 
-    private MemoItemDtoOutput createSentenceDTOByValidator(MemoItemDtoInput memoItemDtoInput) {
+    private MemoItemDtoOutput createMemoItemDTOByValidator(MemoItemDtoInput memoItemDtoInput) {
         int guess = memoItemDtoInput.getGuess();
         if (guess < 6){
             guess++;
         }
 
         return MemoItemDtoOutput.builder()
-                .sentenceId(memoItemDtoInput
-                        .getSentenceId())
+                .memoItemId(memoItemDtoInput
+                        .getMemoItemId())
                 .headerToTranslate(currentPlayedMemoItem
-                        .getUsedSentence()
+                        .getUsedMemoItem()
                         .getClues())
                 .progressThroughLastTries(currentPlayedMemoItem
                         .getProgressPhrase())
-                .lastSentence(currentPlayedMemoItem.getLastSentence())
+                .lastMemoItem(currentPlayedMemoItem.getLastMemoItem())
                 .isCorrectAnswer(false)
                 .guess(guess)
                 .hint(currentPlayedMemoItem
-                        .getUsedSentence()
+                        .getUsedMemoItem()
                         .getHint())
                 .build();
     }

@@ -1,6 +1,6 @@
 package com.cezaryzal.languageMemo.model;
 
-public enum SentenceNavigator {
+public enum MemoItemNavigator {
     CLUES,
     CORRECT_ANSWER
 }

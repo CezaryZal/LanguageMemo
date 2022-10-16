@@ -9,10 +9,10 @@ import lombok.Data;
 @Builder
 public class MemoItemDtoOutput {
 
-    private Long sentenceId;
+    private Long memoItemId;
     private String headerToTranslate;
     private String progressThroughLastTries;
-    private String lastSentence;
+    private String lastMemoItem;
     private boolean isCorrectAnswer;
     private int guess;
     private String hint;
