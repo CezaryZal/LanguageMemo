@@ -12,15 +12,14 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class FinderBySimilarSpellings {
+public class SimilarSpellingsSearcher {
     private final RepositoryMemoItemService repositoryMemoItemService;
 
     @Autowired
-    public FinderBySimilarSpellings(RepositoryMemoItemService repositoryMemoItemService) {
+    public SimilarSpellingsSearcher(RepositoryMemoItemService repositoryMemoItemService) {
         this.repositoryMemoItemService = repositoryMemoItemService;
     }
 
-    //potem z Set<> spradzić
     public Set<MemoItem> findMemoItemListOfSimilarSpellingsByClues(String memoItemInput, MemoItemNavigator navigator){
         Set<MemoItem> matchingMemoItemListByInput = new HashSet<>();
 

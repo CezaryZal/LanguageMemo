@@ -11,8 +11,8 @@ public interface RepositoryMemoItemService {
     Optional<MemoItem> findById(Long id);
     List<MemoItem> findAll();
     MemoItem addNewMemoItem(MemoItem memoItem);
-    public MemoItem updateMemoItem(MemoItem memoItem);
-    public void deleteMemoItemById(Long id);
+    MemoItem updateMemoItem(MemoItem memoItem);
+    void deleteMemoItemById(Long id);
 
     List<MemoItem> getByReplayDateLessThanEqual(LocalDate localDate);
     Optional<MemoItem> getRandomByReplayDateLessThanEqual(Object localDate);
