@@ -16,7 +16,4 @@ public interface EntityController {
     List<MemoItem> getByReplayDateLessThanEqual(String date);
     Optional<MemoItem> getRandomMemoItemByReplayDateLessThanEqual(String date);
     List<MemoItem> getListMemoItemByLowerReplayLevel(int number);
-    List<MemoItem> getMemoItemByCorrectAnswer(String correctAnswer);
-    public List<MemoItem> getMemoItemListByCluesContainingInsideString(String inside);
-    public List<MemoItem> getMemoItemListByAnswerContainingInsideString(String inside);
 }

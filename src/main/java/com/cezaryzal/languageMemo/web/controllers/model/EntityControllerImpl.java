@@ -61,23 +61,5 @@ public class EntityControllerImpl implements EntityController {
     public List<MemoItem> getListMemoItemByLowerReplayLevel(@PathVariable int number) {
         return repositoryMemoItemService.getListMemoItemByLowerReplayLevel(number);
     }
-    @GetMapping("/answer/{correctAnswer}")
-    @Override
-    public List<MemoItem> getMemoItemByCorrectAnswer(String correctAnswer) {
-        return repositoryMemoItemService.getMemoItemByCorrectAnswer(correctAnswer);
-    }
-
-    @GetMapping("/part-word/clues/{phrase}")
-    @Override
-    public List<MemoItem> getMemoItemListByCluesContainingInsideString(@PathVariable String inside){
-        return repositoryMemoItemService.getMemoItemListByCluesContainingInsideString(inside);
-    }
-
-    @GetMapping("/part-word/correct_answer/{phrase}")
-    @Override
-    public List<MemoItem> getMemoItemListByAnswerContainingInsideString(@PathVariable String inside) {
-        return repositoryMemoItemService.getMemoItemListByAnswerContainingInsideString(inside);
-    }
-
 
 }
