@@ -21,7 +21,7 @@ public class ShortMemoItemDifficultImpl extends MapDifficultMemoItemCreator impl
     @Override
     public Map<String, String> getMapDifficultMemoItem(){
         List<MemoItem> mostDifficultMemoItem =
-                repositoryMemoItemService.getListMemoItemByLowerReplayLevel(1);
+                repositoryMemoItemService.getListMemoItemByLowerReplayLevel(3);
         return modifyListToGetMapDifficultMemoItem(mostDifficultMemoItem);
     }
 }
