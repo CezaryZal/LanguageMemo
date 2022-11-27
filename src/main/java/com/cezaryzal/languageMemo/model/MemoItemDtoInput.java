@@ -7,6 +7,6 @@ public class MemoItemDtoInput {
 
     private Long memoItemId;
     private String phrase;
-    private int guess;
+    private int guessCounter;
     private String type;
 }

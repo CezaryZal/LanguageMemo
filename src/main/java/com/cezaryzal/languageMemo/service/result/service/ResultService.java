@@ -32,7 +32,7 @@ public class ResultService extends CheckingMemoItem {
 
     public MemoItemDtoOutput resultByInputAnswer(MemoItemDtoInput memoItemDtoInput) {
 
-        if (memoItemDtoInput.getGuess() == 0){
+        if (memoItemDtoInput.getGuessCounter() == 0){
             MemoItem currentlyUsedMemoItem = repositoryMemoItemService
                     .findById(memoItemDtoInput.getMemoItemId())
                     .orElseThrow();

@@ -26,7 +26,7 @@ public class UpdateMemoItemByAnswer {
 
     public MemoItem getUpdatedReplayDataMemoItem(MemoItemDtoInput memoItemDtoInput){
         MemoItem currentlyUsedMemoItem = currentlyPlayedCase.getUsedMemoItem();
-        int modifiedReplayLevel = modifyReplayLevel(memoItemDtoInput.getGuess(), currentlyUsedMemoItem);
+        int modifiedReplayLevel = modifyReplayLevel(memoItemDtoInput.getGuessCounter(), currentlyUsedMemoItem);
 
         currentlyUsedMemoItem.setReplayLevel(modifiedReplayLevel);
         currentlyUsedMemoItem.setReplayDate(modifyReplayDate(modifiedReplayLevel));

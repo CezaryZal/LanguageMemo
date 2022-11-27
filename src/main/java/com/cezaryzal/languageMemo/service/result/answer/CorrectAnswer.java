@@ -23,9 +23,10 @@ public class CorrectAnswer implements ServiceAnswer{
 
     @Override
     public MemoItemDtoOutput serviceByMemoItemInput(MemoItemDtoInput memoItemDtoInput) {
-        repositoryMemoItemService.updateMemoItem(
-                updateMemoItemByAnswer.getUpdatedReplayDataMemoItem(memoItemDtoInput));
-
+        if (memoItemDtoInput.getGuessCounter() < 6) {
+            repositoryMemoItemService.updateMemoItem(
+                    updateMemoItemByAnswer.getUpdatedReplayDataMemoItem(memoItemDtoInput));
+        }
         return nextMemoItemDtoOutput.getNextMemoItemDtoOutput(true);
     }
 

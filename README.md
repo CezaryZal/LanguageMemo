@@ -75,12 +75,11 @@ Frontend:
 
 
 ## To do list
-- [x] add compering module new created Sentences with existing one
 - [x] create level-repeatDate configuration in application.yml
+- [X] save to store last try (before show last numberOfTries)
 - [ ] **add the endpoint to learning new/difficult sentences, outside the daily mode**
 - [ ] **make good exception and process steps logging**
 - [ ] **make module to create simple memoItem with random time/type/person**
-- [ ] **save to store last try (before show last numberOfTries)**
 - [ ] provide the possibility of creation a new account to manage own sentences
 - [ ] add Spring security (Authentication and authorization type Basic)
 - [ ] extend frontend application

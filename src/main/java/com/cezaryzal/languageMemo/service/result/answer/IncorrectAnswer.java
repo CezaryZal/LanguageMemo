@@ -3,6 +3,7 @@ package com.cezaryzal.languageMemo.service.result.answer;
 import com.cezaryzal.languageMemo.model.MemoItemDtoInput;
 import com.cezaryzal.languageMemo.model.MemoItemDtoOutput;
 import com.cezaryzal.languageMemo.model.CurrentPlayedMemoItem;
+import com.cezaryzal.languageMemo.repository.service.RepositoryMemoItemService;
 import com.cezaryzal.languageMemo.service.result.enrich.Enricher;
 import com.cezaryzal.languageMemo.service.result.filter.InputFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public class IncorrectAnswer implements ServiceAnswer{
     private final Enricher everySecondLetterEnricher;
     private final Enricher fullLetterEnrich;
     private final CurrentPlayedMemoItem currentPlayedMemoItem;
+    private final RepositoryMemoItemService repositoryMemoItemService;
+    private final UpdateMemoItemByAnswer updateMemoItemByAnswer;
 
     @Autowired
     public IncorrectAnswer(@Qualifier("specialMarkEnricher") Enricher specialMarkEnricher,
@@ -28,7 +31,9 @@ public class IncorrectAnswer implements ServiceAnswer{
                            @Qualifier("firstLettersEnricher") Enricher firstLettersEnricher,
                            @Qualifier("everySecondLetterEnricher") Enricher everySecondLetterEnricher,
                            @Qualifier("fullLetterEnrich") Enricher fullLetterEnrich,
-                           CurrentPlayedMemoItem currentPlayedMemoItem) {
+                           CurrentPlayedMemoItem currentPlayedMemoItem,
+                           RepositoryMemoItemService repositoryMemoItemService,
+                           UpdateMemoItemByAnswer updateMemoItemByAnswer) {
         this.specialMarkEnricher = specialMarkEnricher;
         this.inputLetterFilter = inputLetterFilter;
         this.inputWordsFilter = inputWordsFilter;
@@ -37,6 +42,8 @@ public class IncorrectAnswer implements ServiceAnswer{
         this.everySecondLetterEnricher = everySecondLetterEnricher;
         this.fullLetterEnrich = fullLetterEnrich;
         this.currentPlayedMemoItem = currentPlayedMemoItem;
+        this.repositoryMemoItemService = repositoryMemoItemService;
+        this.updateMemoItemByAnswer = updateMemoItemByAnswer;
     }
 
     public MemoItemDtoOutput serviceByMemoItemInput(MemoItemDtoInput memoItemDtoInput) {
@@ -50,7 +57,7 @@ public class IncorrectAnswer implements ServiceAnswer{
     }
 
     private MemoItemDtoOutput validationByOnNumberOfTries(MemoItemDtoInput memoItemDtoInput){
-        int guess = memoItemDtoInput.getGuess();
+        int guess = memoItemDtoInput.getGuessCounter();
 
         switch (guess){
             case 1:
@@ -69,14 +76,18 @@ public class IncorrectAnswer implements ServiceAnswer{
                 fullLetterEnrich.enrichProgressPhrase(currentPlayedMemoItem);
                 //TODO zapisać do store nieudaną próbę (ostatnia szansa)
                 return createMemoItemDTOByValidator(memoItemDtoInput);
+            case 6:
+                repositoryMemoItemService.updateMemoItem(
+                        updateMemoItemByAnswer.getUpdatedReplayDataMemoItem(memoItemDtoInput));
+                return createMemoItemDTOByValidator(memoItemDtoInput);
             default:
                 return createMemoItemDTOByValidator(memoItemDtoInput);
         }
     }
 
     private MemoItemDtoOutput createMemoItemDTOByValidator(MemoItemDtoInput memoItemDtoInput) {
-        int guess = memoItemDtoInput.getGuess();
-        if (guess < 6){
+        int guess = memoItemDtoInput.getGuessCounter();
+        if (guess < 7){
             guess++;
         }
 
