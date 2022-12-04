@@ -12,11 +12,13 @@ public class InputWordsFilter implements InputFilter{
     @Override
     public void catchCorrectPieceToProgressPhrase(final CurrentPlayedMemoItem currentlyPlayedCase,
                                                   String inputPhrases) {
-        StringBuilder creatingProgressPhrase = new StringBuilder();
+
 
         Arrays.stream(inputPhrases.split("[ _\\-]"))
                 .forEach(word -> {
                     if (word.length() > 2) {
+                        StringBuilder creatingProgressPhrase = new StringBuilder();
+
                         String progressPhrase = currentlyPlayedCase.getProgressPhrase();
                         if (currentlyPlayedCase.getUsedMemoItem().getCorrectAnswer().contains(word)) {
                             int index = currentlyPlayedCase
@@ -24,18 +26,19 @@ public class InputWordsFilter implements InputFilter{
                                     .getCorrectAnswer()
                                     .indexOf(word);
 
-                            if (index != 0)
+                            if (index == 0){
                                 creatingProgressPhrase
-                                        .append(progressPhrase, 0, index);
+                                        .append(word);
+                            } else {
+                                creatingProgressPhrase
+                                        .append(progressPhrase, 0, index)
+                                        .append(word);
+                            }
+                            creatingProgressPhrase.append(progressPhrase.substring(index+word.length()));
 
-                            creatingProgressPhrase
-                                    .append(word)
-                                    .append(progressPhrase.substring(index + word.length()));
+                            if (!creatingProgressPhrase.toString().isBlank())
+                                currentlyPlayedCase.setProgressPhrase(creatingProgressPhrase.toString());
                         }
                     }});
-        String createdProgressPhrase = creatingProgressPhrase.toString();
-
-        if (!createdProgressPhrase.isBlank())
-        currentlyPlayedCase.setProgressPhrase(createdProgressPhrase);
     }
 }

@@ -17,6 +17,7 @@ public class InputWordsFilterTest {
     private final ReplacementBlankCharacters replacementBlankCharacters;
     private final InputFilter inputWordsFilter;
     private final String stubProgressPhrase = "___________________";
+    private final String stubCorrectPhrase = "semi-detached house";
 
     @Mock
     public ServiceResultConfig serviceResultConfig;
@@ -114,12 +115,30 @@ public class InputWordsFilterTest {
         Assert.assertNotEquals("___________________", currentlyPlayedCase.getProgressPhrase());
     }
 
+    @Test
+    public void catchCorrectPieceToProgressPhraseMixWordsFirstTest(){
+        String inputPhrases = "semi house";
+
+        inputWordsFilter.catchCorrectPieceToProgressPhrase(currentlyPlayedCase, inputPhrases);
+
+        Assert.assertEquals("semi__________house", currentlyPlayedCase.getProgressPhrase());
+    }
+
+    @Test
+    public void catchCorrectPieceToProgressPhraseMixWordsSecondTest(){
+        String inputPhrases = "house semi";
+
+        inputWordsFilter.catchCorrectPieceToProgressPhrase(currentlyPlayedCase, inputPhrases);
+
+        Assert.assertEquals("semi__________house", currentlyPlayedCase.getProgressPhrase());
+    }
+
 
     private MemoItem getSampleMemoItemForTest(){
         MemoItem testingMemoItem = new MemoItem();
         testingMemoItem.setId(55L);
         testingMemoItem.setClues("bliźniak dom");
-        testingMemoItem.setCorrectAnswer("semi-detached house");
+        testingMemoItem.setCorrectAnswer(stubCorrectPhrase);
         return testingMemoItem;
     }
 }

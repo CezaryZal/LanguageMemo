@@ -74,7 +74,6 @@ public class IncorrectAnswer implements ServiceAnswer{
                 return createMemoItemDTOByValidator(memoItemDtoInput);
             case 5:
                 fullLetterEnrich.enrichProgressPhrase(currentPlayedMemoItem);
-                //TODO zapisać do store nieudaną próbę (ostatnia szansa)
                 return createMemoItemDTOByValidator(memoItemDtoInput);
             case 6:
                 repositoryMemoItemService.updateMemoItem(
@@ -101,7 +100,7 @@ public class IncorrectAnswer implements ServiceAnswer{
                         .getProgressPhrase())
                 .lastMemoItem(currentPlayedMemoItem.getLastMemoItem())
                 .isCorrectAnswer(false)
-                .guess(guess)
+                .guessCounter(guess)
                 .hint(currentPlayedMemoItem
                         .getUsedMemoItem()
                         .getHint())

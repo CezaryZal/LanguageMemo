@@ -14,7 +14,7 @@ public abstract class MemoItemComponentDataFiller {
                 .progressThroughLastTries("Pierwsza próba")
                 .lastMemoItem(lastMemoItem)
                 .isCorrectAnswer(isCorrectAnswer)
-                .guess(0)
+                .guessCounter(0)
                 .hint(memoItem.getHint())
                 .build();
     }
@@ -26,7 +26,7 @@ public abstract class MemoItemComponentDataFiller {
                  .progressThroughLastTries(endingDummyMemoItem.getCorrectAnswer())
                  .lastMemoItem("------")
                  .isCorrectAnswer(true)
-                 .guess(0)
+                 .guessCounter(0)
                  .hint(endingDummyMemoItem.getHint())
                  .build();
     }

@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 public class ServiceResultConfig {
 
-    @Value("${service.descriptions.incorrect-letter}")
-    private char incorrectLetter;
+    @Value("${service.descriptions.incorrect-letter-mark}")
+    private char incorrectLetterMark;
 
     @Value("${service.descriptions.initial-item-DTO-output.last-memo-item}")
     private String initialStringOfLastMemoItem;

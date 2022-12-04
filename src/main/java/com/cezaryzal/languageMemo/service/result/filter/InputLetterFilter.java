@@ -19,22 +19,24 @@ public class InputLetterFilter implements InputFilter{
     @Override
     public void catchCorrectPieceToProgressPhrase(final CurrentPlayedMemoItem currentlyPlayedCase, String inputPhrases) {
         creatingProgressPhrase = new StringBuilder();
-        for (int i = 0;
-             i < currentlyPlayedCase
-                .getUsedMemoItem()
-                .getCorrectAnswer()
-                .length();
-             i++) {
-            compareAndInsertLetterToProgressMemoItem(currentlyPlayedCase, i, inputPhrases);
+        for (int index = 0;
+             index < currentlyPlayedCase
+                     .getUsedMemoItem()
+                     .getCorrectAnswer()
+                     .length();
+             index++) {
+
+            compareAndInsertLetterToProgressMemoItem(currentlyPlayedCase, index, inputPhrases);
         }
         currentlyPlayedCase.setProgressPhrase(creatingProgressPhrase.toString());
     }
+
     private void compareAndInsertLetterToProgressMemoItem(CurrentPlayedMemoItem currentlyPlayedCase,
                                                           int indexOfLetterCompared,
-                                                          String inputPhrases){
+                                                          String inputPhrases) {
         String correctAnswer = currentlyPlayedCase
-                                        .getUsedMemoItem()
-                                        .getCorrectAnswer();
+                .getUsedMemoItem()
+                .getCorrectAnswer();
         String progressPhrase = currentlyPlayedCase
                                         .getProgressPhrase();
 
@@ -44,7 +46,7 @@ public class InputLetterFilter implements InputFilter{
         } else if (progressPhrase.charAt(indexOfLetterCompared) == correctAnswer.charAt(indexOfLetterCompared)){
             creatingProgressPhrase.append(progressPhrase.charAt(indexOfLetterCompared));
         } else {
-            creatingProgressPhrase.append(serviceResultConfig.getIncorrectLetter());
+            creatingProgressPhrase.append(serviceResultConfig.getIncorrectLetterMark());
         }
     }
 }

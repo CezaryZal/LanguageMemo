@@ -23,7 +23,7 @@ spring:
 
 service:
   descriptions:
-    incorrect-letter: '_'
+    incorrect-letter-mark: '_'
     initial-item-DTO-output:
       last-memo-item: "First try"
   variables:

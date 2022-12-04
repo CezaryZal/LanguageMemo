@@ -14,7 +14,7 @@ class InputLetterFilterTestGroovyTest extends Specification{
         currentlyPlayedCase  = new CurrentPlayedMemoItem(replacementBlankCharacters, serviceResultConfig)
         currentlyPlayedCase.initialProgressPhrase(getSampleMemoItemForTest())
         given:
-        serviceResultConfig.getIncorrectLetter() >> '_'
+        serviceResultConfig.getIncorrectLetterMark() >> '_'
     }
 
     def serviceResultConfig = Mock(ServiceResultConfig)

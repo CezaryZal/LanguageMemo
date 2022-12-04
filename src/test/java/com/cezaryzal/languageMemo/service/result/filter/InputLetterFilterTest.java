@@ -35,7 +35,7 @@ public class InputLetterFilterTest {
         MemoItem sampleMemoItemForTest = getSampleMemoItemForTest();
         currentlyPlayedCase = new CurrentPlayedMemoItem(replacementBlankCharacters, serviceResultConfig);
         currentlyPlayedCase.initialProgressPhrase(sampleMemoItemForTest);
-        Mockito.when(serviceResultConfig.getIncorrectLetter())
+        Mockito.when(serviceResultConfig.getIncorrectLetterMark())
                 .thenReturn('_');
     }
 
