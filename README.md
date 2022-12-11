@@ -77,6 +77,7 @@ Frontend:
 ## To do list
 - [x] create level-repeatDate configuration in application.yml
 - [X] save to store last try (before show last numberOfTries)
+- [ ] ignore case and marks (?!.) at end
 - [ ] **add the endpoint to learning new/difficult sentences, outside the daily mode**
 - [ ] **make good exception and process steps logging**
 - [ ] **make module to create simple memoItem with random time/type/person**
