@@ -3,7 +3,7 @@ package com.cezaryzal.languageMemo.service.result.filter;
 import com.cezaryzal.languageMemo.config.ServiceResultConfig;
 import com.cezaryzal.languageMemo.model.CurrentPlayedMemoItem;
 import com.cezaryzal.languageMemo.repository.entity.MemoItem;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,8 +16,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 public class InputWordsFilterTest {
     private final ReplacementBlankCharacters replacementBlankCharacters;
     private final InputFilter inputWordsFilter;
-    private final String stubProgressPhrase = "___________________";
-    private final String stubCorrectPhrase = "semi-detached house";
+    private final String stubProgressPhrase = "________________________________________";
+    private final String stubCorrectPhrase =  "What's color the Philips remote-control?";
 
     @Mock
     public ServiceResultConfig serviceResultConfig;
@@ -36,108 +36,130 @@ public class InputWordsFilterTest {
         MemoItem sampleMemoItemForTest = getSampleMemoItemForTest();
         currentlyPlayedCase = new CurrentPlayedMemoItem(replacementBlankCharacters, serviceResultConfig);
         currentlyPlayedCase.initialProgressPhrase(sampleMemoItemForTest);
-    }
-
-    @BeforeEach
-    public void beforeEachTest(){
         currentlyPlayedCase.setProgressPhrase(stubProgressPhrase);
     }
 
     @Test
     public void catchCorrectPieceToProgressPhraseFirstTest() {
-        String inputPhrases = "semi";
+        String inputPhrases = "What's";
 
         inputWordsFilter.catchCorrectPieceToProgressPhrase(currentlyPlayedCase, inputPhrases);
 
-        Assert.assertEquals(currentlyPlayedCase.getProgressPhrase().length(), stubProgressPhrase.length());
-        Assert.assertEquals("semi_______________", currentlyPlayedCase.getProgressPhrase());
-        Assert.assertNotEquals("semi-______________", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertEquals(currentlyPlayedCase.getProgressPhrase().length(), stubProgressPhrase.length());
+        Assertions.assertEquals("What____________________________________", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertNotEquals("What's__________________________________", currentlyPlayedCase.getProgressPhrase());
     }
 
     @Test
     public void catchCorrectPieceToProgressPhraseSecondTest() {
-        //TODO w testach integracyjnych przepisać przyapdek
-//        String inputSecondPhrases = "se";
-//        String[] splittedInputSecondPhrases = inputSecondPhrases.split("[ _\\-]");
-//        wordsByProgressPhrase.catchCorrectWordToProgressPhrase(splittedInputSecondPhrases, stubProgressPhrase);
-//        Assert.assertEquals("_______________", currentPlayedSentenceComponent.getProgressPhrase());
-//        Assert.assertNotEquals("se___________", currentPlayedSentenceComponent.getProgressPhrase());
-
-        String inputPhrases = "sem";
+        String inputPhrases = "What";
 
         inputWordsFilter.catchCorrectPieceToProgressPhrase(currentlyPlayedCase, inputPhrases);
 
-        Assert.assertEquals("sem________________", currentlyPlayedCase.getProgressPhrase());
-        Assert.assertNotEquals("_________________", currentlyPlayedCase.getProgressPhrase());
-        Assert.assertNotEquals("semi_____________", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertEquals("What____________________________________", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertNotEquals("________________________________________", currentlyPlayedCase.getProgressPhrase());
     }
 
     @Test
     public void catchCorrectPieceToProgressPhraseThirdTest() {
-        String inputPhrases = "detached";
+        String inputPhrases = "remote";
 
         inputWordsFilter.catchCorrectPieceToProgressPhrase(currentlyPlayedCase, inputPhrases);
 
-        Assert.assertEquals("_____detached______", currentlyPlayedCase.getProgressPhrase());
-        Assert.assertNotEquals("____-detached______", currentlyPlayedCase.getProgressPhrase());
-        Assert.assertNotEquals("____-________ _____", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertEquals("_________________________remote_________", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertNotEquals("_________________________remote-________", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertNotEquals("______ _____ ___ _______ remote-________", currentlyPlayedCase.getProgressPhrase());
     }
 
     @Test
     public void catchCorrectPieceToProgressPhraseFourthTest() {
-        String inputPhrases = "ched";
+        String inputPhrases = "mote";
 
         inputWordsFilter.catchCorrectPieceToProgressPhrase(currentlyPlayedCase, inputPhrases);
 
-        Assert.assertEquals("_________ched______", currentlyPlayedCase.getProgressPhrase());
-        Assert.assertNotEquals("_____detached______", currentlyPlayedCase.getProgressPhrase());
-        Assert.assertNotEquals("_____detached______", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertEquals("___________________________mote_________", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertNotEquals("_________________________remote-________", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertNotEquals("______ _____ ___ _______ __mote-________", currentlyPlayedCase.getProgressPhrase());
     }
 
     @Test
     public void catchCorrectPieceToProgressPhraseFifthTest() {
-        String inputPhrases = "house";
+        String inputPhrases = "control";
 
         inputWordsFilter.catchCorrectPieceToProgressPhrase(currentlyPlayedCase, inputPhrases);
 
-        Assert.assertEquals("______________house", currentlyPlayedCase.getProgressPhrase());
-        Assert.assertNotEquals("____________- house", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertEquals("________________________________control_", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertNotEquals("_______________________________-control_", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertNotEquals("______ _____ ___ _______ ______-________", currentlyPlayedCase.getProgressPhrase());
     }
 
     @Test
     public void catchCorrectPieceToProgressPhraseSixthTest() {
-        String inputPhrases = "ched ";
+        String inputPhrases = "olor ";
 
         inputWordsFilter.catchCorrectPieceToProgressPhrase(currentlyPlayedCase, inputPhrases);
 
-        Assert.assertEquals("_________ched______", currentlyPlayedCase.getProgressPhrase());
-        Assert.assertNotEquals("_________ched _____", currentlyPlayedCase.getProgressPhrase());
-        Assert.assertNotEquals("___________________", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertEquals("________olor____________________________", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertNotEquals("_______color____________________________", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertNotEquals("_______color ___________________________", currentlyPlayedCase.getProgressPhrase());
     }
 
     @Test
     public void catchCorrectPieceToProgressPhraseMixWordsFirstTest(){
-        String inputPhrases = "semi house";
+        String inputPhrases = "color remote";
 
         inputWordsFilter.catchCorrectPieceToProgressPhrase(currentlyPlayedCase, inputPhrases);
 
-        Assert.assertEquals("semi__________house", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertEquals("_______color_____________remote_________", currentlyPlayedCase.getProgressPhrase());
     }
 
     @Test
     public void catchCorrectPieceToProgressPhraseMixWordsSecondTest(){
-        String inputPhrases = "house semi";
+        String inputPhrases = "color mote";
 
         inputWordsFilter.catchCorrectPieceToProgressPhrase(currentlyPlayedCase, inputPhrases);
 
-        Assert.assertEquals("semi__________house", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertEquals("_______color_______________mote_________", currentlyPlayedCase.getProgressPhrase());
+    }
+
+    @Test
+    public void catchCorrectPieceWithDiffCaseFirstLetterToProgressPhraseFirstTest() {
+        String inputPhrases = "what";
+
+        inputWordsFilter.catchCorrectPieceToProgressPhrase(currentlyPlayedCase, inputPhrases);
+
+        Assertions.assertEquals("What____________________________________", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertNotEquals("_________ched _____", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertNotEquals("___________________", currentlyPlayedCase.getProgressPhrase());
+    }
+
+    @Test
+    public void catchCorrectPieceWithDiffCaseSecondLetterToProgressPhraseFirstTest() {
+        String inputPhrases = "what's";
+
+        inputWordsFilter.catchCorrectPieceToProgressPhrase(currentlyPlayedCase, inputPhrases);
+
+        Assertions.assertEquals("What____________________________________", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertNotEquals("_________ched _____", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertNotEquals("___________________", currentlyPlayedCase.getProgressPhrase());
+    }
+
+    @Test
+    public void catchCorrectPieceWithDiffCaseThirdLetterToProgressPhraseFirstTest() {
+        String inputPhrases = " philips ";
+
+        inputWordsFilter.catchCorrectPieceToProgressPhrase(currentlyPlayedCase, inputPhrases);
+
+        Assertions.assertEquals("_________________Philips________________", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertNotEquals("________________ Philips _______________", currentlyPlayedCase.getProgressPhrase());
+        Assertions.assertNotEquals("________________________________________", currentlyPlayedCase.getProgressPhrase());
     }
 
 
     private MemoItem getSampleMemoItemForTest(){
         MemoItem testingMemoItem = new MemoItem();
         testingMemoItem.setId(55L);
-        testingMemoItem.setClues("bliźniak dom");
+        testingMemoItem.setClues("Jakiego koloru jest pilot Philips?");
         testingMemoItem.setCorrectAnswer(stubCorrectPhrase);
         return testingMemoItem;
     }

@@ -13,13 +13,10 @@ spring:
       ddl-auto: "update"
   datasource:
     url: "jdbc:mysql://localhost:3306/language_memo?characterEncoding=UTF-8&serverTimezone=UTC"
-    username: "hbstudent"
-    password: "HBstudent!123"
+    username: "root123"
+    password: "SQLSerwer2019!@"
   jackson:
     time-zone: "Europe/Warsaw"
-
-#spring.datasource.username=root
-#spring.datasource.password=SQLSerwer2019!@
 
 service:
   descriptions:
@@ -31,4 +28,54 @@ service:
     scales-replay-level-number: 2
     min-replay-level-value: 0
     max-replay-level-value: 5
+
+#   TODO move to another external file
+  filter:
+    word-used:
+      third-letters:
+        - "all"
+        - "the"
+        - "for"
+        - "too"
+        - "she"
+        - "you"
+        - "was"
+        - "are"
+        - "out"
+        - "can"
+        - "now"
+        - "him"
+        - "aim"
+      less-than-three-letters:
+        - "in"
+        - "In"
+        - "on"
+        - "On"
+        - "of"
+        - "if"
+        - "If"
+        - "by"
+        - "do"
+        - "Do"
+        - "an"
+        - "at"
+        - "to"
+        - "it"
+        - "It"
+        - "he"
+        - "He"
+        - "we"
+        - "We"
+        - "is"
+        - "Is"
+        - "be"
+        - "am"
+        - "Am"
+        - "go"
+        - "up"
+        - "no"
+        - "No"
+        - "I"
+        - "a"
+        - "A"
 
